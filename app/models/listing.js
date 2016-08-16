@@ -9,7 +9,5 @@ module.exports = mongoose.model('Listing', new Schema({
 	created:Date,
 	deadline:Date,
 	isPremium:Boolean,
-	applied:[String],
-	interview:[String],
-	offer:[String]
+	reviews:[String]
 }));

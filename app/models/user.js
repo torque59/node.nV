@@ -14,8 +14,11 @@ module.exports = mongoose.model('User', new Schema({
 	accountNonExpired:Boolean,
 	credentialsNonExpired:Boolean,
 	accountNonLocked:Boolean,
+	applications:[String],
+	interviews:[String],
+	offers:[String],
 	role:Number, //employee-1 | employer-2
-	reviews:[String],
-	following:[String],
-	suggestions:[String]
+	reviews:[String],//for Premium Employees
+	following:[String], //If employee - employers| if employer, memp
+	
 }));
