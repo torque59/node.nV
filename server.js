@@ -60,9 +60,18 @@ app.use(function(req, res, next) {
 	}
 	
 });
+//app.get('/api/getUsers',userroutes.getUsers);
+//app.get('/api/getUserById',userroutes.getUserById);
+//User Routes
+app.post('/api/authenticate',userroutes.authenticate);
+app.post('/api/register',userroutes.register);
+app.get('/api/getPublicUsers',userroutes.getPublicUsers);
+app.get('/api/getProfile',userroutes.getProfile);
+app.post('/api/upgradeToPremium',userroutes.upgradeToPremium);
+app.post('/api/deleteAccount',userroutes.deleteAccount);
 
-app.get('/api/getUsers',userroutes.getUsers);
-app.get('/api/getUserById',userroutes.getUserById);
+
+
 
 
 

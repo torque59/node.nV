@@ -1,79 +1,56 @@
 var User   = require('../models/user'); // get our mongoose model
 var jwt    = require('jsonwebtoken'); 
 var config = require('../../config.js');
+var userService = require("../services/userService.js");
+
 
 exports.authenticate=function(req,res){
-
-console.log(req.body);
-	User.findOne({
-		name: req.body.name
-	}, function(err, user) {
-
-		if (err) throw err;
-
-		if (!user) {
-			res.json({ success: false, message: 'Authentication failed. User not found.' });
-		} else if (user) {
-
-			// check if password matches
-			if (user.password != req.body.password) {
-				res.json({ success: false, message: 'Authentication failed. Wrong password.' });
-			} else {
-
-				// if user is found and password is right
-				// create a token
-				var token = jwt.sign(user, config.secret, {
-					expiresIn: 86400 // expires in 24 hours
-				});
-
-				res.json({
-					success: true,
-					message: 'Enjoy your token!',
-					token: token
-				});
-			}		
-
-		}
-
-	});
-
+	userService.authenticate(req.body.username,req.body.password);
 }
 
 exports.register=function(req,res){
-	
-	var user = new User({ 
-		name: 'testuser', 
-		password: 'password',
-		admin: true 
-	});
-	user.save(function(err) {
-		if (err) throw err;
-
-		console.log('User saved successfully');
+	var registered = userService.register(req.body.user);	
+	if(registered){
 		res.json({ success: true });
-	});
+	}else{
+		res.json({error:"There was an error"});
+	}
 	
 }
 
-exports.getUsers=function(req,res){
+exports.getPublicUsers=function(req,res){
 	console.log(req.decoded._doc._id);
-	User.find({}, function(err, users) {
-		res.json(users);
-	});
+	userService.getUsers();
 }
-
 
 
 exports.getProfile= function(req,res){
-	res.send("TODO");
+	var user=userService.getProfile(req.decoded._doc._id);
+	if(user){
+		res.json(user);	
+	}else{
+		res.json({success:false});
+	}
+	
 }
 
 exports.upgradeToPremium= function(req,res){
-	res.send("TODO");
+	var upgrade = userService.upgradeToPremium(req.decoded._doc.id);
+	if(upgrade){
+		res.json({ success: true });
+	}else{
+		res.json({success:false});
+	}
 }
 
 exports.deleteAccount=function(req,res){
-	res.send("TODO");
+	var deleted=userService.deleteAccount(req.decoded._doc.id);
+	if(deleted){
+		res.json({ success: true });
+	}else{
+		res.json({success:false});
+	}
+	
 }
 
 
