@@ -40,10 +40,9 @@ console.log(req.body);
 }
 
 exports.register=function(req,res){
-
-	// create a sample user
+	
 	var user = new User({ 
-		name: 'user', 
+		name: 'testuser', 
 		password: 'password',
 		admin: true 
 	});
@@ -57,7 +56,31 @@ exports.register=function(req,res){
 }
 
 exports.getUsers=function(req,res){
+	console.log(req.decoded._doc._id);
 	User.find({}, function(err, users) {
 		res.json(users);
 	});
 }
+
+
+
+exports.getProfile= function(req,res){
+	res.send("TODO");
+}
+
+exports.upgradeToPremium= function(req,res){
+	res.send("TODO");
+}
+
+exports.deleteAccount=function(req,res){
+	res.send("TODO");
+}
+
+
+
+
+
+
+
+
+
