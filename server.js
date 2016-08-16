@@ -29,19 +29,19 @@ app.post('/test',function(req,res){
 	console.log(req.body);
 	res.send("Your body is: "+req.body);
 });
-app.get('/api/register',userroutes.register);
+app.post('/api/register',userroutes.register);
 app.post('/api/authenticate',userroutes.authenticate);
 
 app.use(function(req, res, next) {
 
 	// check header or url parameters or post parameters for token
-	var token = req.body.token || req.param('token') || req.headers['x-access-token'];
-	
+	var token = req.body.token || req.param('token') || req.headers['X-Access-Token'];
+	console.log(token);
 	if (token) {
 
 		jwt.verify(token, app.get('superSecret'), function(err, decoded) {			
 			if (err) {
-				return res.json({ success: false, message: 'Failed to authenticate token.' });		
+				return res.json({ success: false, message: err });		
 			} else {
 				req.decoded = decoded;	
 				next();
@@ -63,11 +63,11 @@ app.use(function(req, res, next) {
 //app.get('/api/getUsers',userroutes.getUsers);
 //app.get('/api/getUserById',userroutes.getUserById);
 //User Routes
-app.post('/api/authenticate',userroutes.authenticate);
-app.post('/api/register',userroutes.register);
+
+
 app.get('/api/getPublicUsers',userroutes.getPublicUsers);
 app.get('/api/getProfile',userroutes.getProfile);
-app.post('/api/upgradeToPremium',userroutes.upgradeToPremium);
+app.get('/api/upgradeToPremium',userroutes.upgradeToPremium);
 app.post('/api/deleteAccount',userroutes.deleteAccount);
 
 

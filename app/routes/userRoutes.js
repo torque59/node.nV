@@ -5,51 +5,76 @@ var userService = require("../services/userService.js");
 
 
 exports.authenticate=function(req,res){
-	userService.authenticate(req.body.username,req.body.password);
+	console.log(req.body);
+	userService.authenticate(req.body.username,req.body.password,function(err,user){
+		if(err){
+			res.json({"error":err});
+		}else{
+			var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
+			res.json({"token":token});
+		}
+	});
+
 }
 
 exports.register=function(req,res){
-	var registered = userService.register(req.body.user);	
-	if(registered){
+	var registered = userService.register(req.body.user,function(data){
+	
+	if(data){
 		res.json({ success: true });
 	}else{
 		res.json({error:"There was an error"});
 	}
+
+	});	
+
+	
 	
 }
 
 exports.getPublicUsers=function(req,res){
-	console.log(req.decoded._doc._id);
-	userService.getUsers();
+	userService.getPublicUsers(function(err,users){
+		if(err){
+			res.json({"error":err});
+		}else{
+			res.json(users);
+		}
+	});
 }
 
 
 exports.getProfile= function(req,res){
-	var user=userService.getProfile(req.decoded._doc._id);
-	if(user){
-		res.json(user);	
-	}else{
-		res.json({success:false});
-	}
-	
+	userService.getUserById(req.decoded._doc._id,function(err,user){
+		if(user){
+			res.json(user);	
+		}else{
+			res.json({success:false});
+		}
+	});
 }
 
 exports.upgradeToPremium= function(req,res){
-	var upgrade = userService.upgradeToPremium(req.decoded._doc.id);
-	if(upgrade){
+	userService.upgradeToPremium(req.decoded._doc.id,function(err,upgrade){
+		if(upgrade){
 		res.json({ success: true });
-	}else{
+		}else{
 		res.json({success:false});
-	}
+		}
+	});
+	
 }
 
 exports.deleteAccount=function(req,res){
-	var deleted=userService.deleteAccount(req.decoded._doc.id);
-	if(deleted){
-		res.json({ success: true });
-	}else{
-		res.json({success:false});
-	}
+	userService.deleteAccount(req.decoded._doc.id,function(err,deleted){
+		if(deleted){
+			res.json({ success: true });
+		}else if(err){
+			res.json({success:err});
+		}else{
+			res.json({success:false});
+		}
+	});
+	
 	
 }
 

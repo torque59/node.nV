@@ -1,78 +1,96 @@
 var User   = require('../models/user'); // get our mongoose model
 
-exports.authenticate=function(username,password){
+exports.authenticate=function(username,password,callback){
+	console.log(username+":"+password);
+	if(username==undefined||password==undefined){
+		callback("Username and Password must be defined.",null);
+	}
 	User.findOne({
-		name: username
+		username: username
 	}, function(err, user) {
-		if (err) throw err;
+		if (err){ throw err;}
 		if (!user) {
-			res.json({ success: false, message: 'Authentication failed. User not found.' });
-		} else if (user) {
-			// check if password matches
+			callback("User not found",null);
+		} else {
 			if (user.password != password) {
-				res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+				callback(true,null);
 			} else {
-				var token = jwt.sign(user, config.secret, {
-					expiresIn: 86400 // expires in 24 hours
-				});
-				res.json({
-					success: true,
-					message: 'Enjoy your token!',
-					token: token
-				});
+				callback(false,user);
 			}		
 		}
 	});
 }
 
 
-exports.register = function(user){
+exports.register = function(user,callback){
+
 	var user = new User({ 
-		name: 'testuser', 
-		password: 'password',
-		admin: true 
+		username: 'testuser1', 
+		password:'abc123!!',
+		email:'testuser@gmail.com',
+		answer:'lol',
+		firstname:'test',
+		lastname:'user',
+		ifPremium:false,
+		enabled:true,
+		accountNonExpired:true,
+		credentialsNonExpired:true,
+		role:1,
+		reviews:[],
+		following:[],
+		suggestions:[] 
 	});
+	console.log(user);
 	user.save(function(err) {
-		if (err) throw err;
+		if (err) callback(err);
 		console.log('User saved successfully');
-		return true;
+		callback(true);
 	});
 }	
 
 
-exports.getPublicUsers=function(){
+exports.getPublicUsers=function(callback){
 	User.find({}, function(err, users) {
-		res.json(users);
+		if(err){
+			callback(err,null);
+		}else{
+			callback(false,users);
+		}
+	
 	});
 }
 
 
-exports.getUserById=function(id){
+exports.getUserById=function(id,callback){
 	User.findById(id, function(err, user) {
-		if(err){ return err;}
-		return user;
+		if(err){ 
+			callback(err,null);
+		}
+		else{
+			callback(false,user);
+		}	
 	});
-	return null;
+	
 }
 
-exports.upgradeToPremium=function(id){
+exports.upgradeToPremium=function(id,callback){
 	User.update({"id":id},{ $set: { isPremium: true }},function(err,user){
-		if(err){return err;}
-		return true;
+		if(err){callback(err,null);}
+		callback(false,true);
 	});
-	return false;
+	
 }
 
 
-exports.deleteAccount=function(id){
+exports.deleteAccount=function(id,callback){
 	User.findByIdAndRemove(id,function(err){
-		if(err){return err;}
-		return true;
+		if(err){
+			callback(err);
+		}else{
+			callback(false,true);
+		}
+		
 	});
-	return false;
+	
 }
-
-
-
-
 

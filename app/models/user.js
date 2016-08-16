@@ -14,7 +14,7 @@ module.exports = mongoose.model('User', new Schema({
 	accountNonExpired:Boolean,
 	credentialsNonExpired:Boolean,
 	accountNonLocked:Boolean,
-	role:String, //employee | employer
+	role:Number, //employee-1 | employer-2
 	reviews:[String],
 	following:[String],
 	suggestions:[String]
