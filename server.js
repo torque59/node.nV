@@ -9,6 +9,7 @@ var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
 var user   = require('./app/models/user'); // get our mongoose model
 var userroutes = require('./app/routes/userRoutes.js');
+var employerroutes = require('./app/routes/employerRoutes.js');
 
 var port = process.env.PORT || 8080; // used to create, sign, and verify tokens
 mongoose.connect(config.database); // connect to database
@@ -71,6 +72,10 @@ app.get('/api/upgradeToPremium',userroutes.upgradeToPremium);
 app.post('/api/deleteAccount',userroutes.deleteAccount);
 
 
+//Employer Routes
+
+app.post('/api/employer/createListing',employerroutes.createListing);
+app.get('/api/employer/getListings',employerroutes.getListings);
 
 
 

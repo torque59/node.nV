@@ -1,7 +1,7 @@
 var User   = require('../models/user'); // get our mongoose model
 
 exports.authenticate=function(username,password,callback){
-	console.log(username+":"+password);
+	
 	if(username==undefined||password==undefined){
 		callback("Username and Password must be defined.",null);
 	}

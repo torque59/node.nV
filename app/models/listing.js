@@ -8,5 +8,8 @@ module.exports = mongoose.model('Listing', new Schema({
 	description:String,
 	created:Date,
 	deadline:Date,
-	isPremium:Boolean
+	isPremium:Boolean,
+	applied:[String],
+	interview:[String],
+	offer:[String]
 }));
