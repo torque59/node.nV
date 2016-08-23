@@ -25,21 +25,51 @@ exports.applyForJob = function(req,res){
 			res.json({success:true});
 		}
 	});
-	res.send("ToDo");
+
 }
 exports.listInterviews = function(req,res){
-	res.send("ToDo");
+	var id=req.decoded._doc._id;
+	employeeService.listInterviews(id,function(err,interviews){
+		if(err){
+			res.json({error:err});
+		}else{
+			res.json({success:interviews});
+		}
+	});
 }
 
 exports.listOffers = function(req,res){
-	res.send("ToDo");
+	var id=req.decoded._doc._id;
+	employeeService.listOffers(id,function(err,offers){
+		if(err){
+			res.json({error:err});
+		}else{
+			res.json({success:offers});
+		}
+	});
 }
 exports.listSentApplications = function(req,res){
-	res.send("ToDo");
+	var id=req.decoded._doc._id;
+	employeeService.listSentApplication(id,function(err,sent){
+		if(err){
+			res.json({error:err});
+		}else{
+			res.json({success:offers});
+		}
+	});
 }
 
 exports.searchForJobs = function(req,res){
-	res.send("ToDo");
+	var id=req.decoded._doc._id;
+	employeeService.getListings(id,function(listings,err){
+		if(listings){
+			res.json(listings);
+		}else if(err){
+			res.json({error:err});
+		}else{
+			res.json({success:false});
+		}
+	});
 }
 exports.employeeUpgradeToPremium = function(req,res){
 	res.send("ToDo");

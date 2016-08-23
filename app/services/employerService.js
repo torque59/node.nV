@@ -18,17 +18,8 @@ exports.createListing= function(id,listing,callback){
 	newListing.applied=[];
 	newListing.interview=[];
 	newListing.offer=[];
-	/**
-	newListing.owner=id;
-	newListing.name=listing.name;
-	newListing.description =listing.description;
-	newListing.created=new Date();
-	newListing.deadline=listing.deadline;
-	newListing.isPremium=listing.premium;
-	newListing.applied=[];
-	newListing.interview:[];
-	newListing.offer:[];
-**/
+	
+
 	newListing.save(function(err) {
 		if (err) callback(err);
 		console.log('Listing saved successfully');
@@ -37,44 +28,21 @@ exports.createListing= function(id,listing,callback){
 }
 
 
-exports.requestApplication=function(employerId,employeeId,callback){
-/**
-	User.findById(employeeId,function(err,employee){
-		if(err){
-			callback(err);
-		}else{
-			if(employee.suggestions.contains(employerId)){
-				callback("Already Suggested Application");
+exports.followEmployee=function(employerId,employeeId,callback){
+		User.findById(employerId,function(err,employer){
+			if(err){
+				callback(err);
 			}else{
-			employee.suggestions=employee.suggestions.push(employerId);
-			employee.save(function(err){
-							if(err){
-								callback(err);
-							}else{
-
-								User.findById(employerId,function(err,employer){
-									if(err){
-										callback(err);
-									}else{
-										employer.following.push(employeeId);
-										employer.save(function(err){
-											if(err){
-												callback(err);
-											}else{
-												callback(false,true);
-											}
-										})
-									}
-								});
-								
-							}
-						}
-			
-			});
-				
+				if(employer.following.contains(employeeId)){
+				callback("Already following Employee");
+			}else{
+				employer.following.push(employeeId);
+				employer.save(function(err){
+					callback(err);
+				});
+			}
 		}
 	});
-	**/
 }
 
 
@@ -90,20 +58,30 @@ exports.getRequestedEmployees=function(id,callback){
 
 exports.deleteRequestedEmployees=function(employerId,employeeId,callback){
 		
-
 //TODO!!
-		User.findById(employeeId,function(err,employee){
-			if(err){
-				callback(err);
-			}else{
-
-				callback(employer.following);
-			}
-		});
+	
 }
 
 
-exports.getListings=function(id,callback){
+exports.acceptForInterview=function(employeeId,listingId,callback){
+	User.findById(employeeId,function(err,employee){
+			if(err){
+				callback(err);
+			}else{
+				if(employee.interviews.contains(listingId)){
+				callback("Interview already offered.");
+			}else{
+				employee.interviews.push(listingId);
+				employee.save(function(err){
+					callback(err);
+				});
+			}
+		}
+	});
+
+}
+
+exports.getListingsByOwner=function(id,callback){
 	Listing.find({owner:id},function(err,listings){
 		if(err){
 			callback(err);
@@ -114,12 +92,38 @@ exports.getListings=function(id,callback){
 
 }
 
-
-
-exports.acceptForOffer=function(employeeId,callback){
+exports.acceptForOffer=function(employeeId,listingId,callback){
 		User.findById(employeeId,function(err,employee){
+			if(err){
+				callback(err);
+			}else{
+				if(employer.offers.contains(listingId)){
+				callback("Offer already extended.");
+			}else{
+				employer.offers.push(listingId);
+				employer.save(function(err){
+					callback(err);
+				});
+			}
+		}
+	});
+}
 
-		});
+exports.rejectApplication=function(employeeId,listingId,callback){
+		User.findById(employeeId,function(err,employee){
+			if(err){
+				callback(err);
+			}else{
+				if(employee.rejected,contains(listingId)){
+				callback("Employee Already Rejected.");
+			}else{
+				employee.rejected.push(listingId);
+				employee.save(function(err){
+					callback(err);
+				});
+			}
+		}
+	});
 }
 
 //Helper Functions

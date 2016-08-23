@@ -17,6 +17,7 @@ module.exports = mongoose.model('User', new Schema({
 	applications:[String],
 	interviews:[String],
 	offers:[String],
+	rejected:[String],
 	role:Number, //employee-1 | employer-2
 	reviews:[String],//for Premium Employees
 	following:[String], //If employee - employers| if employer, memp

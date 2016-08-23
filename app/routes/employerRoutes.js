@@ -5,7 +5,7 @@ var config = require('../../config.js');
 var employerService = require("../services/employerService.js");
 
 
-exports.updateEmployerUsername=function(req,res){
+exports.updateEmployer=function(req,res){
 		var id=req.decoded._doc._id;
 		employerService.updateEmployerUsername(id,req.body.username,function(err){
 		if(err){
@@ -16,17 +16,43 @@ exports.updateEmployerUsername=function(req,res){
 	});
 }
 
+
 exports.acceptForOffer=function(req,res){
-	var id=req.decoded._doc._id;
-		res.send("ToDO");
+	var employerId=req.decoded._doc._id;
+	var employeeId=req.body.employeeId;
+	var listingId = req.body.listingId;
+	employerService.acceptForOffer(id,req.body.listingId,function(err,result){
+		if(err){
+			res.json({error:err});
+		}else{
+			res.json({success:true});
+		}
+	});
+		
 }
 
 exports.acceptForInterview=function(req,res){
-	res.send("TO DO");
+	var employeeId=req.body.employeeId;
+	var listingId=req.body.listingId;
+	employerService.acceptForInterview(employeeId,listingId,function(err,success){
+		if(err){
+			res.json({error:err});
+		}else{
+			res.json({success:true});
+		}
+	});
 }
 
 exports.rejectApplication=function(req,res){
-	res.send("TO DO");
+	var employeeId=req.body.employeeId;
+	var listingId=req.body.listingId;
+	employerService.rejectApplication(employeeId,listingId,function(err,success){
+		if(err){
+			res.json({error:err});
+		}else{
+			res.json({success:true});
+		}
+	});
 }
 
 exports.createListing=function(req,res){
@@ -44,7 +70,7 @@ exports.createListing=function(req,res){
 
 exports.getListings=function(req,res){
 	var id=req.decoded._doc._id;
-	employerService.getListings(id,function(listings,err){
+	employerService.getListingsByOwner(id,function(listings,err){
 		if(listings){
 			res.json(listings);
 		}else if(err){
@@ -60,10 +86,11 @@ exports.editListing=function(req,res){
 	res.send("TO DO");
 }
 
-//Premium Service
-exports.requestApplication=function(req,res){
-	var id=req.decoded._doc._id;
-	employerService.requestApplication(id,req.body.employeeId,function(err,success){
+//Premium Services ================================================================================================================================
+exports.followEmployee=function(req,res){
+	var employerId=req.decoded._doc._id;
+	var employeeId=req.body.employeeId;
+	employerService.followEmployee(employerId,employeeId,function(err,success){
 		if(err){
 			res.json({error:err});
 		}else{
