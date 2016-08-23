@@ -22,32 +22,98 @@ exports.authenticate=function(username,password,callback){
 }
 
 
-exports.register = function(user,callback){
+exports.createEmployee = function(user,callback){
 
-	var user = new User({ 
-		username: 'testuser1', 
-		password:'abc123!!',
-		email:'testuser@gmail.com',
-		answer:'lol',
-		firstname:'test',
-		lastname:'user',
-		ifPremium:false,
-		enabled:true,
-		accountNonExpired:true,
-		credentialsNonExpired:true,
-		role:1,
-		reviews:[],
-		following:[],
-		suggestions:[] 
-	});
-	console.log(user);
-	user.save(function(err) {
+	var employee1 = new User({ 
+	username: 'employer'+Math.random(), 
+	password: 'abc123!!', 
+	email: 'employee'+Math.random()+'@gmail.com',
+	answer: 'lol',
+	firstname: 'employee1',
+	lastname: 'One',
+	isPremium:false,
+	enabled:true,
+	accountNonExpired:true,
+	credentialsNonExpired:true,
+	accountNonLocked:true,
+	applications:[],
+	interviews:[],
+	offers:[],
+	rejected:[],
+	role:1, //employee-1 | employer-2 |admin - 3
+	reviews:[],//for Premium Employees
+	following:[] //If employee - employers| if employer, memp
+ });
+	console.log(employee1);
+	employee1.save(function(err) {
 		if (err) callback(err);
 		console.log('User saved successfully');
 		callback(true);
 	});
 }	
 
+
+exports.createEmployer = function(user,callback){
+
+var employer1 = new User({ 
+
+	username: 'employer'+Math.random(), 
+	password: 'abc123!!', 
+	email: 'employer1'+Math.random()+'@gmail.com',
+	answer: 'lol',
+	firstname: 'employer',
+	lastname: 'One',
+	isPremium:false,
+	enabled:true,
+	accountNonExpired:true,
+	credentialsNonExpired:true,
+	accountNonLocked:true,
+	applications:[],
+	interviews:[],
+	offers:[],
+	rejected:[],
+	role:2, //employee-1 | employer-2
+	reviews:[],//for Premium Employees
+	following:[] //If employee - employers| if employer, memp
+ });
+	console.log(employer1);
+	employer1.save(function(err) {
+		if (err) callback(err);
+		console.log('User saved successfully');
+		callback(true);
+	});
+}	
+
+exports.createAdmin = function(user,callback){
+
+var admin = new User({ 
+
+	username: 'employer'+Math.random(), 
+	password: 'abc123!!', 
+	email: 'employer1'+Math.random()+'@gmail.com',
+	answer: 'lol',
+	firstname: 'employer',
+	lastname: 'One',
+	isPremium:false,
+	enabled:true,
+	accountNonExpired:true,
+	credentialsNonExpired:true,
+	accountNonLocked:true,
+	applications:[],
+	interviews:[],
+	offers:[],
+	rejected:[],
+	role:3, //employee-1 | employer-2 |admin -3
+	reviews:[],//for Premium Employees
+	following:[] //If employee - employers| if employer, memp
+ });
+	console.log(admin);
+	employer1.save(function(err) {
+		if (err) callback(err);
+		console.log('User saved successfully');
+		callback(true);
+	});
+}	
 
 exports.getPublicUsers=function(callback){
 	User.find({}, function(err, users) {

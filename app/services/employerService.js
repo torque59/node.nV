@@ -3,6 +3,7 @@ var Listing   = require('../models/listing');
 //Employer Stuffs
 
 exports.updateEmployerUsername=function(id,username,callback){
+	//TODO
 	User.update({_id:id},{ $set: { username: username }}, callback());
 }
 
@@ -19,7 +20,6 @@ exports.createListing= function(id,listing,callback){
 	newListing.interview=[];
 	newListing.offer=[];
 	
-
 	newListing.save(function(err) {
 		if (err) callback(err);
 		console.log('Listing saved successfully');

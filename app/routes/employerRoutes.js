@@ -5,6 +5,36 @@ var config = require('../../config.js');
 var employerService = require("../services/employerService.js");
 
 
+
+exports.createListing=function(req,res){
+	var id=req.decoded._doc._id;
+	employerService.createListing(id,req.body.listing,function(err,result){
+		if(result){
+			console.log(result);
+			res.json({success:true});
+		}else if(err){
+			res.json({error:err});
+		}else{
+			res.json({success:false});
+		}
+	});
+}
+
+exports.getListings=function(req,res){
+	var id=req.decoded._doc._id;
+	employerService.getListingsByOwner(id,function(listings,err){
+		if(listings){
+			res.json(listings);
+		}else if(err){
+			res.json({error:err});
+		}else{
+			res.json({success:false});
+		}
+	});
+
+}
+
+
 exports.updateEmployer=function(req,res){
 		var id=req.decoded._doc._id;
 		employerService.updateEmployerUsername(id,req.body.username,function(err){
@@ -55,32 +85,9 @@ exports.rejectApplication=function(req,res){
 	});
 }
 
-exports.createListing=function(req,res){
-	var id=req.decoded._doc._id;
-	employerService.createListing(id,req.body.listing,function(err,result){
-		if(result){
-			res.json({success:true});
-		}else if(err){
-			res.json({error:err});
-		}else{
-			res.json({success:false});
-		}
-	});
-}
 
-exports.getListings=function(req,res){
-	var id=req.decoded._doc._id;
-	employerService.getListingsByOwner(id,function(listings,err){
-		if(listings){
-			res.json(listings);
-		}else if(err){
-			res.json({error:err});
-		}else{
-			res.json({success:false});
-		}
-	});
 
-}
+
 
 exports.editListing=function(req,res){
 	res.send("TO DO");

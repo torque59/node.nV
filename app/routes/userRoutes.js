@@ -17,8 +17,8 @@ exports.authenticate=function(req,res){
 
 }
 
-exports.register=function(req,res){
-	var registered = userService.register(req.body.user,function(data){
+exports.createEmployee=function(req,res){
+	var registered = userService.createEmployee(req.body.user,function(data){
 	
 	if(data){
 		res.json({ success: true });
@@ -27,9 +27,16 @@ exports.register=function(req,res){
 	}
 
 	});	
+}
 
-	
-	
+exports.createEmployer=function(req,res){
+	var registered = userService.createEmployer(req.body.user,function(data){
+	if(data){
+		res.json({ success: true });
+	}else{
+		res.json({error:"There was an error"});
+	}
+	});	
 }
 
 exports.getPublicUsers=function(req,res){

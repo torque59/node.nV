@@ -1,0 +1,91 @@
+var employer1 = new User({ 
+
+	username: 'employer1', 
+	password: 'abc123!!', 
+	email: 'employer1@gmail.com',
+	answer: 'lol',
+	firstname: 'employer',
+	lastname: 'One',
+	isPremium:false,
+	enabled:true,
+	accountNonExpired:true,
+	credentialsNonExpired:true,
+	accountNonLocked:true,
+	applications:[],
+	interviews:[],
+	offers:[],
+	rejected:[],
+	role:2, //employee-1 | employer-2
+	reviews:[],//for Premium Employees
+	following:[] //If employee - employers| if employer, memp
+ });
+
+var employer2 = new User({ 
+
+	username: 'employer2', 
+	password: 'abc123!!', 
+	email: 'employer2@gmail.com',
+	answer: 'lol',
+	firstname: 'employer2',
+	lastname: 'Two',
+	isPremium:false,
+	enabled:true,
+	accountNonExpired:true,
+	credentialsNonExpired:true,
+	accountNonLocked:true,
+	applications:[],
+	interviews:[],
+	offers:[],
+	rejected:[],
+	role:2, //employee-1 | employer-2
+	reviews:[],//for Premium Employees
+	following:[] //If employee - employers| if employer, memp
+ });
+
+var employee1 = new User({ 
+
+	username: 'employee1', 
+	password: 'abc123!!', 
+	email: 'employee1@gmail.com',
+	answer: 'lol',
+	firstname: 'employee1',
+	lastname: 'One',
+	isPremium:false,
+	enabled:true,
+	accountNonExpired:true,
+	credentialsNonExpired:true,
+	accountNonLocked:true,
+	applications:[],
+	interviews:[],
+	offers:[],
+	rejected:[],
+	role:1, //employee-1 | employer-2 |admin - 3
+	reviews:[],//for Premium Employees
+	following:[] //If employee - employers| if employer, memp
+ });
+
+var employee2 = new User({ 
+
+	username: 'employee2', 
+	password: 'abc123!!', 
+	email: 'employee2@gmail.com',
+	answer: 'lol',
+	firstname: 'employee2',
+	lastname: 'Two',
+	isPremium:false,
+	enabled:true,
+	accountNonExpired:true,
+	credentialsNonExpired:true,
+	accountNonLocked:true,
+	applications:[],
+	interviews:[],
+	offers:[],
+	rejected:[],
+	role:1, //employee-1 | employer-2 |admin - 3
+	reviews:[],//for Premium Employees
+	following:[] //If employee - employers| if employer, memp
+ });
+
+
+
+
