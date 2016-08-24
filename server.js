@@ -13,6 +13,8 @@ var employerroutes = require('./app/routes/employerRoutes.js');
 var employeeRoutes = require('./app/routes/employeeRoutes.js');
 var authService = require('./app/services/authService.js');
 
+var UIRoutes = require('./app/routes/UIRoutes.js');
+
 var port = process.env.PORT || 8080; // used to create, sign, and verify tokens
 mongoose.connect(config.database); // connect to database
 app.use(morgan('dev'));
@@ -21,19 +23,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+// Pull in the public directory
+app.use('/public', express.static(__dirname + '/public'));
+
+// Set Views folder
+app.set('views', __dirname + '/views')
 
 // Routes ===============
+//Static Content Routing
 
-app.get('/',function(req,res){
 
-	//Build out FrontEnd Routes
-	res.send("Cowabungaaa!");
-})
 
-app.get('/test',function(req,res){
-	console.log(req.params.token);
-	res.send("Your body is: "+req.body);
-});
+app.get('/',UIRoutes.index);
+
+exports.index = function(req, res){
+	if (req.body.username) {
+        res.render("login.ejs", { username: req.body.username, } );
+    } else {
+		res.render("login.ejs", { username: "", } );
+	}
+}
 
 //app.post('/api/createEmployee',userroutes.createEmployee); TEST ONLY
 //app.post('/api/createEmployer',userroutes.createEmployer); TEST ONLY

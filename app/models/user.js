@@ -20,6 +20,6 @@ module.exports = mongoose.model('User', new Schema({
 	rejected:[String],
 	role:Number, //employee-1 | employer-2
 	reviews:[String],//for Premium Employees
-	following:[String], //If employee - employers| if employer, memp
+	following:[String] //If employee - employers| if employer, memp
 	
 }));
