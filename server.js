@@ -68,7 +68,6 @@ app.post('/api/deleteAccount',userroutes.deleteAccount);
 
 //Employer Routes
 
-
 app.post('/api/employer/createListing',employerroutes.createListing); //Need to customize
 app.get('/api/employer/getListings',employerroutes.getListings);
 app.post('/api/employer/updateEmployer',employerroutes.updateEmployer); //TODO;
@@ -83,18 +82,18 @@ app.delete('/api/employer/deleteRequestedApplication',employerroutes.deleteReque
 
 //Employee Routes
 
-/**
-app.post('/api/employee/updateEmployee',employeeRoutes.updateEmployeeUsername);
+
+app.post('/api/employee/updateEmployee',employeeRoutes.updateEmployee);
 app.post('/api/employee/applyForJob',employeeRoutes.applyForJob);
 app.get('/api/employee/listInterviews',employeeRoutes.listInterviews);
 app.get('/api/employee/listOffers',employeeRoutes.listOffers);
 app.get('/api/employee/listSentApplications',employeeRoutes.listSentApplications);
 app.get('/api/employee/getListings',employeeRoutes.getListings);
-app.post('/api/employee/UpgradeToPremium',employeeRoutes.upgradeToPremium);
+app.post('/api/employee/UpgradeToPremium',employeeRoutes.employeeUpgradeToPremium);
 app.post('/api/employee/writeReview',employeeRoutes.writeReview);
 app.post('/api/employee/followEmployer',employeeRoutes.followEmployer);
 
-**/
+
 
 //Admin Routes
 

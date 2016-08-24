@@ -5,7 +5,7 @@ var jwt    = require('jsonwebtoken');
 var config = require('../../config.js');
 var employeeService = require("../services/employeeService.js");
 
-exports.updateEmployeeUsername=function(req,res){
+exports.updateEmployee=function(req,res){
 	var id=req.decoded._doc._id;
 	employeeService.updateEmployeeUsername(id,req.body.username,function(err){
 		if(err){
@@ -71,6 +71,11 @@ exports.searchForJobs = function(req,res){
 		}
 	});
 }
+
+exports.getListings=function(req,res){
+	res.send("ToDo");
+	}
+
 exports.employeeUpgradeToPremium = function(req,res){
 	res.send("ToDo");
 }
