@@ -11,7 +11,7 @@ exports.createListing= function(id,listing,callback){
 
 	var newListing= Listing();
 	newListing.owner=id;
-	newListing.name="Application Security Consultant";
+	newListing.name="Application Software Consultant "+Math.random();
 	newListing.description ="Amazing Job!!";
 	newListing.created=new Date();
 	newListing.deadline=new Date();
@@ -29,6 +29,9 @@ exports.createListing= function(id,listing,callback){
 
 
 exports.followEmployee=function(employerId,employeeId,callback){
+	if(employeeId ==null|| employeeId==null){
+		callback("Must supply valid Params");
+	}else{
 		User.findById(employerId,function(err,employer){
 			if(err){
 				callback(err);
@@ -43,17 +46,23 @@ exports.followEmployee=function(employerId,employeeId,callback){
 			}
 		}
 	});
+	}	
 }
 
 
 exports.getRequestedEmployees=function(id,callback){
+	if(id ==null){
+		callback("Must supply valid Params");
+	}else{
 		User.findById(id,function(err,employer){
 			if(err){
 				callback(err);
 			}else{
-				callback(employer.following);
+				callback(false,employer.following);
 			}
 		});
+	}
+		
 }
 
 exports.deleteRequestedEmployees=function(employerId,employeeId,callback){
@@ -64,7 +73,10 @@ exports.deleteRequestedEmployees=function(employerId,employeeId,callback){
 
 
 exports.acceptForInterview=function(employeeId,listingId,callback){
-	User.findById(employeeId,function(err,employee){
+	if(employeeId ==null|| listingId==null){
+		callback("Must supply valid Params");
+	}else{
+		User.findById(employeeId,function(err,employee){
 			if(err){
 				callback(err);
 			}else{
@@ -79,6 +91,8 @@ exports.acceptForInterview=function(employeeId,listingId,callback){
 		}
 	});
 
+	}
+	
 }
 
 exports.getListingsByOwner=function(id,callback){
@@ -93,28 +107,45 @@ exports.getListingsByOwner=function(id,callback){
 }
 
 exports.acceptForOffer=function(employeeId,listingId,callback){
+	if(employeeId ==null|| listingId==null){
+		callback("Must supply valid Params");
+	}else{
 		User.findById(employeeId,function(err,employee){
+
 			if(err){
 				callback(err);
-			}else{
-				if(employer.offers.contains(listingId)){
-				callback("Offer already extended.");
-			}else{
-				employer.offers.push(listingId);
-				employer.save(function(err){
-					callback(err);
-				});
 			}
-		}
+			else{
+				console.log(employee);
+				if(employee.offers.contains(listingId)){
+					callback("Offer already extended.");
+				} 
+				else{	 
+					employee.offers.push(listingId);
+					employee.save(function(err){
+						callback(err);
+					});
+				}
+
+			}
+
 	});
+	}
+	
 }
 
+	
+
+
 exports.rejectApplication=function(employeeId,listingId,callback){
+	if(employeeId ==null|| listingId==null){
+		callback("Must supply valid Params");
+	}else{
 		User.findById(employeeId,function(err,employee){
 			if(err){
 				callback(err);
 			}else{
-				if(employee.rejected,contains(listingId)){
+				if(employee.rejected.contains(listingId)){
 				callback("Employee Already Rejected.");
 			}else{
 				employee.rejected.push(listingId);
@@ -124,6 +155,8 @@ exports.rejectApplication=function(employeeId,listingId,callback){
 			}
 		}
 	});
+	}
+		
 }
 
 //Helper Functions

@@ -31,7 +31,6 @@ exports.getListings=function(req,res){
 			res.json({success:false});
 		}
 	});
-
 }
 
 
@@ -48,10 +47,11 @@ exports.updateEmployer=function(req,res){
 
 
 exports.acceptForOffer=function(req,res){
-	var employerId=req.decoded._doc._id;
-	var employeeId=req.body.employeeId;
-	var listingId = req.body.listingId;
-	employerService.acceptForOffer(id,req.body.listingId,function(err,result){
+
+	
+	var employeeId=req.query.employeeId;
+	var listingId = req.query.listingId;
+	employerService.acceptForOffer(employeeId,listingId,function(err,result){
 		if(err){
 			res.json({error:err});
 		}else{
@@ -62,8 +62,8 @@ exports.acceptForOffer=function(req,res){
 }
 
 exports.acceptForInterview=function(req,res){
-	var employeeId=req.body.employeeId;
-	var listingId=req.body.listingId;
+	var employeeId=req.query.employeeId;
+	var listingId=req.query.listingId;
 	employerService.acceptForInterview(employeeId,listingId,function(err,success){
 		if(err){
 			res.json({error:err});
@@ -74,8 +74,8 @@ exports.acceptForInterview=function(req,res){
 }
 
 exports.rejectApplication=function(req,res){
-	var employeeId=req.body.employeeId;
-	var listingId=req.body.listingId;
+	var employeeId=req.query.employeeId;
+	var listingId=req.query.listingId;
 	employerService.rejectApplication(employeeId,listingId,function(err,success){
 		if(err){
 			res.json({error:err});
@@ -130,6 +130,9 @@ exports.deleteRequestedApplication =function(req,res){
 
 	});
 }
+
+
+
 
 
 
