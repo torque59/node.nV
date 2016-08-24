@@ -18,7 +18,8 @@ exports.updateEmployee=function(req,res){
 
 exports.applyForJob = function(req,res){
 	var id=req.decoded._doc._id;
-	employeeService.applyForJob({},function(err){
+	var listingId=req.query.listingId;
+	employeeService.applyForJob(id,listingId,function(err){
 		if(err){
 			res.json({error:err});
 		}else{
@@ -50,11 +51,11 @@ exports.listOffers = function(req,res){
 }
 exports.listSentApplications = function(req,res){
 	var id=req.decoded._doc._id;
-	employeeService.listSentApplication(id,function(err,sent){
+	employeeService.listSentApplications(id,function(err,sent){
 		if(err){
 			res.json({error:err});
 		}else{
-			res.json({success:offers});
+			res.json({success:sent});
 		}
 	});
 }

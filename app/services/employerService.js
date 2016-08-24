@@ -8,7 +8,7 @@ exports.updateEmployerUsername=function(id,username,callback){
 }
 
 exports.createListing= function(id,listing,callback){
-
+//Take this out when wiring to UI
 	var newListing= Listing();
 	newListing.owner=id;
 	newListing.name="Application Software Consultant "+Math.random();

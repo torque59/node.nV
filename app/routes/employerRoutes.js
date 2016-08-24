@@ -73,6 +73,8 @@ exports.acceptForInterview=function(req,res){
 	});
 }
 
+
+
 exports.rejectApplication=function(req,res){
 	var employeeId=req.query.employeeId;
 	var listingId=req.query.listingId;

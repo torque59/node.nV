@@ -78,12 +78,12 @@ app.delete('/api/employer/deleteRequestedApplication',employerroutes.deleteReque
 
 
 app.post('/api/employee/updateEmployee',employeeRoutes.updateEmployee);
-app.post('/api/employee/applyForJob',employeeRoutes.applyForJob);
+app.get('/api/employee/applyForJob',employeeRoutes.applyForJob);
 app.get('/api/employee/listInterviews',employeeRoutes.listInterviews);
 app.get('/api/employee/listOffers',employeeRoutes.listOffers);
 app.get('/api/employee/listSentApplications',employeeRoutes.listSentApplications);
 app.get('/api/employee/getListings',employeeRoutes.getListings);
-app.post('/api/employee/upgradeToPremium',employeeRoutes.employeeUpgradeToPremium);
+app.get('/api/employee/upgradeToPremium',employeeRoutes.employeeUpgradeToPremium);
 app.post('/api/employee/writeReview',employeeRoutes.writeReview);
 app.post('/api/employee/followEmployer',employeeRoutes.followEmployer);
 
