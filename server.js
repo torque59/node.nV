@@ -35,15 +35,10 @@ app.set('views', __dirname + '/views')
 
 
 app.get('/',UIRoutes.index);
-
-exports.index = function(req, res){
-	if (req.body.username) {
-        res.render("login.ejs", { username: req.body.username, } );
-    } else {
-		res.render("login.ejs", { username: "", } );
-	}
-}
-
+app.get('/signup',UIRoutes.signUp);
+app.get('/homepage',UIRoutes.homepage);
+app.get('/settings',UIRoutes.settings);
+app.get('/listings',UIRoutes.listings);
 //app.post('/api/createEmployee',userroutes.createEmployee); TEST ONLY
 //app.post('/api/createEmployer',userroutes.createEmployer); TEST ONLY
 //app.post('/api/createAdmin',userroutes.createAdmin); TEST ONLY
