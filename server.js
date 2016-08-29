@@ -39,6 +39,7 @@ app.get('/signup',UIRoutes.signUp);
 app.get('/homepage',UIRoutes.homepage);
 app.get('/settings',UIRoutes.settings);
 app.get('/listings',UIRoutes.listings);
+app.get('/search',UIRoutes.search);
 //app.post('/api/createEmployee',userroutes.createEmployee); TEST ONLY
 //app.post('/api/createEmployer',userroutes.createEmployer); TEST ONLY
 //app.post('/api/createAdmin',userroutes.createAdmin); TEST ONLY

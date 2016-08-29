@@ -23,3 +23,6 @@ exports.settings = function(req, res) {
 exports.listings = function(req, res) {
 	res.render("listings.ejs", { username: "Username" });
 }
+exports.search = function(req, res) {
+	res.render("search.ejs", { q: "q", username: "req.user.username", users: ["users"] });
+}
