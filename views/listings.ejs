@@ -49,14 +49,13 @@
   <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
   <!--[if (gt IE 9)|!(IE)]><!--> 
   <body class=""> 
-  <!--<![endif]-->
 
-	<!-- Begin Navbar-->
+    <!-- Begin Navbar-->
     <div class="navbar">
         <div class="navbar-inner">
                 <ul class="nav pull-right">
                     
-                    <li class="hidden-phone"><a href="#" role="button">Settings</a></li>
+                    <li class="hidden-phone"><a href="/settings" role="button">Settings</a></li>
                     <li id="fat-menu" class="dropdown">
                         <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="icon-user"></i> <%= username %>
@@ -64,7 +63,7 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="#">My Account</a></li>
+                            <li><a tabindex="-1" href="/funds">Fund Account</a></li>
                             <li class="divider"></li>
                             <li><a tabindex="-1" class="visible-phone" href="#">Settings</a></li>
                             <li class="divider visible-phone"></li>
@@ -76,59 +75,48 @@
                 <a class="brand" href="index.html">Goat.js</a>
         </div>
     </div>
-	<!-- End Navbar-->
+  <!-- End Navbar-->
 
-	<!-- Begin SideBar -->
-	<div id="sidebar-nav">
+  <!-- Begin SideBar -->
+  <div id="sidebar-nav">
       <ul id="dashboard-menu" class="nav nav-list">
-          <li class="active "><a href="#"><i class="icon-home"></i> <span>Dashboard</span></a></li>
-          <li class=" "><a href="#"><i class="icon-bar-chart"></i> <span>Reports</span></a></li>
-          <li class="active"><a href="/jobs"><i class="icon-briefcase"></i> <span>Jobs</span></a></li>
+          <li class="active "><a href="/homepage"><i class="icon-home"></i> <span>Dashboard</span></a></li>
+          <li class=" "><a href="/search"><i class="icon-bar-chart"></i> <span>Search</span></a></li>
+          <li class="active"><a href="/listings"><i class="icon-briefcase"></i> <span>Listings</span></a></li>
       </ul>
     </div>
     <!-- End Sidebar-->
-	<div class="content">
-        <div class="container-fluid">
-            <div class="row-fluid">
-				<h2>&nbsp;</h2>
-				<form action="/account/update" method="post" class="form-horizontal">
-					<div class="control-group">
-				     	<!-- Text input-->
-				     	<div class="controls">
-				     	  <input id="username" name="username" type="text" class="input-xlarge" value=<%= username %>>
-				     	</div>
-				    </div>
-					<div class="control-group">
-				     	<!-- Text input-->
-						<div class="controls">
-				     	  <input  type="password" id="current_password" name="current_password"  class="input-xlarge" placeholder="Current Password">
-				     	</div>
-				    </div>
-					<div class="control-group">
-				     	<!-- Text input-->
-				     	<div class="controls">
-				     	  <input type="password" id="new_password" name="new_password" class="input-xlarge" placeholder="New Password">
-				     	</div>
-				    </div>
-					<div class="control-group">
-				     	<!-- Text input-->
-				     	<div class="controls">
-				     	  <input  type="password" id="new_password_confirmation" name="new_password_confirmation" class="input-xlarge" placeholder="Confirm New Password">
-				     	</div>
-				    </div>
-					<div class="control-group">
-				     	<!-- Text input-->
-				     	<div class="controls">
-				     	  <button type="submit" class="btn btn-success">Update</button>
-				     	</div>
-				    </div>
-				 	
-				</form>	
-			</div>
-		</div>
-	</div>		
 
-    <script src="public/javascripts/bootstrap.js"></script>
+  <div class="content">
+  <div class="container-fluid">
+    <h2>Job Table</h2> 
+    <p> This is a summary table of all Jobs </p>                                                                                     
+    <div class="table-responsive">          
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Job Token</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="job in jobs"> 
+          <td>{{job.id}}</td>
+          <td>{{job.name}}</td>
+          <td>{{job.secToken}}</td>
+          <td>{{job.foo}}
+            <a class="icon-eye-open pull-right" ></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+  </div>
+
+  <script src="public/javascripts/bootstrap.js"></script>
     <script type="text/javascript">
         $("[rel=tooltip]").tooltip();
         $(function() {
@@ -138,5 +126,3 @@
     
   </body>
 </html>
-
-

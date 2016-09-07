@@ -15,7 +15,7 @@ var authService = require('./app/services/authService.js');
 
 var UIRoutes = require('./app/routes/UIRoutes.js');
 
-var port = process.env.PORT || 8080; // used to create, sign, and verify tokens
+var port = process.env.PORT || 8081; // used to create, sign, and verify tokens
 mongoose.connect(config.database); // connect to database
 app.use(morgan('dev'));
 app.set('superSecret', config.secret);
@@ -41,6 +41,7 @@ app.get('/settings',UIRoutes.settings);
 app.get('/listings',UIRoutes.listings);
 app.get('/search',UIRoutes.search);
 app.get('/jobs',UIRoutes.jobs);
+app.get('/funds',UIRoutes.funds);
 //app.post('/api/createEmployee',userroutes.createEmployee); TEST ONLY
 //app.post('/api/createEmployer',userroutes.createEmployer); TEST ONLY
 //app.post('/api/createAdmin',userroutes.createAdmin); TEST ONLY

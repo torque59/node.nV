@@ -31,3 +31,8 @@ exports.jobs = function(req, res) {
 exports.search = function(req, res) {
 	res.render("search.ejs", { q: "q", username: "req.user.username", users: ["users"] });
 }
+
+
+exports.funds=function(req,res){
+	res.render("funds.ejs");
+}
