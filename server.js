@@ -4,7 +4,7 @@ var app         = express();
 var bodyParser = require('body-parser')
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
-
+var cookieParser = require('cookie-parser')
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
 var user   = require('./app/models/user'); // get our mongoose model
@@ -21,13 +21,19 @@ app.use(morgan('dev'));
 app.set('superSecret', config.secret);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 
 // Pull in the public directory
 app.use('/public', express.static(__dirname + '/public'));
 
 // Set Views folder
-app.set('views', __dirname + '/views')
+var eeViewPath=__dirname + '/views/ee';
+var erViewPath=__dirname + '/views/er';
+var adminViewPath=__dirname + '/views/admin';
+var publicViewPath=__dirname + '/views';
+
+app.set('views', [publicViewPath,eeViewPath,erViewPath,adminViewPath]); 
 
 // Routes ===============
 //Static Content Routing
@@ -45,10 +51,14 @@ app.get('/funds',UIRoutes.funds);
 //app.post('/api/createEmployee',userroutes.createEmployee); TEST ONLY
 //app.post('/api/createEmployer',userroutes.createEmployer); TEST ONLY
 //app.post('/api/createAdmin',userroutes.createAdmin); TEST ONLY
-app.post('/api/authenticate',userroutes.authenticate);
+app.post('/login',userroutes.login);
+
+app.post('/api/authenticate',userroutes.login);
 
 app.use(function(req, res, next) {
-	var token = req.body.token || req.param('token') || req.headers['X-Access-Token'];
+	 var token =req.cookies.token;
+
+//	var token = req.body.token || req.param('token') || req.headers['X-Access-Token'];
 	authService.authorize(token,app.get('superSecret'),function(err,decoded){
 			if(err){
 				return res.json({ success: false, message: err });
@@ -61,7 +71,6 @@ app.use(function(req, res, next) {
 app.get('/api/getPublicUsers',userroutes.getPublicUsers); //TEST ONLY
 //app.get('/api/getUserById',userroutes.getUserById); TEST ONLY
 //User Routes
-
 //app.get('/api/getPublicUsers',userroutes.getPublicUsers);
 //app.get('/api/getProfile',userroutes.getProfile);
 

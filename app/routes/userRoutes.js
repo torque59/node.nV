@@ -4,14 +4,17 @@ var config = require('../../config.js');
 var userService = require("../services/userService.js");
 
 
-exports.authenticate=function(req,res){
+
+
+exports.login=function(req,res){
 	console.log(req.body);
 	userService.authenticate(req.body.username,req.body.password,function(err,user){
 		if(err){
 			res.json({"error":err});
 		}else{
 			var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
-			res.json({"token":token});
+			
+			res.redirect('/homepage?token='+token);
 		}
 	});
 

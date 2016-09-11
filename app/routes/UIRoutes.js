@@ -13,7 +13,7 @@ exports.signUp = function(req, res) {
 };
 
 exports.homepage = function(req, res){
-	res.render("homepage.ejs", { myVar:"Username" });
+	res.render("homepage.ejs", { myVar:"Username",token:req.query.token});
 }
 
 exports.settings = function(req, res) {
