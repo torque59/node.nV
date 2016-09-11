@@ -42,12 +42,7 @@ app.set('views', [publicViewPath,eeViewPath,erViewPath,adminViewPath]);
 
 app.get('/',UIRoutes.index);
 app.get('/signup',UIRoutes.signUp);
-app.get('/homepage',UIRoutes.homepage);
-app.get('/settings',UIRoutes.settings);
-app.get('/listings',UIRoutes.listings);
-app.get('/search',UIRoutes.search);
-app.get('/jobs',UIRoutes.jobs);
-app.get('/funds',UIRoutes.funds);
+
 //app.post('/api/createEmployee',userroutes.createEmployee); TEST ONLY
 //app.post('/api/createEmployer',userroutes.createEmployer); TEST ONLY
 //app.post('/api/createAdmin',userroutes.createAdmin); TEST ONLY
@@ -56,9 +51,8 @@ app.post('/login',userroutes.login);
 app.post('/api/authenticate',userroutes.login);
 
 app.use(function(req, res, next) {
-	 var token =req.cookies.token;
+	 var token =req.cookies.token|| req.body.token || req.param('token') || req.headers['X-Access-Token'];
 
-//	var token = req.body.token || req.param('token') || req.headers['X-Access-Token'];
 	authService.authorize(token,app.get('superSecret'),function(err,decoded){
 			if(err){
 				return res.json({ success: false, message: err });
@@ -75,7 +69,12 @@ app.get('/api/getPublicUsers',userroutes.getPublicUsers); //TEST ONLY
 //app.get('/api/getProfile',userroutes.getProfile);
 
 
-
+app.get('/homepage',UIRoutes.homepage);
+app.get('/settings',UIRoutes.settings);
+app.get('/listings',UIRoutes.listings);
+app.get('/search',UIRoutes.search);
+app.get('/jobs',UIRoutes.jobs);
+app.get('/funds',UIRoutes.funds);
 
 //Employer Routes
 

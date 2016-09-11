@@ -12,7 +12,6 @@
     "body-parser": "^1.15.2",
     "connect": "^3.4.1",
     "cookie-parser": "^1.4.3",
-    "cookieparser": "^0.1.0",
     "ejs": "^2.5.1",
     "express": "^4.13.4",
     "grunt": "^1.0.1",
