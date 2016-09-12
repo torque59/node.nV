@@ -77,29 +77,29 @@ app.get('/funds',UIRoutes.funds);
 
 //Employer Routes
 
-app.post('/api/employer/createListing',employerroutes.createListing); //Need to customize
-app.get('/api/employer/getListings',employerroutes.getListings);
-app.post('/api/employer/updateEmployer',employerroutes.updateEmployer); //TODO;
-app.get('/api/employer/acceptForOffer',employerroutes.acceptForOffer);
-app.get('/api/employer/acceptForInterview',employerroutes.acceptForInterview);
-app.get('/api/employer/rejectApplication',employerroutes.rejectApplication);
-app.post('/api/employer/editListing',employerroutes.editListing);
-app.get('/api/employer/followEmployee',employerroutes.followEmployee);
-app.get('/api/employer/getRequestedEmployees',employerroutes.getRequestedEmployees);
-app.delete('/api/employer/deleteRequestedApplication',employerroutes.deleteRequestedApplication);
+app.post('/api/employer/createListing',authService.isER,employerroutes.createListing); //Need to customize
+app.get('/api/employer/getListings',authService.isER,employerroutes.getListings);
+app.post('/api/employer/updateEmployer',authService.isER,employerroutes.updateEmployer); //TODO;
+app.get('/api/employer/acceptForOffer',authService.isER,employerroutes.acceptForOffer);
+app.get('/api/employer/acceptForInterview',authService.isER,employerroutes.acceptForInterview);
+app.get('/api/employer/rejectApplication',authService.isER,employerroutes.rejectApplication);
+app.post('/api/employer/editListing',authService.isER,employerroutes.editListing);
+app.get('/api/employer/followEmployee',authService.isER,employerroutes.followEmployee);
+app.get('/api/employer/getRequestedEmployees',authService.isER,employerroutes.getRequestedEmployees);
+app.delete('/api/employer/deleteRequestedApplication',authService.isER,employerroutes.deleteRequestedApplication);
 
 //Employee Routes
 
 
-app.post('/api/employee/updateEmployee',employeeRoutes.updateEmployee);
-app.get('/api/employee/applyForJob',employeeRoutes.applyForJob);
-app.get('/api/employee/listInterviews',employeeRoutes.listInterviews);
-app.get('/api/employee/listOffers',employeeRoutes.listOffers);
-app.get('/api/employee/listSentApplications',employeeRoutes.listSentApplications);
-app.get('/api/employee/getListings',employeeRoutes.getListings);
-app.get('/api/employee/upgradeToPremium',employeeRoutes.employeeUpgradeToPremium);
-app.post('/api/employee/writeReview',employeeRoutes.writeReview);
-app.post('/api/employee/followEmployer',employeeRoutes.followEmployer);
+app.post('/api/employee/updateEmployee',authService.isEE,employeeRoutes.updateEmployee);
+app.get('/api/employee/applyForJob',authService.isEE,employeeRoutes.applyForJob);
+app.get('/api/employee/listInterviews',authService.isEE,employeeRoutes.listInterviews);
+app.get('/api/employee/listOffers',authService.isEE,employeeRoutes.listOffers);
+app.get('/api/employee/listSentApplications',authService.isEE,employeeRoutes.listSentApplications);
+app.get('/api/employee/getListings',authService.isEE,employeeRoutes.getListings);
+app.get('/api/employee/upgradeToPremium',authService.isEE,employeeRoutes.employeeUpgradeToPremium);
+app.post('/api/employee/writeReview',authService.isEE,employeeRoutes.writeReview);
+app.post('/api/employee/followEmployer',authService.isEE,employeeRoutes.followEmployer);
 
 
 

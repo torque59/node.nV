@@ -1,3 +1,5 @@
+var roles=require('../roles.js')["roles"];
+
 
 exports.index = function(req, res){
 	if (req.body.username) {
@@ -13,26 +15,36 @@ exports.signUp = function(req, res) {
 };
 
 exports.homepage = function(req, res){
-	res.render("homepage.ejs", { myVar:"Username",token:req.query.token});
+	console.log("***********");
+	var root=roles[req.decoded._doc.role];
+	if(root){
+		res.render(root+"homepage.ejs", { myVar:"Username",token:req.query.token});		
+	}
+	
 }
 
 exports.settings = function(req, res) {
-	res.render("settings.ejs", { username: "Username" });
+	var root=roles[req.decoded._doc.role];
+	res.render(root+"settings.ejs", { username: "Username" });
 }
 
 exports.listings = function(req, res) {
-	res.render("listings.ejs", { username: "Username" });
+	var root=roles[req.decoded._doc.role];
+	res.render(root+"listings.ejs", { username: "Username" });
 }
 
 exports.jobs = function(req, res) {
-	res.render("jobs.ejs", { username: "Username" });
+	var root=roles[req.decoded._doc.role];
+	res.render(root+"jobs.ejs", { username: "Username" });
 }
 
 exports.search = function(req, res) {
-	res.render("search.ejs", { q: "q", username: "req.user.username", users: ["users"] });
+	var root=roles[req.decoded._doc.role];
+	res.render(root+"search.ejs", { q: "q", username: "req.user.username", users: ["users"] });
 }
 
 
 exports.funds=function(req,res){
-	res.render("funds.ejs");
+	var root=roles[req.decoded._doc.role];
+	res.render(root+"funds.ejs");
 }
