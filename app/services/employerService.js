@@ -2,9 +2,33 @@ var User   = require('../models/user'); // get our mongoose model
 var Listing   = require('../models/listing');
 //Employer Stuffs
 
-exports.updateEmployerUsername=function(id,username,callback){
+exports.updateEmployerUsername=function(id,user,callback){
+	var username=user.username;
+	var firstname=user.firstname;
+	var lastname=user.lastname;
+	var email = user.email;
 	//TODO
-	User.update({_id:id},{ $set: { username: username }}, callback());
+
+
+User.findById(id,function(err,user){
+	if(err){
+		callback(err)
+	}else{
+		user.username=username;
+	 user.firstname=firstname;
+	 user.lastname=lastname;
+	 user.email = email;
+	 user.save(function(err){
+	 	if(err){
+	 		callback(err);
+	 	}else{
+	 		callback(false,user);
+	 	}
+	 })
+	}
+});
+
+	//User.update({_id:id},{ $set: { username: username }}, callback());
 }
 
 exports.createListing= function(id,listing,callback){

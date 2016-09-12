@@ -59,7 +59,7 @@
                     <li class="hidden-phone"><a href="#" role="button">Settings</a></li>
                     <li id="fat-menu" class="dropdown">
                         <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="icon-user"></i> <%= username %>
+                            <i class="icon-user"></i> <%= user.username %>
                             <i class="icon-caret-down"></i>
                         </a>
 
@@ -91,31 +91,33 @@
         <div class="container-fluid">
             <div class="row-fluid">
 				<h2>&nbsp;</h2>
-				<form action="/account/update" method="post" class="form-horizontal">
+				<form action="/api/employer/updateEmployer" method="post" class="form-horizontal">
 					<div class="control-group">
 				     	<!-- Text input-->
 				     	<div class="controls">
-				     	  <input id="username" name="username" type="text" class="input-xlarge" value=<%= username %>>
+				     	 Username: <input id="username" name="username" type="text" class="input-xlarge" value=<%= user.username %>>
 				     	</div>
 				    </div>
 					<div class="control-group">
 				     	<!-- Text input-->
 						<div class="controls">
-				     	  <input  type="password" id="current_password" name="current_password"  class="input-xlarge" placeholder="Current Password">
+				     	 First Name: <input  type="firstname" id="firstname" name="firstname"  class="input-xlarge" placeholder=" First Name" value="<%= user.firstname %>">
 				     	</div>
 				    </div>
+            <div class="control-group">
+              <!-- Text input-->
+            <div class="controls">
+               Last Name: <input  type="lastname" id="lastname" name="lastname"  class="input-xlarge" placeholder=" Last Name" value="<%= user.lastname %>">
+              </div>
+            </div>
+
 					<div class="control-group">
 				     	<!-- Text input-->
 				     	<div class="controls">
-				     	  <input type="password" id="new_password" name="new_password" class="input-xlarge" placeholder="New Password">
+				     	 Email: <input type="email" id="email" name="email" class="input-xlarge" placeholder="email" value="<%=user.email %>">
 				     	</div>
 				    </div>
-					<div class="control-group">
-				     	<!-- Text input-->
-				     	<div class="controls">
-				     	  <input  type="password" id="new_password_confirmation" name="new_password_confirmation" class="input-xlarge" placeholder="Confirm New Password">
-				     	</div>
-				    </div>
+	
 					<div class="control-group">
 				     	<!-- Text input-->
 				     	<div class="controls">

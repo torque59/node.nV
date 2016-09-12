@@ -3,7 +3,7 @@ var jwt    = require('jsonwebtoken');
 var Listing = require('../models/listing');
 var config = require('../../config.js');
 var employerService = require("../services/employerService.js");
-
+var userService = require("../services/userService.js");
 
 
 exports.createListing=function(req,res){
@@ -36,11 +36,24 @@ exports.getListings=function(req,res){
 
 exports.updateEmployer=function(req,res){
 		var id=req.decoded._doc._id;
-		employerService.updateEmployerUsername(id,req.body.username,function(err){
+		console.log(req.body);
+		employerService.updateEmployerUsername(id,req.body,function(err,user){
 		if(err){
 			res.json({error:err});
 		}else{
-			res.json({success:true});
+			userService.authenticate(user.username,user.password,function(err,user){
+				if(err){
+				res.json({"error":err});
+				}else{
+				var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
+			
+					res.redirect('/homepage?token='+token);
+				}
+
+
+			});
+			
+			
 		}
 	});
 }
