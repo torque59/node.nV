@@ -1,4 +1,5 @@
 var roles=require('../roles.js')["roles"];
+var listingService = require('../services/listingService.js');
 
 
 exports.index = function(req, res){
@@ -34,7 +35,10 @@ exports.settings = function(req, res) {
 exports.listings = function(req, res) {
 	var uname=req.decoded._doc.username;
 	var root=roles[req.decoded._doc.role];
-	res.render(root+"listings.ejs", { username: uname });
+	listingService.getListings(function(err,listings){
+		res.render(root+"listings.ejs", { username: uname,listings:listings });
+	})
+	
 }
 exports.createListing = function(req, res) {
 	var uname=req.decoded._doc.username;

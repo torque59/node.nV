@@ -8,10 +8,16 @@ var userService = require("../services/userService.js");
 
 exports.createListing=function(req,res){
 	var id=req.decoded._doc._id;
-	employerService.createListing(id,req.body.listing,function(err,result){
+	var listing = {};
+	listing.name=req.body.name;
+	listing.deadline = req.body.deadline;
+	listing.description=req.body.description;
+
+
+	employerService.createListing(id,listing,function(err,result){
 		if(result){
 			console.log(result);
-			res.json({success:true});
+			res.redirect('/homepage');
 		}else if(err){
 			res.json({error:err});
 		}else{
@@ -46,8 +52,7 @@ exports.updateEmployer=function(req,res){
 				res.json({"error":err});
 				}else{
 				var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
-			
-					res.redirect('/homepage?token='+token);
+				res.redirect('/homepage?token='+token);
 				}
 
 

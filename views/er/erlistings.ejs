@@ -96,26 +96,29 @@
     <table class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>Created</th>
           <th>Name</th>
-          <th>Job Token</th>
-          <th>Status</th>
+          <th>Description</th>
+          <th>Deadline</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="job in jobs"> 
-          <td>{{job.id}}</td>
-          <td>{{job.name}}</td>
-          <td>{{job.secToken}}</td>
-          <td>{{job.foo}}
+        <% for(var i=0; i < listings.length; i++) { %>
+        <tr> 
+          <td><%= listings[i].created %></td>
+          <td><%= listings[i].name %></td>
+          <td><%= listings[i].description %></td>
+          <td><%= listings[i].deadline %>
             <a class="icon-eye-open pull-right" ></a>
           </td>
         </tr>
+        <% } %>
       </tbody>
     </table>
     </div>
     </div>
   </div>
+
 
   <script src="public/javascripts/bootstrap.js"></script>
     <script type="text/javascript">

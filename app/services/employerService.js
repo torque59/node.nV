@@ -35,11 +35,11 @@ exports.createListing= function(id,listing,callback){
 //Take this out when wiring to UI
 	var newListing= Listing();
 	newListing.owner=id;
-	newListing.name="Application Software Consultant "+Math.random();
-	newListing.description ="Amazing Job!!";
+	newListing.name=listing.name;
+	newListing.description =listing.description;
 	newListing.created=new Date();
-	newListing.deadline=new Date();
-	newListing.isPremium=true;
+	newListing.deadline=listing.deadline;
+	newListing.isPremium=false;
 	newListing.applied=[];
 	newListing.interview=[];
 	newListing.offer=[];
