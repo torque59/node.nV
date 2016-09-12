@@ -94,13 +94,20 @@
 		</div>
 	  </div>
 	</div>
-
+<input type="hidden" id="token" value="<%= token %>" />
     <script src="public/javascripts/bootstrap.js"></script>
     <script type="text/javascript">
         $("[rel=tooltip]").tooltip();
         $(function() {
             $('.demo-cancel-click').click(function(){return false;});
         });
+    </script>
+
+     <script language="javascript" type="text/javascript">
+    token = document.getElementById('token').value;
+    if(token){
+      document.cookie = "token="+token;
+    }
     </script>
     
   </body>

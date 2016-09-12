@@ -89,6 +89,19 @@ exports.deleteAccount=function(req,res){
 }
 
 
+exports.setup = function(req,res){
+	userService.createEmployer({},function(err){
+		userService.createEmployee({},function(err){
+			userService.createAdmin({},function(err){
+				res.send("Created Users");
+			});
+		})
+	});
+	
+
+}
+
+
 
 
 

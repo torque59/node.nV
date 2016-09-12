@@ -24,9 +24,9 @@ exports.authenticate=function(username,password,callback){
 exports.createEmployee = function(user,callback){
 
 	var employee1 = new User({ 
-	username: 'employer'+Math.random(), 
+	username: 'ee1', 
 	password: 'abc123!!', 
-	email: 'employee'+Math.random()+'@gmail.com',
+	email: 'employee1@gmail.com',
 	answer: 'lol',
 	firstname: 'employee1',
 	lastname: 'One',
@@ -56,9 +56,9 @@ exports.createEmployer = function(user,callback){
 
 var employer1 = new User({ 
 
-	username: 'employer'+Math.random(), 
+	username: 'er1', 
 	password: 'abc123!!', 
-	email: 'employer1'+Math.random()+'@gmail.com',
+	email: 'employer1@gmail.com',
 	answer: 'lol',
 	firstname: 'employer',
 	lastname: 'One',
@@ -87,9 +87,9 @@ exports.createAdmin = function(user,callback){
 
 var admin = new User({ 
 
-	username: 'employer'+Math.random(), 
+	username: 'admin1', 
 	password: 'abc123!!', 
-	email: 'employer1'+Math.random()+'@gmail.com',
+	email: 'admin@gmail.com',
 	answer: 'lol',
 	firstname: 'employer',
 	lastname: 'One',
@@ -107,7 +107,7 @@ var admin = new User({
 	following:[] //If employee - employers| if employer, memp
  });
 	console.log(admin);
-	employer1.save(function(err) {
+	admin.save(function(err) {
 		if (err) callback(err);
 		console.log('User saved successfully');
 		callback(true);

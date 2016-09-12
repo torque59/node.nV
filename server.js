@@ -38,6 +38,8 @@ app.set('views', [publicViewPath,eeViewPath,erViewPath,adminViewPath]);
 // Routes ===============
 //Static Content Routing
 
+//TEST ROUTE ONLY
+app.get('/setup',userroutes.setup);
 
 
 app.get('/',UIRoutes.index);
