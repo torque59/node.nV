@@ -36,7 +36,11 @@ exports.listings = function(req, res) {
 	var root=roles[req.decoded._doc.role];
 	res.render(root+"listings.ejs", { username: uname });
 }
-
+exports.createListing = function(req, res) {
+	var uname=req.decoded._doc.username;
+	var root=roles[req.decoded._doc.role];
+	res.render("ercreateListing.ejs", { username: uname });
+}
 exports.jobs = function(req, res) {
 	var uname=req.decoded._doc.username;
 	var root=roles[req.decoded._doc.role];

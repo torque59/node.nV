@@ -73,6 +73,7 @@ app.get('/api/getPublicUsers',userroutes.getPublicUsers); //TEST ONLY
 app.get('/homepage',UIRoutes.homepage);
 app.get('/settings',UIRoutes.settings);
 app.get('/listings',UIRoutes.listings);
+app.get('/createListing',UIRoutes.createListing);
 app.get('/search',UIRoutes.search);
 app.get('/jobs',UIRoutes.jobs);
 app.get('/funds',UIRoutes.funds);
