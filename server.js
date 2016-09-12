@@ -52,7 +52,6 @@ app.post('/api/authenticate',userroutes.login);
 
 app.use(function(req, res, next) {
 	 var token =req.cookies.token|| req.body.token || req.param('token') || req.headers['X-Access-Token'];
-
 	authService.authorize(token,app.get('superSecret'),function(err,decoded){
 			if(err){
 				return res.json({ success: false, message: err });
