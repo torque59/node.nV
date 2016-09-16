@@ -4,7 +4,7 @@ var Review   = require('../models/review');
 var jwt    = require('jsonwebtoken'); 
 var config = require('../../config.js');
 var employeeService = require("../services/employeeService.js");
-
+var listingService = require("../services/listingService.js");
 exports.updateEmployee=function(req,res){
 	var id=req.decoded._doc._id;
 	employeeService.updateEmployeeUsername(id,req.body.username,function(err){

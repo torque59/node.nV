@@ -77,6 +77,7 @@ app.get('/createListing',UIRoutes.createListing);
 app.get('/search',UIRoutes.search);
 app.get('/jobs',UIRoutes.jobs);
 app.get('/funds',UIRoutes.funds);
+app.get('/review',UIRoutes.review);
 
 //Employer Routes
 
@@ -88,6 +89,7 @@ app.get('/api/employer/acceptForInterview',authService.isER,employerroutes.accep
 app.get('/api/employer/rejectApplication',authService.isER,employerroutes.rejectApplication);
 app.post('/api/employer/editListing',authService.isER,employerroutes.editListing);
 app.get('/api/employer/followEmployee',authService.isER,employerroutes.followEmployee);
+app.get('/api/employer/search',authService.isER,employerroutes.search);
 app.get('/api/employer/getRequestedEmployees',authService.isER,employerroutes.getRequestedEmployees);
 app.delete('/api/employer/deleteRequestedApplication',authService.isER,employerroutes.deleteRequestedApplication);
 

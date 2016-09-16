@@ -72,7 +72,7 @@
                     </li>
                     
                 </ul>
-                <a class="brand" href="index.html">node.nV</a>
+                <a class="brand" href="index.html">Employee Dashboard</a>
         </div>
     </div>
   <!-- End Navbar-->
@@ -81,8 +81,9 @@
   <div id="sidebar-nav">
       <ul id="dashboard-menu" class="nav nav-list">
           <li class="active "><a href="/homepage"><i class="icon-home"></i> <span>Dashboard</span></a></li>
-          <li class=" "><a href="/search"><i class="icon-bar-chart"></i> <span>Search</span></a></li>
-          <li class="active"><a href="/listings"><i class="icon-briefcase"></i> <span>Listings</span></a></li>
+          <li class=" "><a href="/listings"><i class="icon-bar-chart"></i> <span>Listings</span></a></li>
+          <li class=" "><a href="/search"><i class="icon-search"></i> <span>Search</span></a></li>
+          <li class=" "><a href="/createReview"><i class="icon-search"></i> <span>Write A Review</span></a></li>
       </ul>
     </div>
     <!-- End Sidebar-->
@@ -95,26 +96,29 @@
     <table class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>Created</th>
           <th>Name</th>
-          <th>Job Token</th>
-          <th>Status</th>
+          <th>Description</th>
+          <th>Deadline</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="job in jobs"> 
-          <td>{{job.id}}</td>
-          <td>{{job.name}}</td>
-          <td>{{job.secToken}}</td>
-          <td>{{job.foo}}
+        <% for(var i=0; i < listings.length; i++) { %>
+        <tr> 
+          <td><%= listings[i].created %></td>
+          <td><%= listings[i].name %></td>
+          <td><%= listings[i].description %></td>
+          <td><%= listings[i].deadline %>
             <a class="icon-eye-open pull-right" ></a>
           </td>
         </tr>
+        <% } %>
       </tbody>
     </table>
     </div>
     </div>
   </div>
+
 
   <script src="public/javascripts/bootstrap.js"></script>
     <script type="text/javascript">

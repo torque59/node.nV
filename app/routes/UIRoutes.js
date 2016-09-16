@@ -54,7 +54,8 @@ exports.jobs = function(req, res) {
 exports.search = function(req, res) {
 	var uname=req.decoded._doc.username;
 	var root=roles[req.decoded._doc.role];
-	res.render(root+"search.ejs", { q: "q", username: uname, users: ["users"] });
+	
+	res.render(root+"search.ejs", { q: "q", username: uname, listings: "listings" });
 }
 
 
@@ -62,4 +63,10 @@ exports.funds=function(req,res){
 	var uname=req.decoded._doc.username;
 	var root=roles[req.decoded._doc.role];
 	res.render(root+"funds.ejs",{username:uname});
+}
+
+
+exports.review=function(req,res){
+	var uname=req.decoded._doc.username;
+	res.render("eeReview.ejs",{username:uname});
 }

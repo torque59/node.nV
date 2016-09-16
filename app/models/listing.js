@@ -9,5 +9,9 @@ module.exports = mongoose.model('Listing', new Schema({
 	created:Date,
 	deadline:Date,
 	isPremium:Boolean,
-	reviews:[String]
+	reviews:[{
+		details:String,
+		rating:Number,
+		created:Date
+		}]
 }));
