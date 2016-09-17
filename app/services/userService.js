@@ -159,3 +159,25 @@ exports.deleteAccount=function(id,callback){
 	
 }
 
+exports.getEmployees = function(callback){
+	User.find({"role":1},function(users,err){
+		if(err){
+			callback(err);
+		}else{
+			callback(users);
+		}
+	});
+}
+
+exports.getEmployers = function(callback){
+	User.find({"role":2},function(users,err){
+		if(err){
+			callback(err);
+		}else{
+			callback(users);
+		}
+	});
+}
+
+
+

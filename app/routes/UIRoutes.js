@@ -1,5 +1,6 @@
 var roles=require('../roles.js')["roles"];
 var listingService = require('../services/listingService.js');
+var userService = require('../services/userService.js');
 
 
 exports.index = function(req, res){
@@ -69,4 +70,35 @@ exports.funds=function(req,res){
 exports.review=function(req,res){
 	var uname=req.decoded._doc.username;
 	res.render("eeReview.ejs",{username:uname});
+}
+
+
+//Admin Routes
+
+exports.ee=function(req,res){
+		var uname=req.decoded._doc.username;
+
+		userService.getEmployees(function(users,err){
+
+			res.render("adminemployee.ejs",{username:uname,employees:users});
+
+		});
+		
+}
+exports.er=function(req,res){
+		var uname=req.decoded._doc.username;
+		userService.getEmployers(function(users,err){
+			res.render("adminemployer.ejs",{username:uname,employers:users});
+		});
+		
+}
+
+exports.ping=function(req,res){
+	var uname=req.decoded._doc.username;
+	res.render("adminping.ejs", { q: "q", username: uname, listings: "listings" });
+}
+
+exports.create=function(req,res){
+	var uname=req.decoded._doc.username;
+	res.render("admincreate.ejs", {username:uname});
 }

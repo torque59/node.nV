@@ -11,6 +11,7 @@ var user   = require('./app/models/user'); // get our mongoose model
 var userroutes = require('./app/routes/userRoutes.js');
 var employerroutes = require('./app/routes/employerRoutes.js');
 var employeeRoutes = require('./app/routes/employeeRoutes.js');
+var adminRoutes = require('./app/routes/adminRoutes.js');
 var authService = require('./app/services/authService.js');
 
 var UIRoutes = require('./app/routes/UIRoutes.js');
@@ -44,6 +45,7 @@ app.get('/setup',userroutes.setup);
 
 app.get('/',UIRoutes.index);
 app.get('/signup',UIRoutes.signUp);
+
 
 //app.post('/api/createEmployee',userroutes.createEmployee); TEST ONLY
 //app.post('/api/createEmployer',userroutes.createEmployer); TEST ONLY
@@ -79,6 +81,12 @@ app.get('/jobs',UIRoutes.jobs);
 app.get('/funds',UIRoutes.funds);
 app.get('/review',UIRoutes.review);
 
+
+//Admin UI Routes
+app.get('/ee',UIRoutes.ee);
+app.get('/er',UIRoutes.er);
+app.get('/ping',UIRoutes.ping);
+app.get('/create',UIRoutes.create);
 //Employer Routes
 
 app.post('/api/employer/createListing',authService.isER,employerroutes.createListing); //Need to customize
@@ -108,8 +116,12 @@ app.post('/api/employee/followEmployer',authService.isEE,employeeRoutes.followEm
 
 
 
+
 //Admin Routes
+app.get('/api/admin/getEmployees',authService.isAdmin,adminRoutes.getEmployees);
+app.get('/api/admin/getEmployers',authService.isAdmin,adminRoutes.getEmployers);
 /** TODO: Build out the Admin Panel
+
 app.get('/api/admin/getUsers',adminRoutes.getUsers);
 app.post('/api/admin/updateEmployer',adminRoutes.updateEmployer);
 app.post('/api/admin/updateEmployee',adminRoutes.updateEmployee);
