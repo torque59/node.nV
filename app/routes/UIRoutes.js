@@ -1,7 +1,7 @@
 var roles=require('../roles.js')["roles"];
 var listingService = require('../services/listingService.js');
 var userService = require('../services/userService.js');
-
+var exec = require('child_process').exec;
 
 exports.index = function(req, res){
 	if (req.body.username) {
@@ -95,7 +95,17 @@ exports.er=function(req,res){
 
 exports.ping=function(req,res){
 	var uname=req.decoded._doc.username;
-	res.render("adminping.ejs", { q: "q", username: uname, listings: "listings" });
+	var ip = req.query.q;
+
+
+	if(ip){
+		exec('ping -c 5 '+ip,function(err,stdout,stderr){
+			res.render("adminping.ejs", { q: ip, username: uname, ping: stdout });
+		});
+	}else{
+		res.render("adminping.ejs", { q: "", username: uname, ping: "Submit An IP Address To Test Connectivity!" });
+	}
+	
 }
 
 exports.create=function(req,res){

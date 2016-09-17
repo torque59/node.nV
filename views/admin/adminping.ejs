@@ -83,7 +83,7 @@
         <div class="container-fluid">
             <div class="row-fluid">
 				<h2>Search</h2>
-				<form action="/search" method="get" class="form-horizontal">
+				<form action="/ping" method="get" class="form-horizontal">
 					<div class="control-group">
 				     	<!-- Text input-->
 				     	<div class="controls">
@@ -94,7 +94,7 @@
 					<div class="control-group">
 				     	<!-- Text input-->
 				     	<div class="controls">
-				     	  <button type="submit" class="btn btn-success">Search</button>
+				     	  <button type="submit" class="btn btn-success">Ping</button>
 				     	</div>
 				    </div>
 				</form>	
@@ -103,33 +103,7 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<h2>Results</h2>
-				
-
-<div class="table-responsive">          
-    <table class="table table-bordered table-striped table-hover">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Job Token</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="job in jobs"> 
-          <td>{{job.id}}</td>
-          <td>{{job.name}}</td>
-          <td>{{job.secToken}}</td>
-          <td>{{job.foo}}
-            <a class="icon-eye-open pull-right" ></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-    </div>
-  </div>
-
+				<%= ping %>
 			</div>
 		</div>
 	</div>		

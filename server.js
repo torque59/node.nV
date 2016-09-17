@@ -118,8 +118,9 @@ app.post('/api/employee/followEmployer',authService.isEE,employeeRoutes.followEm
 
 
 //Admin Routes
-app.get('/api/admin/getEmployees',authService.isAdmin,adminRoutes.getEmployees);
-app.get('/api/admin/getEmployers',authService.isAdmin,adminRoutes.getEmployers);
+//app.get('/api/admin/getEmployees',authService.isAdmin,adminRoutes.getEmployees);
+//app.get('/api/admin/getEmployers',authService.isAdmin,adminRoutes.getEmployers);
+
 /** TODO: Build out the Admin Panel
 
 app.get('/api/admin/getUsers',adminRoutes.getUsers);
