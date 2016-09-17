@@ -118,6 +118,8 @@ app.post('/api/employee/followEmployer',authService.isEE,employeeRoutes.followEm
 
 
 //Admin Routes
+
+app.post('/api/admin/createUser',authService.isAdmin,adminRoutes.createUser);
 //app.get('/api/admin/getEmployees',authService.isAdmin,adminRoutes.getEmployees);
 //app.get('/api/admin/getEmployers',authService.isAdmin,adminRoutes.getEmployers);
 

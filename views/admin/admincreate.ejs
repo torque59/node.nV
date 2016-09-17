@@ -79,11 +79,12 @@
 
   <!-- Begin SideBar -->
   <div id="sidebar-nav">
-      <ul id="dashboard-menu" class="nav nav-list">
+    <ul id="dashboard-menu" class="nav nav-list">
           <li class="active "><a href="/homepage"><i class="icon-home"></i> <span>Dashboard</span></a></li>
-          <li class=" "><a href="/listings"><i class="icon-bar-chart"></i> <span>Listings</span></a></li>
-          <li class=" "><a href="/search"><i class="icon-search"></i> <span>Search</span></a></li>
-          <li class=" "><a href="/createlisting"><i class="icon-search"></i> <span>Create Listing</span></a></li>
+          <li class=" "><a href="/ee"><i class="icon-bar-chart"></i> <span>Show Employees</span></a></li>
+          <li class=" "><a href="/er"><i class="icon-search"></i> <span>Show Employers</span></a></li>
+          <li class=" "><a href="/create"><i class="icon-search"></i> <span>Create User</span></a></li>
+          <li class=" "><a href="/ping"><i class="icon-search"></i> <span>Ping</span></a></li>
       </ul>
     </div>
     <!-- End Sidebar-->
@@ -92,37 +93,60 @@
         <div class="container-fluid">
             <div class="row-fluid">
         <h2>&nbsp;</h2>
-        <form action="/api/employer/createListing" method="post" class="form-horizontal">
+        <form action="/api/admin/createUser" method="post" class="form-horizontal" id="user">
           <div class="control-group">
               <!-- Text input-->
               <div class="controls">
-               Name: <input id="name" name="name" type="text" class="input-xlarge" value="">
-              </div>
-            </div>
-          <div class="control-group">
-              <!-- Text input-->
-            <div class="controls">
-               Description: <textarea rows="4" cols="50"  type="description" id="description" name="description"  class="input-xlarge" placeholder="Description" value=""></textarea>
+               Username: <input id="username" name="username" type="text" class="input-xlarge" value="">
               </div>
             </div>
             <div class="control-group">
               <!-- Text input-->
+              <div class="controls">
+               First Name: <input id="firstname" name="firstname" type="text" class="input-xlarge" value="">
+              </div>
+            </div>
+            <div class="control-group">
+              <!-- Text input-->
+              <div class="controls">
+               Last Name: <input id="lastname" name="lastname" type="text" class="input-xlarge" value="">
+              </div>
+            </div>
+            <div class="control-group">
+              <!-- Text input-->
+              <div class="controls">
+               Email: <input id="email" name="email" type="text" class="input-xlarge" value="">
+              </div>
+            </div>
+            <div class="control-group">
+              <!-- Text input-->
+              <div class="controls">
+               Password: <input id="password" name="password" type="password" class="input-xlarge" value="">
+              </div>
+            </div>
+             <div class="control-group">
+              <!-- Text input-->
             <div class="controls">
-                Date:<input type="date" name="deadline" id="datepicker">
+                Role:
+          <select name="role" form="user">
+            <option value="1">Employee</option>
+            <option value="2">Employer</option>
+            <option value="3">Admin</option>
+          </select>
               </div>
             </div>
 
           <div class="control-group">
               <!-- Text input-->
               <div class="controls">
-               Premium: <input type="checkbox" id="ispremium" name="ispremium" class="input-xlarge" value="">
+               Premium: <input type="checkbox" id="ispremium" name="ispremium" class="input-xlarge" value="true">
               </div>
             </div>
   
           <div class="control-group">
               <!-- Text input-->
               <div class="controls">
-                <button type="submit" class="btn btn-success">Create Listing</button>
+                <button type="submit" class="btn btn-success">Create User</button>
               </div>
             </div>
           
