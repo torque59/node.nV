@@ -83,10 +83,12 @@
           <li class="active "><a href="/homepage"><i class="icon-home"></i> <span>Dashboard</span></a></li>
           <li class=" "><a href="/listings"><i class="icon-bar-chart"></i> <span>Listings</span></a></li>
           <li class=" "><a href="/search"><i class="icon-search"></i> <span>Search</span></a></li>
-          <li class=" "><a href="/review"><i class="icon-search"></i> <span>Review</span></a></li>
+          <li class=" "><a href="/review"><i class="icon-search"></i> <span>Write Review</span></a></li>
       </ul>
     </div>
     <!-- End Sidebar-->
+
+
 
   <div class="content">
         <div class="container-fluid">
@@ -96,10 +98,11 @@
           <div class="control-group">
               <!-- Text input-->
               <div class="controls">
-               Name: <input id="name" name="name" type="text" class="input-xlarge" value="" >
+               Name: <input id="name" name="name" type="text" class="input-xlarge" value="<%= listing.name %>" disabled=true>
               </div>
             </div>
           <div class="control-group">
+            <input id="id" name="id" type="hidden" value="<%= listing._id%>"/>
               <!-- Text input-->
             <div class="controls">
                Details: <textarea rows="4" cols="50"  type="details" id="details" name="details"  class="input-xlarge" placeholder="Details" value=""></textarea>

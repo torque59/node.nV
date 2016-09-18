@@ -20,8 +20,8 @@ exports.search = function(q,callback){
 		}else{
 			callback(doc);
 		}
-});
-
+	});
+}
 	exports.writeReview = function(id,rev,callback){
 		Listing.findById(id,function(listing,err){
 			if(err){
@@ -35,5 +35,13 @@ exports.search = function(q,callback){
 
 	}
 
+exports.getListingById=function(id,callback){
+	Listing.findById(id,function(listing,err){
+		if(err){
+			callback(err);
+		}else{
+			callback(listing);
+		}
+	});
 
 }

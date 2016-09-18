@@ -62,7 +62,7 @@ exports.search = function(req, res) {
 			res.render(root+"search.ejs", { q: query, username: uname, listings: listings });
 		});
 	}else{
-		res.render(root+"search.ejs", { q: "", username: uname, listings: [] });
+		res.render(root+"search.ejs", { q:"", username: uname, listings: [] });
 	}
 	
 }
@@ -77,7 +77,18 @@ exports.funds=function(req,res){
 
 exports.review=function(req,res){
 	var uname=req.decoded._doc.username;
-	res.render("eeReview.ejs",{username:uname});
+	var id=req.query.id;
+	listingService.getListingById(id,function(listing,err){
+		if(err){
+			res.send(err);
+		}else{
+			res.render("eeReview.ejs",{username:uname,listing:listing});
+		}
+
+	});
+	
+	
+	
 }
 
 
