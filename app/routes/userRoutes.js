@@ -4,10 +4,7 @@ var config = require('../../config.js');
 var userService = require("../services/userService.js");
 
 
-
-
 exports.login=function(req,res){
-	console.log(req.body);
 	userService.authenticate(req.body.username,req.body.password,function(err,user){
 		if(err){
 			res.json({"error":err});
@@ -18,6 +15,11 @@ exports.login=function(req,res){
 		}
 	});
 
+}
+
+exports.logout=function(req,res){
+	res.cookie("token","");
+	res.redirect('/');
 }
 
 exports.createEmployee=function(req,res){

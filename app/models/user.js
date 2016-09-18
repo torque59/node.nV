@@ -26,11 +26,6 @@ module.exports = mongoose.model('User', new Schema({
 	offers:[String],
 	rejected:[String],
 	role:Number, //employee-1 | employer-2
-	reviews:[{
-		details:String,
-		rating:Number,
-		created:Date
-		}],//for Premium Employees
 	following:[String] //If employee - employers| if employer, memp
 	
 }));

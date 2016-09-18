@@ -51,7 +51,7 @@ app.get('/signup',UIRoutes.signUp);
 //app.post('/api/createEmployer',userroutes.createEmployer); TEST ONLY
 //app.post('/api/createAdmin',userroutes.createAdmin); TEST ONLY
 app.post('/login',userroutes.login);
-
+app.get('/logout',userroutes.logout);
 app.post('/api/authenticate',userroutes.login);
 
 app.use(function(req, res, next) {
