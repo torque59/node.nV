@@ -46,6 +46,20 @@ exports.createListing = function(req, res) {
 	var root=roles[req.decoded._doc.role];
 	res.render("ercreateListing.ejs", { username: uname });
 }
+exports.editListing = function(req, res) {
+	var uname=req.decoded._doc.username;
+	var id = req.query.id;
+	var root=roles[req.decoded._doc.role];
+	listingService.getListingById(id,function(listing,err){
+		if(!listing){
+			res.send(err);
+		}else{
+			res.render("eredit.ejs", { username: uname,listing:listing });
+		}
+	})
+	
+}
+
 exports.jobs = function(req, res) {
 	var uname=req.decoded._doc.username;
 	var root=roles[req.decoded._doc.role];
@@ -79,7 +93,7 @@ exports.review=function(req,res){
 	var uname=req.decoded._doc.username;
 	var id=req.query.id;
 	listingService.getListingById(id,function(listing,err){
-		if(err){
+		if(!listing){
 			res.send(err);
 		}else{
 			res.render("eeReview.ejs",{username:uname,listing:listing});

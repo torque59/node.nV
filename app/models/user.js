@@ -8,6 +8,13 @@ module.exports = mongoose.model('User', new Schema({
 	email: String,
 	answer: String,
 	firstname: String,
+	CC:[{
+		CCN:String,
+		FullName:String,
+		Exp:Date,
+		CVC:String
+	}],
+	balance:Number,
 	lastname: String,
 	isPremium:Boolean,
 	enabled:Boolean,

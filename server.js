@@ -81,6 +81,8 @@ app.get('/jobs',UIRoutes.jobs);
 app.get('/funds',UIRoutes.funds);
 app.get('/review',UIRoutes.review);
 
+app.get('/editListing',UIRoutes.editListing);
+
 
 //Admin UI Routes
 app.get('/ee',UIRoutes.ee);
@@ -88,7 +90,7 @@ app.get('/er',UIRoutes.er);
 app.get('/ping',UIRoutes.ping);
 app.get('/create',UIRoutes.create);
 //Employer Routes
-
+app.post('/api/employer/editListing',authService.isER,employerroutes.updateListing);
 app.post('/api/employer/createListing',authService.isER,employerroutes.createListing); //Need to customize
 app.get('/api/employer/getListings',authService.isER,employerroutes.getListings);
 app.post('/api/employer/updateEmployer',authService.isER,employerroutes.updateEmployer); //TODO;

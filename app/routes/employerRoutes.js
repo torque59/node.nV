@@ -26,6 +26,19 @@ exports.createListing=function(req,res){
 	});
 }
 
+exports.updateListing=function(req,res){
+	var id=req.decoded._doc._id;
+	var listing=req.body;
+	listingService.editListing(listing,function(err,success){
+		if(err){
+			res.send(err);
+		}else{
+			res.redirect('/homepage');
+		}
+	});
+
+}
+
 exports.getListings=function(req,res){
 	var id=req.decoded._doc._id;
 	employerService.getListingsByOwner(id,function(listings,err){

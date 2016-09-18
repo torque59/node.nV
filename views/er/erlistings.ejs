@@ -100,17 +100,22 @@
           <th>Name</th>
           <th>Description</th>
           <th>Deadline</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
         <% for(var i=0; i < listings.length; i++) { %>
+
         <tr> 
-          <td><%= listings[i].created %></td>
+          <td> <%= listings[i].created %></td>
           <td><%= listings[i].name %></td>
           <td><%= listings[i].description %></td>
           <td><%= listings[i].deadline %>
-            <a class="icon-eye-open pull-right" ></a>
+            
           </td>
+           <td>
+            <a class="icon-eye-open pull-left" href="/editListing?id=<%= listings[i]._id %>" ></a>
+            <a class="icon-remove pull-right" href="javascript:alert('Remove Listing')"></a></td>
         </tr>
         <% } %>
       </tbody>

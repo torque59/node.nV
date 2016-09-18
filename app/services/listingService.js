@@ -36,12 +36,33 @@ exports.search = function(q,callback){
 	}
 
 exports.getListingById=function(id,callback){
-	Listing.findById(id,function(listing,err){
+	Listing.findById(id,function(err,listing){
 		if(err){
-			callback(err);
+			callback(false,err);
 		}else{
 			callback(listing);
 		}
 	});
+}
 
+exports.editListing=function(listing,callback){
+	var id=listing.id;
+	Listing.findById(id,function(err,old){
+		if(err){
+			callback(false,err);
+		}else{
+			old.name=listing.name;
+			old.description=listing.description;
+			old.deadline=listing.deadline;
+			old.isPremium="true"==listing.ispremium;
+
+			old.save(function(err){
+				if(err){
+					callback(err);
+				}else{
+					callback(false,"Success!");
+				}
+			})
+		}
+	});
 }

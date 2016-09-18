@@ -83,50 +83,47 @@
           <li class="active "><a href="/homepage"><i class="icon-home"></i> <span>Dashboard</span></a></li>
           <li class=" "><a href="/listings"><i class="icon-bar-chart"></i> <span>Listings</span></a></li>
           <li class=" "><a href="/search"><i class="icon-search"></i> <span>Search</span></a></li>
-         
+          <li class=" "><a href="/createlisting"><i class="icon-search"></i> <span>Create Listing</span></a></li>
       </ul>
     </div>
     <!-- End Sidebar-->
-
-
 
   <div class="content">
         <div class="container-fluid">
             <div class="row-fluid">
         <h2>&nbsp;</h2>
-        <form action="/api/employee/writeReview" method="post" class="form-horizontal" id="review">
+        <form action="/api/employer/editListing" method="post" class="form-horizontal">
           <div class="control-group">
               <!-- Text input-->
               <div class="controls">
-               Name: <input id="name" name="name" type="text" class="input-xlarge" value="<%= listing.name %>" disabled=true>
+               Name: <input id="name" name="name" type="text" class="input-xlarge" value="<%=listing.name %>">
               </div>
             </div>
           <div class="control-group">
-            <input id="id" name="id" type="hidden" value="<%= listing._id%>"/>
               <!-- Text input-->
+             <input  type="hidden" id="id" name="id" value="<%= listing.id %>"/>
             <div class="controls">
-               Details: <textarea rows="4" cols="50"  type="details" id="details" name="details"  class="input-xlarge" placeholder="Details" value=""></textarea>
+               Description: <textarea rows="4" cols="50"  type="description" id="description" name="description"  class="input-xlarge" placeholder="Description" value=""><%= listing.description %></textarea>
               </div>
             </div>
             <div class="control-group">
               <!-- Text input-->
             <div class="controls">
-                Rating:
-          <select name="rating" form="review">
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-            <option value="4">Four</option>
-            <option value="5">Five</option>
-          </select>
+                Date:<input type="date" name="deadline" id="datepicker" value="<%= listing.deadline %>">
               </div>
             </div>
 
-         
           <div class="control-group">
               <!-- Text input-->
               <div class="controls">
-                <button type="submit" class="btn btn-success">Create Review</button>
+               Premium: <input type="checkbox" id="ispremium" name="ispremium" class="input-xlarge" value="true">
+              </div>
+            </div>
+  
+          <div class="control-group">
+              <!-- Text input-->
+              <div class="controls">
+                <button type="submit" class="btn btn-success">Edit Listing</button>
               </div>
             </div>
           
