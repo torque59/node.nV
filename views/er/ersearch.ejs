@@ -42,7 +42,7 @@
   <body class=""> 
   <!--<![endif]-->
 
-	<!-- Begin Navbar-->
+  <!-- Begin Navbar-->
     <div class="navbar">
         <div class="navbar-inner">
                 <ul class="nav pull-right">
@@ -67,10 +67,10 @@
                 <a class="brand" href="index.html">node.nV</a>
         </div>
     </div>
-	<!-- End Navbar-->
+  <!-- End Navbar-->
 
-	<!-- Begin SideBar -->
-	<div id="sidebar-nav">
+  <!-- Begin SideBar -->
+  <div id="sidebar-nav">
       <ul id="dashboard-menu" class="nav nav-list">
           <li class="active "><a href="/homepage"><i class="icon-home"></i> <span>Dashboard</span></a></li>
           <li class=" "><a href="/listings"><i class="icon-bar-chart"></i> <span>Listings</span></a></li>
@@ -79,33 +79,33 @@
       </ul>
     </div>
     <!-- End Sidebar-->
-	<div class="content">
+  <div class="content">
         <div class="container-fluid">
             <div class="row-fluid">
-				<h2>Search</h2>
-				<form action="/api/employer/search" method="get" class="form-horizontal">
-					<div class="control-group">
-				     	<!-- Text input-->
-				     	<div class="controls">
-				     	  <input id="q" name="q" type="text" class="input-xlarge" value="<%- q %>">
-				     	</div>
-				    </div>
+        <h2>Search</h2>
+        <form action="/search" method="get" class="form-horizontal">
+          <div class="control-group">
+              <!-- Text input-->
+              <div class="controls">
+                <input id="q" name="q" type="text" class="input-xlarge" value="<%- q %>">
+              </div>
+            </div>
 
-					<div class="control-group">
-				     	<!-- Text input-->
-				     	<div class="controls">
-				     	  <button type="submit" class="btn btn-success">Search</button>
-				     	</div>
-				    </div>
-				</form>	
-			</div>
-		</div>
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<h2>Results</h2>
+          <div class="control-group">
+              <!-- Text input-->
+              <div class="controls">
+                <button type="submit" class="btn btn-success">Search</button>
+              </div>
+            </div>
+        </form> 
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <h2>Results</h2>
 <% listings %>
         <!--
-			
+      
 -->
 
 <div class="table-responsive">          
@@ -122,7 +122,7 @@
 
         <% for(var i=0; i < listings.length; i++) { %>
         <tr> 
-          <td><%= listings[i] %></td>
+          <td><%= listings[i].created %></td>
           <td><%= listings[i].name %></td>
           <td><%= listings[i].description %></td>
           <td><%= listings[i].deadline %>
@@ -136,9 +136,9 @@
     </div>
   </div>
 
-			</div>
-		</div>
-	</div>		
+      </div>
+    </div>
+  </div>    
 
     <script src="public/javascripts/bootstrap.js"></script>
     <script type="text/javascript">
@@ -147,20 +147,7 @@
             $('.demo-cancel-click').click(function(){return false;});
         });
     </script>
-<script>
-function search(q,callback) {
-var request = new XMLHttpRequest();
-request.onreadystatechange = function()
-  {
-        if (request.readyState == 4 && request.status == 200)
-        {
-            callback(request.responseText); // Another callback here
-        }
-    }; 
-  request.open("GET", "/api/employer/search?q="+q, true);
-  request.send();
-}
-</script>
+
 
 
     

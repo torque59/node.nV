@@ -55,8 +55,16 @@ exports.jobs = function(req, res) {
 exports.search = function(req, res) {
 	var uname=req.decoded._doc.username;
 	var root=roles[req.decoded._doc.role];
+	var query = req.query.q;
+
+	if(req.query.q){
+		listingService.search(query,function(listings,err){
+			res.render(root+"search.ejs", { q: query, username: uname, listings: listings });
+		});
+	}else{
+		res.render(root+"search.ejs", { q: "", username: uname, listings: [] });
+	}
 	
-	res.render(root+"search.ejs", { q: "q", username: uname, listings: "listings" });
 }
 
 
