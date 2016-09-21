@@ -122,20 +122,6 @@ app.post('/api/employee/followEmployer',authService.isEE,employeeRoutes.followEm
 //Admin Routes
 
 app.post('/api/admin/createUser',authService.isAdmin,adminRoutes.createUser);
-//app.get('/api/admin/getEmployees',authService.isAdmin,adminRoutes.getEmployees);
-//app.get('/api/admin/getEmployers',authService.isAdmin,adminRoutes.getEmployers);
-
-/** TODO: Build out the Admin Panel
-
-app.get('/api/admin/getUsers',adminRoutes.getUsers);
-app.post('/api/admin/updateEmployer',adminRoutes.updateEmployer);
-app.post('/api/admin/updateEmployee',adminRoutes.updateEmployee);
-app.post('/api/admin/createEmployee',adminRoutes.createEmployee);
-app.post('/api/admin/createEmployer',adminRoutes.createEmployer);
-app.post('/api/admin/lockAccount',adminRoutes.lockAccount);
-app.post('/api/admin/deactivateAccount',adminRoutes.deactivateAccount);
-app.delete('/api/admin/deleteAccount',userroutes.deleteAccount);
-**/
 
 app.listen(port);
 console.log('Magic happens at http://localhost:' + port);
