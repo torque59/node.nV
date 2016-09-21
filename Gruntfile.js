@@ -19,6 +19,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         exec: {
             dropdb:'mongo nodenv --eval "db.dropDatabase()"',
+            createdb:'curl http://localhost:8081/setup',
             run: 'nodemon server.js'
         },
     
@@ -30,16 +31,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-available-tasks');
     grunt.registerTask('deployweak', ['exec:run']);
-    grunt.registerTask('deploy', ['exec:run']);
     grunt.registerTask('dropdb', ['exec:dropdb']);
+    grunt.registerTask('builddb',['exec:createdb']);
     grunt.registerTask('tasks', ['availabletasks']);
-    grunt.registerTask('builddb', 'populate the database with listings & users',function(){
-         
-         console.log("************************************************");
-          console.log("Browse to /setup in order to create data");
-          console.log("************************************************");
-
-    });
+    grunt.registerTask('setup', ['dropdb','builddb']);
+    grunt.registerTask('default',['tasks']);
 
 
 }
