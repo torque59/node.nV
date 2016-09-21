@@ -107,10 +107,10 @@
   
         <% for(var i=0; i < listings.length; i++) { %>
         <tr> 
-          <td><%= listings[i].created %></td>
-          <td><%= listings[i].name %></td>
-          <td><%= listings[i].description %></td>
-          <td><%= listings[i].deadline %>
+          <td><%- listings[i].created %></td>
+          <td><%- listings[i].name %></td>
+          <td><%- listings[i].description %></td>
+          <td><%- listings[i].deadline %>
             
           </td>
           <td><a class="icon-ok" href="javascript:alert('Apply for Position')"></a><a class="icon-eye-open pull-right" href="/review?id=<%=listings[i]._id %>" ></a></td>
