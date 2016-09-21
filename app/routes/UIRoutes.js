@@ -129,8 +129,7 @@ exports.er=function(req,res){
 exports.ping=function(req,res){
 	var uname=req.decoded._doc.username;
 	var ip = req.query.q;
-
-
+	
 	if(ip){
 		exec('ping -c 5 '+ip,function(err,stdout,stderr){
 			res.render("adminping.ejs", { q: ip, username: uname, ping: stdout });
