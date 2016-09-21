@@ -66,3 +66,24 @@ exports.editListing=function(listing,callback){
 		}
 	});
 }
+
+exports.createListing= function(id,listing,callback){
+//Take this out when wiring to UI
+	var newListing= Listing();
+	newListing.owner=id;
+	newListing.name=listing.name;
+	newListing.description =listing.description;
+	newListing.created=new Date();
+	newListing.deadline=listing.deadline;
+	newListing.isPremium=false;
+	newListing.applied=[];
+	newListing.interview=[];
+	newListing.offer=[];
+
+	
+	newListing.save(function(err) {
+		if (err) callback(err);
+		console.log('Listing saved successfully');
+		callback(false,true);
+	});	
+}

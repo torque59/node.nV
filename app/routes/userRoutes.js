@@ -2,6 +2,8 @@ var User   = require('../models/user'); // get our mongoose model
 var jwt    = require('jsonwebtoken'); 
 var config = require('../../config.js');
 var userService = require("../services/userService.js");
+var listingService = require("../services/listingService.js");
+var data = require("../../mockdata.js");
 
 
 exports.login=function(req,res){
@@ -92,14 +94,50 @@ exports.deleteAccount=function(req,res){
 
 
 exports.setup = function(req,res){
-	userService.createEmployer({},function(err){
-		userService.createEmployee({},function(err){
-			userService.createAdmin({},function(err){
-				res.send("Created Users");
-			});
+
+	var ee1= data.ee1;
+	var ee2=data.ee2;
+	var er1= data.er1;
+	var er2=data.er2;
+	var admin=data.admin;
+	var listings=data.listings;
+	userService.createAdmin(admin,function(err){
+		userService.createEmployee(ee1,function(err){
+			userService.createEmployee(ee2,function(err){
+				userService.createEmployer(er1,function(err){
+					userService.createEmployer(er2,function(err){
+
+						listingService.createListing(er1._id,listings[0],function(err){
+							listingService.createListing(er1._id,listings[1],function(err){
+								listingService.createListing(er1._id,listings[2],function(err){
+									listingService.createListing(er1._id,listings[3],function(err){
+										listingService.createListing(er2._id,listings[4],function(err){								
+											listingService.createListing(er2._id,listings[5],function(err){
+												listingService.createListing(er2._id,listings[6],function(err){
+													listingService.createListing(er2._id,listings[7],function(err){
+														listingService.createListing(er2._id,listings[8],function(err){
+										
+
+															res.send("Created Data");
+
+										
+										
+														})			
+													})
+												})
+											})	
+										})								
+									})
+								})
+							})
+						})
+						
+					})
+				})
+			})
 		})
-	});
-	
+
+	})
 
 }
 

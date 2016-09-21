@@ -23,13 +23,13 @@ exports.authenticate=function(username,password,callback){
 
 exports.createEmployee = function(user,callback){
 
-	var employee1 = new User({ 
-	username: 'ee1', 
-	password: 'abc123!!', 
-	email: 'employee1@gmail.com',
-	answer: 'lol',
-	firstname: 'employee1',
-	lastname: 'One',
+	var ee1 = new User({ 
+	username: user.username, 
+	password: user.password, 
+	email: user.email,
+	answer: user.answer,
+	firstname: user.firstname,
+	lastname: user.lastname,
 	isPremium:false,
 	enabled:true,
 	accountNonExpired:true,
@@ -43,8 +43,8 @@ exports.createEmployee = function(user,callback){
 	reviews:[],//for Premium Employees
 	following:[] //If employee - employers| if employer, memp
  });
-	console.log(employee1);
-	employee1.save(function(err) {
+	console.log(ee1);
+	ee1.save(function(err) {
 		if (err) callback(err);
 		console.log('User saved successfully');
 		callback(true);
@@ -54,14 +54,13 @@ exports.createEmployee = function(user,callback){
 
 exports.createEmployer = function(user,callback){
 
-var employer1 = new User({ 
-
-	username: 'er1', 
-	password: 'abc123!!', 
-	email: 'employer1@gmail.com',
-	answer: 'lol',
-	firstname: 'employer',
-	lastname: 'One',
+var er1 = new User({ 
+	username: user.username, 
+	password: user.password, 
+	email: user.email,
+	answer: user.answer,
+	firstname: user.firstname,
+	lastname: user.lastname,
 	isPremium:false,
 	enabled:true,
 	accountNonExpired:true,
@@ -71,12 +70,12 @@ var employer1 = new User({
 	interviews:[],
 	offers:[],
 	rejected:[],
-	role:2, //employee-1 | employer-2
+	role:2, //employee-1 | employer-2 |admin - 3
 	reviews:[],//for Premium Employees
 	following:[] //If employee - employers| if employer, memp
  });
-	console.log(employer1);
-	employer1.save(function(err) {
+	console.log(er1);
+	er1.save(function(err) {
 		if (err) callback(err);
 		console.log('User saved successfully');
 		callback(true);
@@ -85,14 +84,13 @@ var employer1 = new User({
 
 exports.createAdmin = function(user,callback){
 
-var admin = new User({ 
-
-	username: 'admin1', 
-	password: 'abc123!!', 
-	email: 'admin@gmail.com',
-	answer: 'lol',
-	firstname: 'employer',
-	lastname: 'One',
+	var admin = new User({ 
+	username: user.username, 
+	password: user.password, 
+	email: user.email,
+	answer: user.answer,
+	firstname: user.firstname,
+	lastname: user.lastname,
 	isPremium:false,
 	enabled:true,
 	accountNonExpired:true,
@@ -102,7 +100,7 @@ var admin = new User({
 	interviews:[],
 	offers:[],
 	rejected:[],
-	role:3, //employee-1 | employer-2 |admin -3
+	role:3, //employee-1 | employer-2 |admin - 3
 	reviews:[],//for Premium Employees
 	following:[] //If employee - employers| if employer, memp
  });

@@ -17,6 +17,7 @@ var authService = require('./app/services/authService.js');
 var UIRoutes = require('./app/routes/UIRoutes.js');
 
 var port = process.env.PORT || 8081; // used to create, sign, and verify tokens
+mongoose.Promise = require('bluebird');
 mongoose.connect(config.database); // connect to database
 app.use(morgan('dev'));
 app.set('superSecret', config.secret);
@@ -105,18 +106,15 @@ app.delete('/api/employer/deleteRequestedApplication',authService.isER,employerr
 
 //Employee Routes
 
-
 app.post('/api/employee/updateEmployee',authService.isEE,employeeRoutes.updateEmployee);
 app.get('/api/employee/applyForJob',authService.isEE,employeeRoutes.applyForJob);
 app.get('/api/employee/listInterviews',authService.isEE,employeeRoutes.listInterviews);
 app.get('/api/employee/listOffers',authService.isEE,employeeRoutes.listOffers);
 app.get('/api/employee/listSentApplications',authService.isEE,employeeRoutes.listSentApplications);
-app.get('/api/employee/getListings',authService.isEE,employeeRoutes.getListings);
-app.get('/api/employee/upgradeToPremium',authService.isEE,employeeRoutes.employeeUpgradeToPremium);
-app.post('/api/employee/writeReview',authService.isEE,employeeRoutes.writeReview);
-app.post('/api/employee/followEmployer',authService.isEE,employeeRoutes.followEmployer);
-
-
+//app.get('/api/employee/getListings',authService.isEE,employeeRoutes.getListings);
+//app.get('/api/employee/upgradeToPremium',authService.isEE,employeeRoutes.employeeUpgradeToPremium);
+//app.post('/api/employee/writeReview',authService.isEE,employeeRoutes.writeReview);
+//app.post('/api/employee/followEmployer',authService.isEE,employeeRoutes.followEmployer);
 
 
 //Admin Routes

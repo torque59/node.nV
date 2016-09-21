@@ -9,6 +9,7 @@
   "author": "nVisium",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "connect": "^3.4.1",
     "cookie-parser": "^1.4.3",
@@ -17,6 +18,13 @@
     "grunt": "^1.0.1",
     "jsonwebtoken": "^5.7.0",
     "mongoose": "^4.4.5",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-available-tasks": "^0.6.3",
+    "grunt-env": "^0.4.4",
+    "grunt-exec": "^1.0.1"
   }
 }

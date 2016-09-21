@@ -1,4 +1,4 @@
-## NoSQL Injection
+## Server Side JavaScript Injection
 
 #### Description
 
