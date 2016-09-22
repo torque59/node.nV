@@ -4,20 +4,30 @@ exports.authenticate=function(username,password,callback){
 	if(username==undefined||password==undefined){
 		callback("Username and Password must be defined.",null);
 	}
+	else{
+
 	User.findOne({
 		username: username
 	}, function(err, user) {
-		if (err){ throw err;}
-		if (!user) {
-			callback("User not found",null);
-		} else {
-			if (user.password != password) {
-				callback(true,null);
-			} else {
-				callback(false,user);
-			}		
+		if (err){  
+			callback(err,null);
 		}
+		else{
+			if (!user) {
+				callback("User not found",null);
+			}
+			else {
+				if (user.password != password) {
+					callback("Incorrect Password",null);
+				} else {
+					callback(false,user);
+				}		
+			}
+		}
+		
+		
 	});
+	}
 }
 
 

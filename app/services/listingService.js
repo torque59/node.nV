@@ -12,9 +12,8 @@ exports.getListings = function(callback){
 }
 
 exports.search = function(q,callback){
-	//new RegExp('^'+q+'$', "i")
-	var exp="/"+q+"/i";
-	Listing.find({description:new RegExp(q, 'i')}, function(err, doc) {
+
+	Listing.find({description:RegExp(query,'i')}, function(err, doc) {
 		if(err){
 			callback(err);
 		}else{

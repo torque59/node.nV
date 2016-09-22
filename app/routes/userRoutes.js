@@ -7,15 +7,52 @@ var data = require("../../mockdata.js");
 
 
 exports.login=function(req,res){
+
+	
+/**
 	userService.authenticate(req.body.username,req.body.password,function(err,user){
 		if(err){
 			res.json({"error":err});
-		}else{
+		}
+		else
+		{
 			var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
 			
 			res.redirect('/homepage?token='+token);
 		}
 	});
+
+**/
+
+if(req.body.username==undefined||req.body.password==undefined){
+		res.send("Username and Password must be defined.");
+	}
+	else{
+	User.findOne({
+		username: req.body.username
+	}, function(err, user) {
+		if (err){  
+			res.send(err);
+		}
+		else{
+			if (!user) {
+				res.send("User not found");
+			}
+			else {
+				if (user.password == req.body.password) {
+					var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
+			
+					res.redirect('/homepage?token='+token);
+					
+				} else {
+					res.send("Incorrect Password");
+				}		
+			}
+		}
+		
+		
+	});
+	}
 
 }
 

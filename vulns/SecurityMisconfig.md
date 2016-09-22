@@ -9,3 +9,4 @@ Security Misconfiguration issues can occur in the web application itself, the ap
 
 #running as root
 #SSL config
+#cookies secure and HttpOnly Flag 
