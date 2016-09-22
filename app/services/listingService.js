@@ -11,9 +11,10 @@ exports.getListings = function(callback){
 		});
 }
 
-exports.search = function(q,callback){
+exports.searchAll = function(q,callback){
 
-	Listing.find({description:RegExp(query,'i')}, function(err, doc) {
+
+	Listing.find({description:RegExp(q,'i')}, function(err, doc) {
 		if(err){
 			callback(err);
 		}else{
@@ -21,18 +22,31 @@ exports.search = function(q,callback){
 		}
 	});
 }
-	exports.writeReview = function(id,rev,callback){
-		Listing.findById(id,function(listing,err){
-			if(err){
-				callback(err);
-			}else{
-				review = {};
-				
 
-			}
-		});
+exports.searchER = function(id,q,callback){
 
-	}
+	Listing.find({owner:id}, function(err, doc) {
+		if(err){
+			callback(err);
+		}else{
+			callback(doc);
+		}
+	});
+}
+
+
+exports.writeReview = function(id,rev,callback){
+	Listing.findById(id,function(listing,err){
+		if(err){
+			callback(err);
+		}else{
+			review = {};
+			
+
+		}
+	});
+
+}
 
 exports.getListingById=function(id,callback){
 	Listing.findById(id,function(err,listing){

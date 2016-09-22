@@ -20,9 +20,7 @@ Finally, some session implementations make it easy to hijack user sessions throu
 node.nV has several issues with its authentication and session management. Firstly, the platform passes the Session ID in the URL upon authentication. As discussed above, this allows an attacker to hijack a user session without knowing their credentials. The attacker need only gain access to a log file containing tokens and can authenticate as the user.
 
 
-
 node.nV also stores passwords insecurely; they are stored by default in plaintext in the database. Anyone who compromises the database server will have full access to all user accounts. Furthermore, even an attacker who manages to exploit SQL Injection or a similar attack will be able to read off user credentials. The system also lacks TLS overall, so authentication is not protected when it passes over the network. Even if the passwords were encrypted, they could still be read as the user logs in.
-
 
 
 #### Walkthrough
