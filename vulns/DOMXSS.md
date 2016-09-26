@@ -35,9 +35,3 @@ if (redirUrl) window.location = redirUrl;
 #### Solution
 
 DOM-XSS requires specific knowledge of the user-controlled JavaScript parameters, in addition to those functions that write directly to the DOM without any protections against unsafe content. First of all, always treat untrusted data as displayable text. Use ```element.textContent``` to instruct the browser how the data should be treated. Further, use ```document.createElement``` instead of ```document.write``` when manipulating the DOM directly. 
-
-### Solution Code
-
-```
-   
-```

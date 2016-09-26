@@ -38,8 +38,22 @@ Example URL: http://localhost:8081/editListing?id=57d707573952354d2802926a
 #### Solution
 
 Implement middleware for authorization of endpoints:
+The following function can be used for ensuring that employers can only access their listings:
 
 ```
+var validateListing=function(req,res,next){
+	var id=req.query.id;
+	Listing.find({"owner":id},function(listing,err){
+		if(err){ throw err}
+		else{
+			next();
+		}
+		});
+}
+
+
 ```
+
+This kind of middleware can be adapted based on the parameter that requires validation.
 
 
