@@ -160,16 +160,42 @@ exports.deleteAccount=function(id,callback){
 	
 }
 
+exports.getEE = function(isPremium,callback){
+	if(isPremium){
+		User.find({"role":1},function(err,users){
+		if(err){
+			callback(err,users);
+		}else{
+			callback(err,users);
+		}
+		});
+	}else{
+		User.find({"role":1,"isPremium":false},function(users,err){
+		if(err){
+			callback(err);
+		}else{
+			callback(users);
+		}
+		});
+	}
+	
+}
+
+
+//Admin
 exports.getEmployees = function(callback){
+	
 	User.find({"role":1},function(users,err){
 		if(err){
 			callback(err);
 		}else{
 			callback(users);
 		}
-	});
+		});
+	
+	
 }
-
+//Admin
 exports.getEmployers = function(callback){
 	User.find({"role":2},function(users,err){
 		if(err){
