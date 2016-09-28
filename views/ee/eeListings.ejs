@@ -100,6 +100,7 @@
           <th>Name</th>
           <th>Description</th>
           <th>Deadline</th>
+          <th>Premium</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -111,7 +112,12 @@
           <td><%- listings[i].name %></td>
           <td><%- listings[i].description %></td>
           <td><%- listings[i].deadline %>
-            
+            </td>
+            <td><% if(listings[i].isPremium){ %>
+                 Premium
+               <% } else{ %>  
+                 Public
+                  <% } %>
           </td>
           <td><a class="icon-ok" href="javascript:alert('Apply for Position')"></a><a class="icon-eye-open pull-right" href="/review?id=<%=listings[i]._id %>" ></a></td>
         </tr>
