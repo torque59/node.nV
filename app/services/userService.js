@@ -170,11 +170,11 @@ exports.getEE = function(isPremium,callback){
 		}
 		});
 	}else{
-		User.find({"role":1,"isPremium":false},function(users,err){
+		User.find({"role":1,"isPremium":false},function(err,users){
 		if(err){
-			callback(err);
+			callback(err,users);
 		}else{
-			callback(users);
+			callback(err,users);
 		}
 		});
 	}
