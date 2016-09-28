@@ -11,6 +11,19 @@ exports.getListings = function(callback){
 		});
 }
 
+exports.getListingsByEr = function(id,callback){
+		console.log(id);
+		Listing.find({owner:id}, function(err, listings) {
+		if(err){ 
+			callback(err,null);
+		}
+		else{
+			callback(false,listings);
+		}	
+		});
+}
+
+
 exports.searchAll = function(q,callback){
 
 
@@ -88,7 +101,7 @@ exports.createListing= function(id,listing,callback){
 	newListing.description =listing.description;
 	newListing.created=new Date();
 	newListing.deadline=listing.deadline;
-	newListing.isPremium=false;
+	newListing.isPremium=listing.isPremium;
 	newListing.applied=[];
 	newListing.interview=[];
 	newListing.offer=[];

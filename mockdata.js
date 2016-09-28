@@ -141,6 +141,9 @@ l7.description="The responsibilities of a forensic analyst include classifying a
 l8.description="2+ years of experience in designing cloud native applications and architectures with IaaS and PaaS (CloudFoundry or OpenShift)2+ years of experience with DevOps, Continuous Delivery.2+ years with any of the following programming/scripting languages: Python, PERL, Java, C#, Scala, Erlang, JavaScript, PHP, Groovy, Ruby";
 l9.description="Project managers are the people in charge of a specific project or projects within a company. As the project manager, your job is to plan, budget, oversee and document all aspects of the specific project you are working on. Project managers may work closely with upper management to make sure that the scope and direction of each project is on schedule, as well as other departments for support. Project managers might work by themselves, or be in charge of a team to get the job done.";
 	
+l1.isPremium=l2.isPremium=l5.isPremium=l6.isPremium=true;
+l3.isPremium=l4.isPremium=l7.isPremium=l8.isPremium=l9.isPremium=false;
+
 l1.date=l2.date=l3.date=l4.date=l5.date=l6.date=l7.date=l8.date=l9.date=Date();
 l1.deadline=l2.deadline=l3.deadline=l4.deadline=l5.deadline=l6.deadline=l7.deadline=l8.deadline=l9.deadline=Date()+90*24;
 	

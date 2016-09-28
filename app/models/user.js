@@ -8,11 +8,11 @@ module.exports = mongoose.model('User', new Schema({
 	email: String,
 	answer: String,
 	firstname: String,
-	CC:[{
-		CCN:String,
-		FullName:String,
-		Exp:Date,
-		CVC:String
+	cc:[{
+		ccn:String,
+		fullname:String,
+		exp:Date,
+		cvc:String
 	}],
 	balance:Number,
 	lastname: String,

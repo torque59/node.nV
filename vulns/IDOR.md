@@ -51,7 +51,6 @@ var validateListing=function(req,res,next){
 		});
 }
 
-
 ```
 
 This kind of middleware can be adapted based on the parameter that requires validation.

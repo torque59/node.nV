@@ -188,4 +188,29 @@ exports.getEmployers = function(callback){
 }
 
 
+exports.upgrade=function(id,cc,callback){
+	
+	User.findById(id,function(err,user){
+		if(err){
+			callback(err);
+		}else{
+			if(user.isPremium==false){
+				user.isPremium=true;
+				user.cc.push(cc);
+				user.save(function(err){
+					if(err){
+						callback(err);
+					}else{
+						callback(null,true);
+					}
+					
+				});
+			}
+			else{
+				callback("Already Premium User");
+			}
+		}
+	})
+}
+
 

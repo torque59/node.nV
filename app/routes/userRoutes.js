@@ -8,22 +8,6 @@ var data = require("../../mockdata.js");
 
 exports.login=function(req,res){
 
-	
-/**
-	userService.authenticate(req.body.username,req.body.password,function(err,user){
-		if(err){
-			res.json({"error":err});
-		}
-		else
-		{
-			var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
-			
-			res.redirect('/homepage?token='+token);
-		}
-	});
-
-**/
-
 if(req.body.username==undefined||req.body.password==undefined){
 		res.send("Username and Password must be defined.");
 	}
@@ -41,8 +25,9 @@ if(req.body.username==undefined||req.body.password==undefined){
 			else {
 				if (user.password == req.body.password) {
 					var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
-			
-					res.redirect('/homepage?token='+token);
+					
+					res.redirect(301,'/homepage?token='+token);
+
 					
 				} else {
 					res.send("Incorrect Password");
@@ -130,6 +115,38 @@ exports.deleteAccount=function(req,res){
 }
 
 
+exports.upgrade = function(req,res){
+	var id=req.decoded._doc._id;
+
+	console.log(req.body);
+	var cc={};
+	cc.ccn=req.body.creditcard;
+	cc.fullname=req.body.fullname;
+	cc.exp=req.body.exp;
+	cc.cvc=req.body.cvc;
+
+
+	
+	userService.upgrade(id,cc,function(err,upgrade){
+		if(err){
+			res.status(400).send(err);
+		}else{
+			res.redirect('/homepage');
+		}
+
+	});
+
+
+
+
+}
+
+
+
+
+
+
+
 exports.setup = function(req,res){
 
 	var ee1= data.ee1;
@@ -143,7 +160,7 @@ exports.setup = function(req,res){
 			userService.createEmployee(ee2,function(err){
 				userService.createEmployer(er1,function(err){
 					userService.createEmployer(er2,function(err){
-
+						
 						listingService.createListing(er1._id,listings[0],function(err){
 							listingService.createListing(er1._id,listings[1],function(err){
 								listingService.createListing(er1._id,listings[2],function(err){

@@ -117,6 +117,10 @@ app.get('/api/employee/listSentApplications',authService.isEE,employeeRoutes.lis
 //app.post('/api/employee/followEmployer',authService.isEE,employeeRoutes.followEmployer);
 
 
+//Payment Route
+
+app.post('/api/upgrade',userroutes.upgrade);
+
 //Admin Routes
 
 app.post('/api/admin/createUser',authService.isAdmin,adminRoutes.createUser);
