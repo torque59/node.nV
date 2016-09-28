@@ -37,17 +37,17 @@ exports.listings = function(req, res) {
 	var uname=req.decoded._doc.username;
 	var user=req.decoded._doc;
 	var root=roles[req.decoded._doc.role];
+	var id = req.decoded._doc._id;
+	var isPremium=req.decoded._doc.isPremium;
 
 	if(root=="er"){
-		var id = req.decoded._doc._id;
-		var isPremium=req.decoded._doc.isPremium;
-		console.log(req.decoded);
+		
 		listingService.getListingsByEr(id,isPremium,function(err,listings){
 		res.render(root+"listings.ejs", { username: uname,listings:listings });
 		});
 
 	}else{
-		listingService.getListings(user.isPremium,function(err,listings){
+		listingService.getListings(isPremium,function(err,listings){
 		res.render(root+"listings.ejs", { username: uname,listings:listings });
 		});
 	}
@@ -89,12 +89,12 @@ exports.search = function(req, res) {
 	if(req.query.q){
 		if(root=="er"){
 			
-			listingService.searchER(user._id,user.isPremium,query,function(listings,err){
+			listingService.searchER(user._id,query,user.isPremium,function(err,listings){
 			res.render(root+"search.ejs", { q: query, username: uname, listings: listings });
 			});
 		}
 		else{
-			listingService.searchAll(user._id,user.isPremium,function(listings,err){
+			listingService.searchAll(query,user.isPremium,function(err,listings){
 			res.render(root+"search.ejs", { q: query, username: uname, listings: listings });
 			});
 		}

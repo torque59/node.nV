@@ -4,17 +4,17 @@ exports.getListings = function(isPremium,callback){
 	if(isPremium){
 		Listing.find({}, function(err, listings) {
 		if(err){ 
-			callback(err,null);
+			callback(err,listings);
 		}
 		else{
-			callback(false,listings);
+			callback(err,listings);
 		}	
 		});
 
 	}else{
 		Listing.find({isPremium:false}, function(err, listings) {
 		if(err){ 
-			callback(err,null);
+			callback(err,[]);
 		}
 		else{
 			callback(false,listings);
@@ -27,22 +27,30 @@ exports.getListings = function(isPremium,callback){
 
 exports.getListingsByEr = function(id,isPremium,callback){
 
+
 	if(isPremium){
-		Listing.find({"owner":id}, function(err, listings) {
+		Listing.find({"owner.id":id}, function(err, listings) {
+
 		if(err){ 
-			callback(err,null);
+
+			callback(err,listings);
 		}
 		else{
-			callback(false,listings);
+			console.log(err);
+
+			callback(err,listings);
 		}	
 		});
 	}else{
-		Listing.find({"owner":id,"isPremium":false}, function(err, listings) {
+
+		Listing.find({"owner.id":id,"isPremium":false}, function(err, listings) {
+
+				console.log(id);
 		if(err){ 
-			callback(err,null);
+			callback(err,listings);
 		}
 		else{
-			callback(false,listings);
+			callback(err,listings);
 		}	
 		});
 	}	
@@ -53,19 +61,21 @@ exports.getListingsByEr = function(id,isPremium,callback){
 exports.searchAll = function(q,isPremium,callback){
 
 if(isPremium){
+	
 	Listing.find({description:RegExp(q,'i')}, function(err, doc) {
 		if(err){
-			callback(err);
+			callback(err,doc);
 		}else{
-			callback(doc);
+
+			callback(err,doc);
 		}
 	});
 }else{
 	Listing.find({description:RegExp(q,'i'),isPremium:false}, function(err, doc) {
 		if(err){
-			callback(err);
+			callback(err,doc);
 		}else{
-			callback(doc);
+			callback(err,doc);
 		}
 	});
 }
@@ -73,20 +83,23 @@ if(isPremium){
 }
 
 exports.searchER = function(id,q,isPremium,callback){
+
 	if(isPremium){
-			Listing.find({owner:id}, function(err, doc) {
+			Listing.find({"owner.id":id}, function(err, doc) {
 		if(err){
-			callback(err);
+			
+			callback(err,doc);
 		}else{
-			callback(doc);
+
+			callback(err,doc);
 		}
 		});
 	}else{
-		Listing.find({owner:id,isPremium:false}, function(err, doc) {
+		Listing.find({"owner.id":id,isPremium:false}, function(err, doc) {
 		if(err){
-			callback(err);
+			callback(err,doc);
 		}else{
-			callback(doc);
+			callback(err,doc);
 		}
 		});
 
@@ -102,8 +115,6 @@ exports.writeReview = function(id,rev,callback){
 			callback(err);
 		}else{
 			review = {};
-			
-
 		}
 	});
 
@@ -112,9 +123,9 @@ exports.writeReview = function(id,rev,callback){
 exports.getListingById=function(id,callback){
 	Listing.findById(id,function(err,listing){
 		if(err){
-			callback(false,err);
+			callback(err,[]);
 		}else{
-			callback(listing);
+			callback(err,listing);
 		}
 	});
 }
