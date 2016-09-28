@@ -113,8 +113,9 @@ exports.upgrade = function(req,res){
 	var cc={};
 	cc.ccn=req.body.creditcard;
 	cc.fullname=req.body.fullname;
-	cc.exp=req.body.exp;
-	cc.cvc=req.body.cvc;
+	cc.exp=req.body.expirationdate;
+	cc.cvc=req.body.cvccode;
+	cc.amount=req.body.amount;
 
 	
 	userService.upgrade(id,cc,function(err,user){

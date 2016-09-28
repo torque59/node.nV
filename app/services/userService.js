@@ -208,8 +208,13 @@ exports.getEmployers = function(callback){
 
 
 exports.upgrade=function(id,cc,callback){
+
 	
-	User.findById(id,function(err,user){
+validateCreditCard(cc,function(valid){
+
+	if(valid){
+
+		User.findById(id,function(err,user){
 		if(err){
 			callback(err);
 		}else{
@@ -226,10 +231,37 @@ exports.upgrade=function(id,cc,callback){
 				});
 			}
 			else{
-				callback("Already Premium User");
-			}
+						callback("Already Premium User");
+					}
+				}
+			})
+		}else{
+			callback("Error Processing Payment");
 		}
-	})
+			
+
+});
+
+
+
+	
+
+
+	
+	
 }
 
 
+var validateCreditCard=function(cc,callback){
+	
+	if(cc.cvc==undefined||cc.amount==undefined||cc.fullname==undefined||cc.exp==undefined||cc.ccn==undefined){
+		 callback(false);
+	}else{
+	//Check to make sure that the amount paid is over $50
+	
+	 callback(eval("50<"+cc.amount));
+	}
+
+
+
+}
