@@ -55,9 +55,9 @@ exports.createEmployee = function(user,callback){
  });
 	console.log(ee1);
 	ee1.save(function(err) {
-		if (err) callback(err);
+		if (err) callback(false,err);
 		console.log('User saved successfully');
-		callback(true);
+		callback(ee1);
 	});
 }	
 
@@ -86,9 +86,9 @@ var er1 = new User({
  });
 	console.log(er1);
 	er1.save(function(err) {
-		if (err) callback(err);
+		if (err) callback(false,err);
 		console.log('User saved successfully');
-		callback(true);
+		callback(er1);
 	});
 }	
 
@@ -116,9 +116,9 @@ exports.createAdmin = function(user,callback){
  });
 	console.log(admin);
 	admin.save(function(err) {
-		if (err) callback(err);
+		if (err) callback(false,err);
 		console.log('User saved successfully');
-		callback(true);
+		callback(admin);
 	});
 }	
 

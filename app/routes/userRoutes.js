@@ -155,12 +155,12 @@ exports.setup = function(req,res){
 	var er2=data.er2;
 	var admin=data.admin;
 	var listings=data.listings;
-	userService.createAdmin(admin,function(err){
-		userService.createEmployee(ee1,function(err){
-			userService.createEmployee(ee2,function(err){
-				userService.createEmployer(er1,function(err){
-					userService.createEmployer(er2,function(err){
-						
+	userService.createAdmin(admin,function(admin,err){
+		userService.createEmployee(ee1,function(ee1,err){
+			userService.createEmployee(ee2,function(ee2,err){
+				userService.createEmployer(er1,function(er1,err){
+					userService.createEmployer(er2,function(er2,err){
+
 						listingService.createListing(er1._id,listings[0],function(err){
 							listingService.createListing(er1._id,listings[1],function(err){
 								listingService.createListing(er1._id,listings[2],function(err){

@@ -12,8 +12,8 @@ exports.getListings = function(callback){
 }
 
 exports.getListingsByEr = function(id,callback){
-		console.log(id);
-		Listing.find({owner:id}, function(err, listings) {
+		
+		Listing.find({"owner":id}, function(err, listings) {
 		if(err){ 
 			callback(err,null);
 		}

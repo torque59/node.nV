@@ -36,13 +36,14 @@ exports.settings = function(req, res) {
 exports.listings = function(req, res) {
 	var uname=req.decoded._doc.username;
 	var root=roles[req.decoded._doc.role];
+
 	if(root=="er"){
 		var id = req.decoded._doc._id;
-		
 		console.log(req.decoded);
 		listingService.getListingsByEr(id,function(err,listings){
 		res.render(root+"listings.ejs", { username: uname,listings:listings });
 		});
+
 	}else{
 		listingService.getListings(function(err,listings){
 		res.render(root+"listings.ejs", { username: uname,listings:listings });
