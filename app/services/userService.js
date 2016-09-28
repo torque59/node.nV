@@ -160,9 +160,9 @@ exports.deleteAccount=function(id,callback){
 	
 }
 
-exports.getEE = function(isPremium,callback){
+exports.getEE = function(q,isPremium,callback){
 	if(isPremium){
-		User.find({"role":1},function(err,users){
+		User.find({"role":1,"username":RegExp(q,'i')},function(err,users){
 		if(err){
 			callback(err,users);
 		}else{
@@ -170,7 +170,7 @@ exports.getEE = function(isPremium,callback){
 		}
 		});
 	}else{
-		User.find({"role":1,"isPremium":false},function(err,users){
+		User.find({"role":1,"isPremium":false,"username":RegExp(q,'i')},function(err,users){
 		if(err){
 			callback(err,users);
 		}else{

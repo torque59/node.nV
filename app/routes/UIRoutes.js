@@ -89,7 +89,7 @@ exports.search = function(req, res) {
 	if(req.query.q){
 		if(root=="er"){
 
-			userService.getEE(user.isPremium,function(err,users){
+			userService.getEE(query,user.isPremium,function(err,users){
 				res.render("ersearch.ejs", { q: query, username: uname, users: users });
 			});
 			
