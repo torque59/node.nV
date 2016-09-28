@@ -89,16 +89,7 @@ exports.getProfile= function(req,res){
 	});
 }
 
-exports.upgradeToPremium= function(req,res){
-	userService.upgradeToPremium(req.decoded._doc.id,function(err,upgrade){
-		if(upgrade){
-		res.json({ success: true });
-		}else{
-		res.json({success:false});
-		}
-	});
-	
-}
+
 
 exports.deleteAccount=function(req,res){
 	userService.deleteAccount(req.decoded._doc.id,function(err,deleted){
@@ -127,11 +118,20 @@ exports.upgrade = function(req,res){
 
 
 	
-	userService.upgrade(id,cc,function(err,upgrade){
+	userService.upgrade(id,cc,function(err,user){
 		if(err){
 			res.status(400).send(err);
 		}else{
-			res.redirect('/homepage');
+			userService.authenticate(user.username,user.password,function(err,user){
+				if(err){
+				res.json({"error":err});
+				}else{
+				var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
+				res.redirect('/homepage?token='+token);
+				}
+
+			});
+			
 		}
 
 	});

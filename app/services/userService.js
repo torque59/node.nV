@@ -146,13 +146,6 @@ exports.getUserById=function(id,callback){
 	
 }
 
-exports.upgradeToPremium=function(id,callback){
-	User.update({"id":id},{ $set: { isPremium: true }},function(err,user){
-		if(err){callback(err,null);}
-		callback(false,true);
-	});
-	
-}
 
 
 exports.deleteAccount=function(id,callback){
@@ -201,7 +194,7 @@ exports.upgrade=function(id,cc,callback){
 					if(err){
 						callback(err);
 					}else{
-						callback(null,true);
+						callback(null,user);
 					}
 					
 				});
