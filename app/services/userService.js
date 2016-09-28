@@ -71,7 +71,7 @@ var er1 = new User({
 	answer: user.answer,
 	firstname: user.firstname,
 	lastname: user.lastname,
-	isPremium:false,
+	isPremium:user.isPremium,
 	enabled:true,
 	accountNonExpired:true,
 	credentialsNonExpired:true,
@@ -101,7 +101,7 @@ exports.createAdmin = function(user,callback){
 	answer: user.answer,
 	firstname: user.firstname,
 	lastname: user.lastname,
-	isPremium:false,
+	isPremium:user.isPremium,
 	enabled:true,
 	accountNonExpired:true,
 	credentialsNonExpired:true,
@@ -258,7 +258,7 @@ var validateCreditCard=function(cc,callback){
 		 callback(false);
 	}else{
 	//Check to make sure that the amount paid is over $50
-	
+	console.log(cc.amount);
 	 callback(eval("50<"+cc.amount));
 	}
 
