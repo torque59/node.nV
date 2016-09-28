@@ -39,8 +39,9 @@ exports.listings = function(req, res) {
 
 	if(root=="er"){
 		var id = req.decoded._doc._id;
+		var isPremium=req.decoded._doc.isPremium;
 		console.log(req.decoded);
-		listingService.getListingsByEr(id,function(err,listings){
+		listingService.getListingsByEr(id,isPremium,function(err,listings){
 		res.render(root+"listings.ejs", { username: uname,listings:listings });
 		});
 
