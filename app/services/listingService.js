@@ -1,6 +1,7 @@
 var Listing   = require('../models/listing');
 
-exports.getListings = function(callback){
+exports.getListings = function(isPremium,callback){
+	if(isPremium){
 		Listing.find({}, function(err, listings) {
 		if(err){ 
 			callback(err,null);
@@ -9,6 +10,19 @@ exports.getListings = function(callback){
 			callback(false,listings);
 		}	
 		});
+
+	}else{
+		Listing.find({isPremium:false}, function(err, listings) {
+		if(err){ 
+			callback(err,null);
+		}
+		else{
+			callback(false,listings);
+		}	
+		});
+
+	}
+		
 }
 
 exports.getListingsByEr = function(id,isPremium,callback){
@@ -36,9 +50,9 @@ exports.getListingsByEr = function(id,isPremium,callback){
 }
 
 
-exports.searchAll = function(q,callback){
+exports.searchAll = function(q,isPremium,callback){
 
-
+if(isPremium){
 	Listing.find({description:RegExp(q,'i')}, function(err, doc) {
 		if(err){
 			callback(err);
@@ -46,17 +60,39 @@ exports.searchAll = function(q,callback){
 			callback(doc);
 		}
 	});
-}
-
-exports.searchER = function(id,q,callback){
-
-	Listing.find({owner:id}, function(err, doc) {
+}else{
+	Listing.find({description:RegExp(q,'i'),isPremium:false}, function(err, doc) {
 		if(err){
 			callback(err);
 		}else{
 			callback(doc);
 		}
 	});
+}
+	
+}
+
+exports.searchER = function(id,q,isPremium,callback){
+	if(isPremium){
+			Listing.find({owner:id}, function(err, doc) {
+		if(err){
+			callback(err);
+		}else{
+			callback(doc);
+		}
+		});
+	}else{
+		Listing.find({owner:id,isPremium:false}, function(err, doc) {
+		if(err){
+			callback(err);
+		}else{
+			callback(doc);
+		}
+		});
+
+	}
+
+	
 }
 
 
@@ -105,10 +141,13 @@ exports.editListing=function(listing,callback){
 	});
 }
 
-exports.createListing= function(id,listing,callback){
-//Take this out when wiring to UI
+exports.createListing= function(user,listing,callback){
+
 	var newListing= Listing();
-	newListing.owner=id;
+	newListing.owner={};
+	newListing.owner.id=user._id;
+	newListing.owner.name=user.username;
+	
 	newListing.name=listing.name;
 	newListing.description =listing.description;
 	newListing.created=new Date();
@@ -122,6 +161,6 @@ exports.createListing= function(id,listing,callback){
 	newListing.save(function(err) {
 		if (err) callback(err);
 		console.log('Listing saved successfully');
-		callback(false,true);
+		callback(false,newListing);
 	});	
 }

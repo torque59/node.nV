@@ -96,7 +96,7 @@
     <table class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
-          <th>Created</th>
+          <th>Owner</th>
           <th>Name</th>
           <th>Description</th>
           <th>Deadline</th>
@@ -107,7 +107,7 @@
   
         <% for(var i=0; i < listings.length; i++) { %>
         <tr> 
-          <td><%- listings[i].created %></td>
+            <td><%- listings[i].owner.name %></td>
           <td><%- listings[i].name %></td>
           <td><%- listings[i].description %></td>
           <td><%- listings[i].deadline %>

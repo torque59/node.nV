@@ -8,14 +8,14 @@ var listingService = require("../services/listingService.js");
 var UIRoutes = require('./UIRoutes.js');
 
 exports.createListing=function(req,res){
-	var id=req.decoded._doc._id;
+	var user=req.decoded._doc;
 	var listing = {};
 	listing.name=req.body.name;
 	listing.deadline = req.body.deadline;
 	listing.description=req.body.description;
 
 
-	employerService.createListing(id,listing,function(err,result){
+	listingService.createListing(user,listing,function(err,result){
 		if(result){
 			res.redirect('/homepage');
 		}else if(err){

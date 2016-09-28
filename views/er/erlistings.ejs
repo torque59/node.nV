@@ -100,7 +100,8 @@
           <th>Name</th>
           <th>Description</th>
           <th>Deadline</th>
-          <th>Status</th>
+          <th>Premium</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -110,6 +111,11 @@
           <td><%- listings[i].name %></td>
           <td><%- listings[i].description %></td>
           <td><%- listings[i].deadline %>
+          <td><% if(listings[i].isPremium){ %>
+                 Premium
+               <% } else{ %>  
+                 Public
+                  <% } %>
           </td>
         <td>
             <a class="icon-eye-open pull-left" href="/editListing?id=<%= listings[i]._id %>" ></a>

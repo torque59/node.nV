@@ -116,7 +116,6 @@ exports.upgrade = function(req,res){
 	cc.exp=req.body.exp;
 	cc.cvc=req.body.cvc;
 
-
 	
 	userService.upgrade(id,cc,function(err,user){
 		if(err){
@@ -161,15 +160,15 @@ exports.setup = function(req,res){
 				userService.createEmployer(er1,function(er1,err){
 					userService.createEmployer(er2,function(er2,err){
 
-						listingService.createListing(er1._id,listings[0],function(err){
-							listingService.createListing(er1._id,listings[1],function(err){
-								listingService.createListing(er1._id,listings[2],function(err){
-									listingService.createListing(er1._id,listings[3],function(err){
-										listingService.createListing(er2._id,listings[4],function(err){								
-											listingService.createListing(er2._id,listings[5],function(err){
-												listingService.createListing(er2._id,listings[6],function(err){
-													listingService.createListing(er2._id,listings[7],function(err){
-														listingService.createListing(er2._id,listings[8],function(err){
+						listingService.createListing(er1,listings[0],function(err){
+							listingService.createListing(er1,listings[1],function(err){
+								listingService.createListing(er1,listings[2],function(err){
+									listingService.createListing(er1,listings[3],function(err){
+										listingService.createListing(er2,listings[4],function(err){								
+											listingService.createListing(er2,listings[5],function(err){
+												listingService.createListing(er2,listings[6],function(err){
+													listingService.createListing(er2,listings[7],function(err){
+														listingService.createListing(er2,listings[8],function(err){
 										
 
 															res.send("Created Data");
