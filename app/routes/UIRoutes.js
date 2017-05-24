@@ -4,13 +4,16 @@ var userService = require('../services/userService.js');
 var exec = require('child_process').exec;
 
 exports.index = function(req, res){
+	res.render("index.ejs", { username: "" } );
+}
+
+exports.login = function(req, res){
 	if (req.body.username) {
         res.render("login.ejs", { username: req.body.username } );
     } else {
 		res.render("login.ejs", { username: "" } );
 	}
 }
-
 
 exports.signUp = function(req, res) {
     res.render("signup.ejs");
