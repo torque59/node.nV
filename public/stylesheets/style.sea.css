@@ -796,7 +796,7 @@ fieldset[disabled] .btn-white.active {
   margin-bottom: 0;
 }
 .job-form-section.job-form-section--image {
-  background: center center url('../img/meeting.jpg') no-repeat;
+  background: center center url('/public/images/meeting.jpg') no-repeat;
   background-size: cover;
 }
 .job-main-form__button {
