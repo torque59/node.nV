@@ -8,11 +8,7 @@ exports.index = function(req, res){
 }
 
 exports.login = function(req, res){
-	if (req.body.username) {
-        res.render("login.ejs", { username: req.body.username } );
-    } else {
-		res.render("login.ejs", { username: "" } );
-	}
+		res.render("login.ejs" );
 }
 
 exports.signUp = function(req, res) {

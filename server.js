@@ -46,6 +46,7 @@ app.get('/setup',userroutes.setup);
 
 app.get('/',UIRoutes.index);
 app.get('/signup',UIRoutes.signUp);
+app.get('/login',UIRoutes.login);
 
 
 //app.post('/api/createEmployee',userroutes.createEmployee); TEST ONLY
