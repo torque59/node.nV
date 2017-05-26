@@ -5,39 +5,84 @@
   </head>
   <body class=""> 
  
-    
-    <div class="row-fluid login">
-    <div class="dialog">
-        <p class="brand" href="index.html">node.nV</p>
-        <div class="block">
-            <div class="block-header">
-                <h2>Sign In</h2>
+    <% include partials/header %>
+    <section style="background: #fafafa;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <div class="breadcrumbs">
+              <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li>Login or register</li>
+              </ul>
             </div>
-            <form action="/login" method="post">
-                <label>Username</label>
-                <input  id="username" name="username" placeholder="Username" type="text"  class="span12"/>
-                <a class="reset-password" href="#">Forgot your password?</a>
-                <label>Password</label>
-                <input id="password" name="password" placeholder="Password" type="password" class="span12">
-                <div class="form-actions">
-					<a class="btn btn-primary" href="/signup"> Sign Up!</a> 
-	                <button type="submit" class="btn btn-success pull-right">Sign In</button>
-	                <div class="clearfix"></div>
-	            </div>
-            </form>
+            <h1 class="heading">Log in or Sign up</h1>
+            <p class="lead text-center">This is the lead paragraph of the article. Pellentesque habitant morbi tristique.</p>
+          </div>
         </div>
-    </div>
-</div>
+      </div>
+    </section>
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="box">
+              <h3 class="heading">New account</h3>
+              <p class="lead">Not our registered customer yet?</p>
+              <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+              <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
+              <hr>
+              <form action="client-dashboard.html" method="post">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input id="name" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input id="email" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input id="password" type="password" class="form-control">
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-user-md"></i> Register</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="box">
+              <h3 class="heading">Login</h3>
+              <p class="lead">Already our customer?</p>
+              <p class="text-muted">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+              <hr>
+              <form action="/login" method="post">
+				  
+                <div class="form-group">
+                  <label for="username">Username</label>
+				  <input name="username"id="username" type="text" class="form-control">
+                </div>
+                
+              
+              	<div class="form-group">
+              	  <label  for="password">Password</label>
+              	  <input id="password" name="password" type="password" class="form-control">
+              	</div>
+		  	
+              	<div class="text-center">
+              	  <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Log in</button>
+              	</div>
+				
+			  </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>	 
 
  <% include partials/footer %>
     
-    <script src="public/javascripts/bootstrap.js"></script>
-    <script type="text/javascript">
-        $("[rel=tooltip]").tooltip();
-        $(function() {
-            $('.demo-cancel-click').click(function(){return false;});
-        });
-    </script>
     
   </body>
 </html>
