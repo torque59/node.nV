@@ -11,9 +11,9 @@ exports.login = function(req, res){
 		res.render("login.ejs" );
 }
 
-exports.signUp = function(req, res) {
-    res.render("signup.ejs");
-};
+exports.register = function(req, es){
+	
+}
 
 exports.homepage = function(req, res){
 
