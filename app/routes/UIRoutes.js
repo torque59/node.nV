@@ -11,7 +11,29 @@ exports.login = function(req, res){
 		res.render("login.ejs" );
 }
 
-exports.register = function(req, es){
+exports.register = function(req, res){
+	
+	if(req.body.role == "employee") {
+		var registered = userService.createEmployee(req.body,function(data){
+	
+		if(data){
+			res.json({ success: true });
+		}else{
+			res.json({error:"There was an error"});
+		}
+
+		});	
+	} else if (req.body.role == "employee") {
+		var registered = userService.createEmployer(req.body,function(data){
+	
+		if(data){
+			res.json({ success: true });
+		}else{
+			res.json({error:"There was an error"});
+		}
+
+		});	
+	}
 	
 }
 
