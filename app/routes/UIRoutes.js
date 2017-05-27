@@ -4,17 +4,38 @@ var userService = require('../services/userService.js');
 var exec = require('child_process').exec;
 
 exports.index = function(req, res){
-	if (req.body.username) {
-        res.render("login.ejs", { username: req.body.username } );
-    } else {
-		res.render("login.ejs", { username: "" } );
-	}
+	res.render("index.ejs", { username: "" } );
 }
 
+exports.login = function(req, res){
+		res.render("login.ejs" );
+}
 
-exports.signUp = function(req, res) {
-    res.render("signup.ejs");
-};
+exports.register = function(req, res){
+	
+	if(req.body.role == "employee") {
+		var registered = userService.createEmployee(req.body,function(data){
+	
+		if(data){
+			res.json({ success: true });
+		}else{
+			res.json({error:"There was an error"});
+		}
+
+		});	
+	} else if (req.body.role == "employee") {
+		var registered = userService.createEmployer(req.body,function(data){
+	
+		if(data){
+			res.json({ success: true });
+		}else{
+			res.json({error:"There was an error"});
+		}
+
+		});	
+	}
+	
+}
 
 exports.homepage = function(req, res){
 
