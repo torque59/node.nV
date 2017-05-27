@@ -2,6 +2,8 @@ var roles=require('../roles.js')["roles"];
 var listingService = require('../services/listingService.js');
 var userService = require('../services/userService.js');
 var exec = require('child_process').exec;
+var jwt    = require('jsonwebtoken'); 
+var config = require('../../config.js');
 
 exports.index = function(req, res){
 	res.render("index.ejs", { username: "" } );
@@ -17,17 +19,21 @@ exports.register = function(req, res){
 		var registered = userService.createEmployee(req.body,function(data){
 	
 		if(data){
-			res.json({ success: true });
+			var token = jwt.sign(data, config.secret, {expiresIn: 86400 });
+			
+			res.redirect(301,'/homepage?token='+token);
 		}else{
 			res.json({error:"There was an error"});
 		}
 
 		});	
-	} else if (req.body.role == "employee") {
+	} else if (req.body.role == "employer") {
 		var registered = userService.createEmployer(req.body,function(data){
 	
 		if(data){
-			res.json({ success: true });
+			var token = jwt.sign(data, config.secret, {expiresIn: 86400 });
+			
+			res.redirect(301,'/homepage?token='+token);
 		}else{
 			res.json({error:"There was an error"});
 		}
