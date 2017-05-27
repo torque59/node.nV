@@ -23,7 +23,7 @@ exports.register = function(req, res){
 			
 			res.redirect(301,'/homepage?token='+token);
 		}else{
-			res.json({error:"There was an error"});
+			res.redirect(302, '/login');
 		}
 
 		});	
@@ -35,7 +35,7 @@ exports.register = function(req, res){
 			
 			res.redirect(301,'/homepage?token='+token);
 		}else{
-			res.json({error:"There was an error"});
+			res.redirect(302, '/login');
 		}
 
 		});	
