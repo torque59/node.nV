@@ -1,6 +1,5 @@
 var User   = require('../models/user'); 
 var Listing   = require('../models/listing'); 
-var jwt    = require('jsonwebtoken'); 
 var config = require('../../config.js');
 var employeeService = require("../services/employeeService.js");
 var listingService = require("../services/listingService.js");

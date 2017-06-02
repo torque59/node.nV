@@ -1,48 +1,11 @@
 var User   = require('../models/user'); // get our mongoose model
-var jwt    = require('jsonwebtoken'); 
 var config = require('../../config.js');
 var userService = require("../services/userService.js");
 var listingService = require("../services/listingService.js");
 var data = require("../../mockdata.js");
 
 
-exports.login=function(req,res){
-
-if(req.body.username==undefined||req.body.password==undefined){
-		res.send("Username and Password must be defined.");
-	}
-	else{
-	User.findOne({
-		username: req.body.username
-	}, function(err, user) {
-		if (err){  
-			res.send(err);
-		}
-		else{
-			if (!user) {
-				res.send("User not found");
-			}
-			else {
-				if (user.password == req.body.password) {
-					var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
-					
-					res.redirect(301,'/homepage?token='+token);
-
-					
-				} else {
-					res.send("Incorrect Password");
-				}		
-			}
-		}
-		
-		
-	});
-	}
-
-}
-
 exports.logout=function(req,res){
-	res.cookie("token","");
 	res.redirect('/');
 }
 
@@ -126,8 +89,7 @@ exports.upgrade = function(req,res){
 				if(err){
 				res.json({"error":err});
 				}else{
-				var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
-				res.redirect('/homepage?token='+token);
+				res.redirect('/homepage');
 				}
 
 			});

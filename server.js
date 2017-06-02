@@ -1,11 +1,12 @@
 
 var express 	= require('express');
+var cookieParser = require('cookie-parser')
 var app         = express();
 var bodyParser = require('body-parser')
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
-var cookieParser = require('cookie-parser')
-var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var passport 	= require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var config = require('./config'); // get our config file
 var user   = require('./app/models/user'); // get our mongoose model
 var userroutes = require('./app/routes/userRoutes.js');
@@ -16,14 +17,30 @@ var authService = require('./app/services/authService.js');
 
 var UIRoutes = require('./app/routes/UIRoutes.js');
 
-var port = process.env.PORT || 8081; // used to create, sign, and verify tokens
+var port = process.env.PORT || 8081; 
 mongoose.Promise = require('bluebird');
 mongoose.connect(config.database); // connect to database
 app.use(morgan('dev'));
+
+// Passport
+// passport config
+var User = require('./app/models/user');
+passport.use(new LocalStrategy(user.authenticate()));
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.set('superSecret', config.secret);
+
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.post('/login', passport.authenticate('local'), function(req, res) {
+    res.redirect('/homepage');
+});
 
 
 // Pull in the public directory
@@ -52,21 +69,12 @@ app.post('/register', UIRoutes.register);
 //app.post('/api/createEmployee',userroutes.createEmployee); TEST ONLY
 //app.post('/api/createEmployer',userroutes.createEmployer); TEST ONLY
 //app.post('/api/createAdmin',userroutes.createAdmin); TEST ONLY
-app.post('/login',userroutes.login);
+  
+  
 app.get('/logout',userroutes.logout);
-app.post('/api/authenticate',userroutes.login);
+//app.post('/api/authenticate',userroutes.login);
 
-app.use(function(req, res, next) {
-	 var token =req.cookies.token|| req.body.token || req.param('token') || req.headers['X-Access-Token'];
-	authService.authorize(token,app.get('superSecret'),function(err,decoded){
-			if(err){
-				return res.json({ success: false, message: err });
-			}else{
-				req.decoded = decoded;
-				next();
-			}
-		});
-});
+
 app.get('/api/getPublicUsers',userroutes.getPublicUsers); //TEST ONLY
 //app.get('/api/getUserById',userroutes.getUserById); TEST ONLY
 //User Routes

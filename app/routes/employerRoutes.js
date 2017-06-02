@@ -1,5 +1,4 @@
 var User   = require('../models/user'); // get our mongoose model
-var jwt    = require('jsonwebtoken'); 
 var Listing = require('../models/listing');
 var config = require('../../config.js');
 var employerService = require("../services/employerService.js");
@@ -64,8 +63,7 @@ exports.updateEmployer=function(req,res){
 				if(err){
 				res.json({"error":err});
 				}else{
-				var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
-				res.redirect('/homepage?token='+token);
+				res.redirect('/homepage');
 				}
 
 

@@ -2,7 +2,6 @@ var roles=require('../roles.js')["roles"];
 var listingService = require('../services/listingService.js');
 var userService = require('../services/userService.js');
 var exec = require('child_process').exec;
-var jwt    = require('jsonwebtoken'); 
 var config = require('../../config.js');
 
 exports.index = function(req, res){
@@ -19,9 +18,8 @@ exports.register = function(req, res){
 		var registered = userService.createEmployee(req.body,function(data){
 	
 		if(data){
-			var token = jwt.sign(data, config.secret, {expiresIn: 86400 });
 			
-			res.redirect(301,'/homepage?token='+token);
+			res.redirect(301,'/homepage');
 		}else{
 			res.redirect(302, '/login');
 		}
@@ -31,9 +29,8 @@ exports.register = function(req, res){
 		var registered = userService.createEmployer(req.body,function(data){
 	
 		if(data){
-			var token = jwt.sign(data, config.secret, {expiresIn: 86400 });
 			
-			res.redirect(301,'/homepage?token='+token);
+			res.redirect(301,'/homepage');
 		}else{
 			res.redirect(302, '/login');
 		}
@@ -44,13 +41,7 @@ exports.register = function(req, res){
 }
 
 exports.homepage = function(req, res){
-
-	var root=roles[req.decoded._doc.role];
-	var user=req.decoded._doc;
-	if(root){
-		res.render(root+"homepage.ejs", { user:user,token:req.query.token});		
-	}
-	
+		res.render("eeHomepage.ejs");		
 }
 
 exports.settings = function(req, res) {
