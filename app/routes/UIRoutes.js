@@ -41,7 +41,7 @@ exports.register = function(req, res){
 }
 
 exports.homepage = function(req, res){
-		res.render("eeHomepage.ejs");		
+		res.render("eeHomepage.ejs", {user: req.user});		
 }
 
 exports.settings = function(req, res) {

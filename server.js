@@ -14,6 +14,7 @@ var employerroutes = require('./app/routes/employerRoutes.js');
 var employeeRoutes = require('./app/routes/employeeRoutes.js');
 var adminRoutes = require('./app/routes/adminRoutes.js');
 var authService = require('./app/services/authService.js');
+var session = require('express-session');
 
 var UIRoutes = require('./app/routes/UIRoutes.js');
 
@@ -28,7 +29,11 @@ var User = require('./app/models/user');
 passport.use(new LocalStrategy(user.authenticate()));
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
-
+app.use(session({
+        secret: 'the princess and the frog',
+        saveUninitialized: true,
+        resave: true
+    }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.set('superSecret', config.secret);

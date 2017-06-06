@@ -54,8 +54,8 @@ exports.createEmployee = function(user,callback){
 	following:[] //If employee - employers| if employer, memp
  });
 	console.log(ee1);
-	ee1.save(function(err) {
-		if (err) callback(false,err);
+	User.register(ee1, user.password, function(err) {
+		if (err) console.log("Error saving the user!: " + err);
 		console.log('User saved successfully');
 		callback(ee1);
 	});
@@ -85,8 +85,8 @@ var er1 = new User({
 	following:[] //If employee - employers| if employer, memp
  });
 	console.log(er1);
-	er1.save(function(err) {
-		if (err) callback(false,err);
+	User.register(er1, user.password, function(err) {
+		if (err) console.log("Error saving the user!: " + err);
 		console.log('User saved successfully');
 		callback(er1);
 	});
