@@ -115,8 +115,8 @@ exports.createAdmin = function(user,callback){
 	following:[] //If employee - employers| if employer, memp
  });
 	console.log(admin);
-	admin.save(function(err) {
-		if (err) callback(false,err);
+	User.register(admin, user.password, function(err) {
+		if (err) console.log("Error saving the user!: " + err);
 		console.log('User saved successfully');
 		callback(admin);
 	});

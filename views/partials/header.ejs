@@ -35,7 +35,11 @@
                 </ul>
               </li>
               <li><a href="contact.html">Contact</a></li>
-			  <li><a href="/login"><i class="fa fa-sign-in"></i>Login</a></li>
+			  <% if (typeof user === "object") {%>
+			  	<li><a href="/logout"><i class="fa fa-sign-out"></i>Logout</a></li>
+			  <% } else {%>
+			  	<li><a href="/login"><i class="fa fa-sign-in"></i>Login</a></li>
+			  <% } %>
           </div>
         </div>
       </div>
