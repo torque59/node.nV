@@ -16,32 +16,19 @@ exports.register = function(req, res){
 	if (!req.body.role || req.body.role === 0) {
 	 req.flash('error', 'Please provide a role when registering!')
 	 res.redirect("/login")
-	}
+	} else {
 	
-	if(req.body.role == "employee") {
-		var registered = userService.createEmployee(req.body,function(data){
-	
-		if(data){
+		var registered = userService.createUser(req.body,function(data, error){
 			
-			res.redirect(301,'/homepage');
-		}else{
-			res.redirect(302, '/login');
-		}
-
-		});	
-	} else if (req.body.role == "employer") {
-		var registered = userService.createEmployer(req.body,function(data){
-	
-		if(data){
-			
-			res.redirect(301,'/homepage');
-		}else{
-			res.redirect(302, '/login');
-		}
-
-		});	
+			if(error){
+				req.flash('error', error);
+			    res.redirect(302, '/login');
+			}else if (data) {
+				res.redirect(301,'/homepage');
+			}
+    	
+		});
 	}
-	
 }
 
 exports.homepage = function(req, res){

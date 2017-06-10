@@ -30,7 +30,7 @@ exports.authenticate=function(username,password,callback){
 	}
 }
 
-
+/*
 exports.createEmployee = function(user,callback){
 
 	var ee1 = new User({ 
@@ -119,6 +119,41 @@ exports.createAdmin = function(user,callback){
 		if (err) console.log("Error saving the user!: " + err);
 		console.log('User saved successfully');
 		callback(admin);
+	});
+}	
+*/
+
+exports.createUser = function(user,callback){
+		
+	var u = new User({ 
+	username: user.username, 
+	password: user.password, 
+	email: user.email,
+	answer: user.answer,
+	firstname: user.firstname,
+	lastname: user.lastname,
+	isPremium:false,
+	enabled:true,
+	accountNonExpired:true,
+	credentialsNonExpired:true,
+	accountNonLocked:true,
+	applications:[],
+	interviews:[],
+	offers:[],
+	rejected:[],
+	role: user.role, //employee-1 | employer-2 |admin - 3
+	reviews:[],//for Premium Employees
+	following:[] //If employee - employers| if employer, memp
+ });
+	console.log(u);
+	User.register(u, user.password, function(err) {
+		if (err) {
+			console.log("Error saving the user!: " + err);
+			callback(u, err)
+		} else {
+		  callback(u);
+		  console.log('User saved successfully');
+		}
 	});
 }	
 
