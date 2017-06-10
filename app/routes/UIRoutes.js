@@ -13,6 +13,10 @@ exports.login = function(req, res){
 }
 
 exports.register = function(req, res){
+	if (!req.body.role || req.body.role === 0) {
+	 req.flash('error', 'Please provide a role when registering!')
+	 res.redirect("/login")
+	}
 	
 	if(req.body.role == "employee") {
 		var registered = userService.createEmployee(req.body,function(data){
