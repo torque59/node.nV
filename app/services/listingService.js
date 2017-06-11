@@ -125,7 +125,7 @@ exports.getListingById=function(id,callback){
 		if(err){
 			callback(err,[]);
 		}else{
-			callback(err,listing);
+			callback(listing);
 		}
 	});
 }

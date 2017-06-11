@@ -135,13 +135,13 @@ exports.funds=function(req,res){
 
 
 exports.review=function(req,res){
-	var uname=req.decoded._doc.username;
-	var id=req.query.id;
+	id = req.query.id;
 	listingService.getListingById(id,function(listing,err){
 		if(!listing){
+			console.log(err);
 			res.send(err);
 		}else{
-			res.render("eeReview.ejs",{username:uname,listing:listing});
+			res.render("eeReview.ejs",{user:req.user,listing:listing});
 		}
 
 	});
