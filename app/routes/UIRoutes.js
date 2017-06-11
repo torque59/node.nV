@@ -21,7 +21,7 @@ exports.register = function(req, res){
 		var registered = userService.createUser(req.body,function(data, error){
 			
 			if(error){
-				req.flash('error', error);
+				req.flash('error', error.toString());
 			    res.redirect(302, '/login');
 			}else if (data) {
 				res.redirect(301,'/homepage');
