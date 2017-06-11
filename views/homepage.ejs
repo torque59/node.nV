@@ -4,23 +4,122 @@
   <body class=""> 
   <% include partials/header %>
 
-  	<div class="content">
-      <div class="container-fluid">
-		<div class="span8 main-content">
-        	<div class="row-fluid">
-				<div class="row-fluid">
-		            <h1> Welcome! </h1>
-                <h2> Site Under Construction...</h2>
-                <div>
-                    node.nV is an intentionally vulnerable node.js application designed to showcase web application vulnerabilities in node.js.The app is modeled after a Job posting website.<br/>
-
-                    As an employee, you have the ability to view all public listings and search for public listings as well. You can also update your account settings in the settings tab. In order to access premium content you need to upgrade your account to premium. Premium account holders gain access to premium Job postings and greater employer visibility.
-                </div>
-				</div>
-	      	</div>
-		</div>
-	  </div>
-	</div>
+    <section style="background: #fafafa;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <div class="breadcrumbs">
+              <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li>Dashboard</li>
+              </ul>
+            </div>
+			<% if (user.role == 1){%>
+            	<h1 class="heading"> Employee dashboard</h1>
+			<% } else if (user.role == 2){ %>
+				<h1 class="heading">Employer dashboard</h1>
+			<%} else if (user.role == 3){%>
+				<h1 class="heading">Admin dashboard</h1>
+			<% }%>
+           
+            <p class="lead text-center">This is the lead paragraph of the article. Pellentesque habitant morbi tristique.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-right margin-bottom--big"><a href="client-job.html" class="btn btn-primary"> <i class="fa fa-plus"></i>Add new position</a></div>
+          <div class="col-lg-12">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover table-client-dashboard"> 
+                <thead>
+                  <tr>
+                    <th>Job title</th>
+                    <th>Position filled</th>
+                    <th>Date posted</th>
+                    <th>Date expiring</th>
+                    <th>Applicants</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th><a href="client-job.html">Webdesigner</a>
+                    </th>
+                    <td> <span class="label label-success">Filled</span>
+                    </td>
+                    <td>21/10/2017</td>
+                    <td>31/12/2017</td>
+                    <td> <a href="client-applicants.html" class="btn btn-success"> <i class="fa fa-users"></i>4 <span class="hidden-xs hidden-sm">Applicants</span></a>
+                    </td>
+                    <td> <a href="client-job.html" class="btn btn-default"> <i class="fa fa-edit"></i>Edit</a><br><a href="#" class="btn btn-default"> <i class="fa fa-check-circle-o"></i><span class="hidden-xs hidden-sm">Mark as </span>filled</a><br><a href="#" class="btn btn-default"> <i class="fa fa-times-circle-o"></i>Delete</a></td>
+                  </tr>
+                  <tr>
+                    <th><a href="client-job.html">Front End developer</a><br /><span class="label label-info">Featured</span>
+                    </th>
+                    <td> <span class="label label-default">Not Filled</span>
+                    </td>
+                    <td>10/10/2017</td>
+                    <td>16/11/2017</td>
+                    <td> 
+                    </td>
+                    <td> <a href="client-job.html" class="btn btn-default"> <i class="fa fa-edit"></i>Edit</a><br><a href="#" class="btn btn-default"> <i class="fa fa-check-circle-o"></i><span class="hidden-xs hidden-sm">Mark as </span>filled</a><br><a href="#" class="btn btn-default"> <i class="fa fa-times-circle-o"></i>Delete</a></td>
+                  </tr>
+                  <tr>
+                    <th><a href="client-job.html">Webdesigner</a>
+                    </th>
+                    <td> <span class="label label-default">Not Filled</span>
+                    </td>
+                    <td>30/10/2017</td>
+                    <td>30/11/2017</td>
+                    <td> <a href="client-applicants.html" class="btn btn-success"> <i class="fa fa-users"></i>4 <span class="hidden-xs hidden-sm">Applicants</span></a>
+                    </td>
+                    <td> <a href="client-job.html" class="btn btn-default"> <i class="fa fa-edit"></i>Edit</a><br><a href="#" class="btn btn-default"> <i class="fa fa-check-circle-o"></i><span class="hidden-xs hidden-sm">Mark as </span>filled</a><br><a href="#" class="btn btn-default"> <i class="fa fa-times-circle-o"></i>Delete</a></td>
+                  </tr>
+                  <tr>
+                    <th><a href="client-job.html">Team Leader</a><br /><span class="label label-info">Featured</span>
+                    </th>
+                    <td> <span class="label label-default">Not Filled</span>
+                    </td>
+                    <td>19/02/2017</td>
+                    <td>31/10/2017</td>
+                    <td> <a href="client-applicants.html" class="btn btn-success"> <i class="fa fa-users"></i>4 <span class="hidden-xs hidden-sm">Applicants</span></a>
+                    </td>
+                    <td> <a href="client-job.html" class="btn btn-default"> <i class="fa fa-edit"></i>Edit</a><br><a href="#" class="btn btn-default"> <i class="fa fa-check-circle-o"></i><span class="hidden-xs hidden-sm">Mark as </span>filled</a><br><a href="#" class="btn btn-default"> <i class="fa fa-times-circle-o"></i>Delete</a></td>
+                  </tr>
+                  <tr>
+                    <th><a href="client-job.html">Software Engineer</a>
+                    </th>
+                    <td> <span class="label label-default">Not Filled</span>
+                    </td>
+                    <td>21/10/2017</td>
+                    <td>31/11/2017</td>
+                    <td> 
+                    </td>
+                    <td> <a href="client-job.html" class="btn btn-default"> <i class="fa fa-edit"></i>Edit</a><br><a href="#" class="btn btn-default"> <i class="fa fa-check-circle-o"></i><span class="hidden-xs hidden-sm">Mark as </span>filled</a><br><a href="#" class="btn btn-default"> <i class="fa fa-times-circle-o"></i>Delete</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="pages">
+              <ul class="pagination">
+                <li><a href="#">&laquo;</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&raquo;</a></li>
+              </ul>
+            </div>
+            <p class="text-small text-muted">Some additional info for this screen about validity of the ads, etc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. </p>
+            <p class="text-small text-muted">Some additional info for this screen about validity of the ads, etc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. </p>
+          </div>
+        </div>
+      </div>
+    </section>
 <% include partials/footer %>
     
   </body>
