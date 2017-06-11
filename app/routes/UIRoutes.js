@@ -1,5 +1,6 @@
 var roles=require('../roles.js')["roles"];
 var listingService = require('../services/listingService.js');
+var employeeService= require('../services/employeeService.js');
 var userService = require('../services/userService.js');
 var exec = require('child_process').exec;
 var config = require('../../config.js');
@@ -32,7 +33,12 @@ exports.register = function(req, res){
 }
 
 exports.homepage = function(req, res){
-		res.render("homepage.ejs", {user: req.user});		
+	employeeService.getListings(function(err,listings){
+		res.render("homepage.ejs", {listings: listings, user: req.user});
+	});
+
+		
+		
 }
 
 exports.settings = function(req, res) {
@@ -72,7 +78,7 @@ exports.editListing = function(req, res) {
 	var uname=req.decoded._doc.username;
 	var id = req.query.id;
 	var root=roles[req.decoded._doc.role];
-	listingService.getListingById(id,function(err,listing){
+	listingService.getListingById(function(err,listing){
 		if(!listing){
 			res.send(err);
 		}else{

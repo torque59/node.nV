@@ -61,7 +61,7 @@ exports.listSentApplications = function(req,res){
 
 exports.searchForJobs = function(req,res){
 	var id=req.decoded._doc._id;
-	employeeService.getListings(id,function(listings,err){
+	employeeService.getListings(function(listings,err){
 		if(listings){
 			res.json(listings);
 		}else if(err){

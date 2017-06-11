@@ -75,7 +75,7 @@ exports.listSentApplications=function(id,callback){
 }
 
 
-exports.getListings = function(id,callback){
+exports.getListings = function(callback){
 		Listing.find({}, function(err, listings) {
 		if(err){ 
 			callback(err,null);
