@@ -32,7 +32,7 @@ exports.register = function(req, res){
 }
 
 exports.homepage = function(req, res){
-		res.render("eeHomepage.ejs", {user: req.user});		
+		res.render("homepage.ejs", {user: req.user});		
 }
 
 exports.settings = function(req, res) {
