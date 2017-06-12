@@ -2,6 +2,7 @@ var User   = require('../models/user'); // get our mongoose model
 var config = require('../../config.js');
 var userService = require("../services/userService.js");
 var listingService = require("../services/listingService.js");
+var Listing = require("../models/listing");
 var data = require("../../mockdata.js");
 
 
@@ -104,11 +105,6 @@ exports.upgrade = function(req,res){
 }
 
 
-
-
-
-
-
 exports.setup = function(req,res){
 
 	var ee1= data.ee1;
@@ -133,8 +129,8 @@ exports.setup = function(req,res){
 													listingService.createListing(er2,listings[7],function(err){
 														listingService.createListing(er2,listings[8],function(err){
 
-															res.send("Created Data");
-
+															
+															
 										
 										
 														})			
@@ -153,7 +149,6 @@ exports.setup = function(req,res){
 		})
 
 	})
-
 }
 
 
