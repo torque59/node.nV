@@ -129,7 +129,7 @@ exports.setup = function(req,res){
 													listingService.createListing(er2,listings[7],function(err){
 														listingService.createListing(er2,listings[8],function(err){
 
-															
+															res.send("Data Created")
 															
 										
 										
