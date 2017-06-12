@@ -23,7 +23,7 @@ var User = new Schema({
 	accountNonExpired:Boolean,
 	credentialsNonExpired:Boolean,
 	accountNonLocked:Boolean,
-	applications:[String],
+	applications: [{ type: Schema.Types.ObjectId, ref: 'Application' }],
 	interviews:[String],
 	offers:[String],
 	rejected:[String],
