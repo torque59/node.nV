@@ -4,6 +4,19 @@ var config = require('../../config.js');
 var employeeService = require("../services/employeeService.js");
 var listingService = require("../services/listingService.js");
 
+exports.apply = function(req, res) {
+	id = req.query.id;
+	listingService.getListingById(id,function(listing,err){
+		if(!listing){
+			console.log(err);
+			res.send(err);
+		}else{
+			res.render("eeApplication.ejs",{user:req.user,listing:listing});
+		}
+
+	});
+}
+
 exports.updateEmployee=function(req,res){
 	var id=req.decoded._doc._id;
 	employeeService.updateEmployeeUsername(id,req.body.username,function(err){

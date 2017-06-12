@@ -127,6 +127,8 @@ app.delete('/api/employer/deleteRequestedApplication',authService.isER,employerr
 
 //Employee Routes
 
+app.get('/apply', employeeRoutes.apply);
+
 app.post('/api/employee/updateEmployee',authService.isEE,employeeRoutes.updateEmployee);
 app.get('/api/employee/applyForJob',authService.isEE,employeeRoutes.applyForJob);
 app.get('/api/employee/listInterviews',authService.isEE,employeeRoutes.listInterviews);

@@ -25,7 +25,13 @@ exports.register = function(req, res){
 				req.flash('error', error.toString());
 			    res.redirect(302, '/login');
 			}else if (data) {
-				res.redirect(301,'/homepage');
+				req.login(data, function(err) {
+				   if (err) {
+				     console.log(err);
+				   }
+				});
+				res.redirect(302, '/homepage')
+				//res.render("/homepa", {user: data});
 			}
     	
 		});
