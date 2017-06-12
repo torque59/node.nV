@@ -7,7 +7,8 @@ var data = require("../../mockdata.js");
 
 
 exports.logout=function(req,res){
-	res.redirect('/');
+    req.logout();
+    res.redirect('/');
 }
 
 exports.createEmployee=function(req,res){

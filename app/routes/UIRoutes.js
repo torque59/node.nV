@@ -6,7 +6,7 @@ var exec = require('child_process').exec;
 var config = require('../../config.js');
 
 exports.index = function(req, res){
-	res.render("index.ejs", { username: "" } );
+	res.render("index.ejs", { user: req.user } );
 }
 
 exports.login = function(req, res){
