@@ -1,5 +1,6 @@
 var User   = require('../models/user'); 
-var Listing   = require('../models/listing'); 
+var Listing   = require('../models/listing');
+var Application = require('../models/application');
 var config = require('../../config.js');
 var employeeService = require("../services/employeeService.js");
 var listingService = require("../services/listingService.js");
@@ -15,6 +16,25 @@ exports.apply = function(req, res) {
 		}
 
 	});
+}
+
+exports.submitApplication = function(req, res) {
+	var app = new Application({ 
+	_creator : req.user._id,
+	reasonApplied: req.body.reasonApplied,
+	background: req.body.background,
+	_listing : req.body.listingId
+	});
+	
+	app.save(function(err) {
+		if (err){
+			req.flash("error", err.toString());
+			res.redirect("/apply?id=" + req.body.listingId)
+		} else {
+			res.send("yay");
+		}
+	});	
+	//res.send(typeof req.body.listingId)
 }
 
 exports.updateEmployee=function(req,res){
