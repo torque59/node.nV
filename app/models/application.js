@@ -1,10 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// set up a mongoose model
-module.exports = mongoose.model('Application', new Schema({ 
-	owner:{id:String,name:String},
+var Application = new Schema({ 
+	_creator : { type: Number, ref: 'User' },
 	reasonApplied:String,
 	background:String,
-	created:Date
-}));
+	created:Date,
+	_listing : { type: Number, ref: 'Listing' }
+});
+
+module.exports = mongoose.model('Application', Application);

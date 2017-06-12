@@ -1,5 +1,6 @@
 var Listing   = require('./app/models/listing');
 var User   = require('./app/models/user');
+var Application = require('./app/models/application');
 var _ = require('underscore');
 
 exports.ee1 = new User({ 
@@ -149,3 +150,8 @@ l1.deadline=l2.deadline=l3.deadline=l4.deadline=l5.deadline=l6.deadline=l7.deadl
 	
 
 exports.listings=[l1,l2,l3,l4,l5,l6,l7,l8,l9];	
+
+exports.app1 = new Application({ 
+	reasonApplied: "I think this job would be really cool!",
+	background: "My background is as a whitehat hacker!",
+});
