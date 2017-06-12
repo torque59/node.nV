@@ -1,0 +1,1 @@
+var Application   = require('../models/application'); // get our mongoose model
