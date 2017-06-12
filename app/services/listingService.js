@@ -116,20 +116,17 @@ exports.getListingById=function(id,callback){
 
 exports.editListing=function(listing,callback){
 	var id=listing.id;
-	Listing.findById(id,function(err,old){
+	Listing.findById(id,function(err,record){
 		if(err){
 			callback(false,err);
 		}else{
-			old.name=listing.name;
-			old.description=listing.description;
-			old.deadline=listing.deadline;
-			old.isPremium="true"==listing.ispremium;
-
-			old.save(function(err){
+			record.name=listing.name;
+			record.description=listing.description;
+			record.save(function(err){
 				if(err){
 					callback(err);
 				}else{
-					callback(false,"Success!");
+					callback(false, record);
 				}
 			})
 		}

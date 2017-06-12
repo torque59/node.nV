@@ -26,13 +26,11 @@ exports.createListing=function(req,res){
 }
 
 exports.updateListing=function(req,res){
-	var id=req.decoded._doc._id;
-	var listing=req.body;
-	listingService.editListing(listing,function(err,success){
+	listingService.editListing(req.body,function(err,success){
 		if(err){
 			res.send(err);
 		}else{
-			res.redirect('/homepage');
+			res.redirect(302, '/review?id=' + req.body.id);
 		}
 	});
 
@@ -132,7 +130,16 @@ exports.search = function(req,res){
 
 
 exports.editListing=function(req,res){
-	res.send("TO DO");
+	id = req.query.id;
+	listingService.getListingById(id,function(listing,err){
+		if(!listing){
+			console.log(err);
+			res.send(err);
+		}else{
+			res.render("eredit.ejs",{user:req.user,listing:listing});
+		}
+
+	});
 }
 
 //Premium Services ================================================================================================================================

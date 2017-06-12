@@ -114,6 +114,7 @@ app.get('/create',UIRoutes.create);
 
 //Employer Routes
 app.get('/edit_listing', employerRoutes.editListing);
+app.post('/update_listing', employerRoutes.updateListing)
 /*
 app.post('/api/employer/editListing',authService.isER,employerRoutes.updateListing);
 app.post('/api/employer/createListing',authService.isER,employerRoutes.createListing); //Need to customize
