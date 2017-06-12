@@ -25,10 +25,8 @@ exports.getListings = function(isPremium,callback){
 		
 }
 
-exports.getListingsByEr = function(id,isPremium,callback){
+exports.getListingsByEr = function(id,callback){
 
-
-	if(isPremium){
 		Listing.find({"owner.id":id}, function(err, listings) {
 
 		if(err){ 
@@ -36,24 +34,10 @@ exports.getListingsByEr = function(id,isPremium,callback){
 			callback(err,listings);
 		}
 		else{
-			console.log(err);
 
 			callback(err,listings);
 		}	
 		});
-	}else{
-
-		Listing.find({"owner.id":id,"isPremium":false}, function(err, listings) {
-
-				console.log(id);
-		if(err){ 
-			callback(err,listings);
-		}
-		else{
-			callback(err,listings);
-		}	
-		});
-	}	
 		
 }
 

@@ -10,7 +10,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var config = require('./config'); // get our config file
 var user   = require('./app/models/user'); // get our mongoose model
 var userroutes = require('./app/routes/userRoutes.js');
-var employerroutes = require('./app/routes/employerRoutes.js');
+var employerRoutes = require('./app/routes/employerRoutes.js');
 var employeeRoutes = require('./app/routes/employeeRoutes.js');
 var adminRoutes = require('./app/routes/adminRoutes.js');
 var authService = require('./app/services/authService.js');
@@ -111,30 +111,35 @@ app.get('/ee',UIRoutes.ee);
 app.get('/er',UIRoutes.er);
 app.get('/ping',UIRoutes.ping);
 app.get('/create',UIRoutes.create);
-//Employer Routes
-app.post('/api/employer/editListing',authService.isER,employerroutes.updateListing);
-app.post('/api/employer/createListing',authService.isER,employerroutes.createListing); //Need to customize
-app.get('/api/employer/getListings',authService.isER,employerroutes.getListings);
-app.post('/api/employer/updateEmployer',authService.isER,employerroutes.updateEmployer); //TODO;
-app.get('/api/employer/acceptForOffer',authService.isER,employerroutes.acceptForOffer);
-app.get('/api/employer/acceptForInterview',authService.isER,employerroutes.acceptForInterview);
-app.get('/api/employer/rejectApplication',authService.isER,employerroutes.rejectApplication);
-app.post('/api/employer/editListing',authService.isER,employerroutes.editListing);
-app.get('/api/employer/followEmployee',authService.isER,employerroutes.followEmployee);
-app.get('/api/employer/search',authService.isER,employerroutes.search);
-app.get('/api/employer/getRequestedEmployees',authService.isER,employerroutes.getRequestedEmployees);
-app.delete('/api/employer/deleteRequestedApplication',authService.isER,employerroutes.deleteRequestedApplication);
 
+//Employer Routes
+app.get('/edit_listing', employerRoutes.editListing);
+/*
+app.post('/api/employer/editListing',authService.isER,employerRoutes.updateListing);
+app.post('/api/employer/createListing',authService.isER,employerRoutes.createListing); //Need to customize
+app.get('/api/employer/getListings',authService.isER,employerRoutes.getListings);
+app.post('/api/employer/updateEmployer',authService.isER,employerRoutes.updateEmployer); //TODO;
+app.get('/api/employer/acceptForOffer',authService.isER,employerRoutes.acceptForOffer);
+app.get('/api/employer/acceptForInterview',authService.isER,employerRoutes.acceptForInterview);
+app.get('/api/employer/rejectApplication',authService.isER,employerRoutes.rejectApplication);
+app.post('/api/employer/editListing',authService.isER,employerRoutes.editListing);
+app.get('/api/employer/followEmployee',authService.isER,employerRoutes.followEmployee);
+app.get('/api/employer/search',authService.isER,employerRoutes.search);
+app.get('/api/employer/getRequestedEmployees',authService.isER,employerRoutes.getRequestedEmployees);
+app.delete('/api/employer/deleteRequestedApplication',authService.isER,employerRoutes.deleteRequestedApplication);
+*/
 //Employee Routes
 
 app.get('/apply', employeeRoutes.apply);
 app.post('/submit_application', employeeRoutes.submitApplication)
 
+/*
 app.post('/api/employee/updateEmployee',authService.isEE,employeeRoutes.updateEmployee);
 app.get('/api/employee/applyForJob',authService.isEE,employeeRoutes.applyForJob);
 app.get('/api/employee/listInterviews',authService.isEE,employeeRoutes.listInterviews);
 app.get('/api/employee/listOffers',authService.isEE,employeeRoutes.listOffers);
 app.get('/api/employee/listSentApplications',authService.isEE,employeeRoutes.listSentApplications);
+*/
 //app.get('/api/employee/getListings',authService.isEE,employeeRoutes.getListings);
 //app.get('/api/employee/upgradeToPremium',authService.isEE,employeeRoutes.employeeUpgradeToPremium);
 //app.post('/api/employee/writeReview',authService.isEE,employeeRoutes.writeReview);

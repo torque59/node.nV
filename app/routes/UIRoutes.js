@@ -39,9 +39,15 @@ exports.register = function(req, res){
 }
 
 exports.homepage = function(req, res){
-	employeeService.getListings(function(err,listings){
-		res.render("homepage.ejs", {listings: listings, user: req.user});
-	});
+	if ((req.user.role == 1)) {
+		employeeService.getListings(function(err,listings){
+			res.render("homepage.ejs", {listings: listings, user: req.user});
+		});
+	} else if ((req.user.role == 2)) {
+		listingService.getListingsByEr(req.user.id, function(error, listings){
+			res.render("homepage.ejs", {listings: listings, user: req.user});
+		})
+	}
 
 		
 		
