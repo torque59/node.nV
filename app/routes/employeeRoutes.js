@@ -31,7 +31,8 @@ exports.submitApplication = function(req, res) {
 			req.flash("error", err.toString());
 			res.redirect("/apply?id=" + req.body.listingId)
 		} else {
-			res.send("yay");
+			req.flash("success", "Application Successfully Saved!")
+			res.redirect("/review?id=" + req.body.listingId)
 		}
 	});	
 	//res.send(typeof req.body.listingId)
