@@ -1,10 +1,14 @@
 var roles=require('../roles.js')["roles"];
 var listingService = require('../services/listingService.js');
+var employeeService= require('../services/employeeService.js');
 var userService = require('../services/userService.js');
 var exec = require('child_process').exec;
+var config = require('../../config.js');
 
 exports.index = function(req, res){
-	res.render("index.ejs", { username: "" } );
+	employeeService.getListings(function(err,listings){
+		res.render("index.ejs", {listings: listings, user: req.user});
+	});
 }
 
 exports.login = function(req, res){
@@ -12,46 +16,59 @@ exports.login = function(req, res){
 }
 
 exports.register = function(req, res){
+	if (!req.body.role || req.body.role === 0) {
+	 req.flash('error', 'Please provide a role when registering!')
+	 res.redirect("/login")
+	} else {
 	
-	if(req.body.role == "employee") {
-		var registered = userService.createEmployee(req.body,function(data){
-	
-		if(data){
-			res.json({ success: true });
-		}else{
-			res.json({error:"There was an error"});
-		}
-
-		});	
-	} else if (req.body.role == "employee") {
-		var registered = userService.createEmployer(req.body,function(data){
-	
-		if(data){
-			res.json({ success: true });
-		}else{
-			res.json({error:"There was an error"});
-		}
-
-		});	
+		var registered = userService.createUser(req.body,function(data, error){
+			
+			if(error){
+				req.flash('error', error.toString());
+			    res.redirect(302, '/login');
+			}else if (data) {
+				req.login(data, function(err) {
+				   if (err) {
+				     console.log(err);
+				   }
+				});
+				res.redirect(302, '/homepage')
+				//res.render("/homepa", {user: data});
+			}
+    	
+		});
 	}
-	
 }
 
 exports.homepage = function(req, res){
-
-	var root=roles[req.decoded._doc.role];
-	var user=req.decoded._doc;
-	if(root){
-		res.render(root+"homepage.ejs", { user:user,token:req.query.token});		
+	if ((req.user.role == 1)) {
+		employeeService.getListings(function(err,listings){
+			res.render("homepage.ejs", {listings: listings, user: req.user});
+		});
+	} else if ((req.user.role == 2)) {
+		listingService.getListingsByEr(req.user.id, function(error, listings){
+			res.render("homepage.ejs", {listings: listings, user: req.user});
+		})
 	}
-	
+
+		
+		
 }
 
 exports.settings = function(req, res) {
-	var user=req.decoded._doc;
-	var uname=req.decoded._doc.username;
-	var root=roles[req.decoded._doc.role];
-	res.render(root+"settings.ejs", { username: uname,user:user });
+	res.render("settings.ejs", { user: req.user });
+}
+
+exports.updateSettings = function(req, res){
+	userService.updateUser(req.user.id, req.body, function(err,userInfo) {
+		if (err) {
+			req.flash("error", err.toString());
+			res.redirect(302, "/settings")
+		} else {
+			req.flash("success", "Your information was successfully updated");
+			res.redirect(302, "/login")
+		}
+	});
 }
 
 exports.listings = function(req, res) {
@@ -84,7 +101,7 @@ exports.editListing = function(req, res) {
 	var uname=req.decoded._doc.username;
 	var id = req.query.id;
 	var root=roles[req.decoded._doc.role];
-	listingService.getListingById(id,function(err,listing){
+	listingService.getListingById(function(err,listing){
 		if(!listing){
 			res.send(err);
 		}else{
@@ -141,13 +158,13 @@ exports.funds=function(req,res){
 
 
 exports.review=function(req,res){
-	var uname=req.decoded._doc.username;
-	var id=req.query.id;
+	id = req.query.id;
 	listingService.getListingById(id,function(listing,err){
 		if(!listing){
+			console.log(err);
 			res.send(err);
 		}else{
-			res.render("eeReview.ejs",{username:uname,listing:listing});
+			res.render("eeReview.ejs",{user:req.user,listing:listing});
 		}
 
 	});

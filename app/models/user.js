@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
+var Hash = require('password-hash');
 var Schema = mongoose.Schema;
+var passportLocalMongoose = require('passport-local-mongoose');
 
 // set up a mongoose model
-module.exports = mongoose.model('User', new Schema({ 
+var User = new Schema({ 
 	username: String, 
 	password: String, 
 	email: String,
@@ -21,11 +23,15 @@ module.exports = mongoose.model('User', new Schema({
 	accountNonExpired:Boolean,
 	credentialsNonExpired:Boolean,
 	accountNonLocked:Boolean,
-	applications:[String],
+	applications: [{ type: Schema.Types.ObjectId, ref: 'Application' }],
 	interviews:[String],
 	offers:[String],
 	rejected:[String],
 	role:Number, //employee-1 | employer-2
 	following:[String] //If employee - employers| if employer, memp
 	
-}));
+});
+
+User.plugin(passportLocalMongoose);
+
+module.exports = mongoose.model('User', User);

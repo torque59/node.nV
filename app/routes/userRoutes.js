@@ -1,49 +1,14 @@
 var User   = require('../models/user'); // get our mongoose model
-var jwt    = require('jsonwebtoken'); 
 var config = require('../../config.js');
 var userService = require("../services/userService.js");
 var listingService = require("../services/listingService.js");
+var Listing = require("../models/listing");
 var data = require("../../mockdata.js");
 
 
-exports.login=function(req,res){
-
-if(req.body.username==undefined||req.body.password==undefined){
-		res.send("Username and Password must be defined.");
-	}
-	else{
-	User.findOne({
-		username: req.body.username
-	}, function(err, user) {
-		if (err){  
-			res.send(err);
-		}
-		else{
-			if (!user) {
-				res.send("User not found");
-			}
-			else {
-				if (user.password == req.body.password) {
-					var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
-					
-					res.redirect(301,'/homepage?token='+token);
-
-					
-				} else {
-					res.send("Incorrect Password");
-				}		
-			}
-		}
-		
-		
-	});
-	}
-
-}
-
 exports.logout=function(req,res){
-	res.cookie("token","");
-	res.redirect('/');
+    req.logout();
+    res.redirect('/');
 }
 
 exports.createEmployee=function(req,res){
@@ -126,8 +91,7 @@ exports.upgrade = function(req,res){
 				if(err){
 				res.json({"error":err});
 				}else{
-				var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
-				res.redirect('/homepage?token='+token);
+				res.redirect('/homepage');
 				}
 
 			});
@@ -142,11 +106,6 @@ exports.upgrade = function(req,res){
 }
 
 
-
-
-
-
-
 exports.setup = function(req,res){
 
 	var ee1= data.ee1;
@@ -155,11 +114,11 @@ exports.setup = function(req,res){
 	var er2=data.er2;
 	var admin=data.admin;
 	var listings=data.listings;
-	userService.createAdmin(admin,function(admin,err){
-		userService.createEmployee(ee1,function(ee1,err){
-			userService.createEmployee(ee2,function(ee2,err){
-				userService.createEmployer(er1,function(er1,err){
-					userService.createEmployer(er2,function(er2,err){
+	userService.createUser(admin,function(admin,err){
+		userService.createUser(ee1,function(ee1,err){
+			userService.createUser(ee2,function(ee2,err){
+				userService.createUser(er1,function(er1,err){
+					userService.createUser(er2,function(er2,err){
 
 						listingService.createListing(er1,listings[0],function(err){
 							listingService.createListing(er1,listings[1],function(err){
@@ -170,10 +129,9 @@ exports.setup = function(req,res){
 												listingService.createListing(er2,listings[6],function(err){
 													listingService.createListing(er2,listings[7],function(err){
 														listingService.createListing(er2,listings[8],function(err){
-										
 
-															res.send("Created Data");
-
+															res.send("Data Created")
+															
 										
 										
 														})			
@@ -192,7 +150,6 @@ exports.setup = function(req,res){
 		})
 
 	})
-
 }
 
 

@@ -25,10 +25,8 @@ exports.getListings = function(isPremium,callback){
 		
 }
 
-exports.getListingsByEr = function(id,isPremium,callback){
+exports.getListingsByEr = function(id,callback){
 
-
-	if(isPremium){
 		Listing.find({"owner.id":id}, function(err, listings) {
 
 		if(err){ 
@@ -36,24 +34,10 @@ exports.getListingsByEr = function(id,isPremium,callback){
 			callback(err,listings);
 		}
 		else{
-			console.log(err);
 
 			callback(err,listings);
 		}	
 		});
-	}else{
-
-		Listing.find({"owner.id":id,"isPremium":false}, function(err, listings) {
-
-				console.log(id);
-		if(err){ 
-			callback(err,listings);
-		}
-		else{
-			callback(err,listings);
-		}	
-		});
-	}	
 		
 }
 
@@ -125,27 +109,24 @@ exports.getListingById=function(id,callback){
 		if(err){
 			callback(err,[]);
 		}else{
-			callback(err,listing);
+			callback(listing);
 		}
 	});
 }
 
 exports.editListing=function(listing,callback){
 	var id=listing.id;
-	Listing.findById(id,function(err,old){
+	Listing.findById(id,function(err,record){
 		if(err){
 			callback(false,err);
 		}else{
-			old.name=listing.name;
-			old.description=listing.description;
-			old.deadline=listing.deadline;
-			old.isPremium="true"==listing.ispremium;
-
-			old.save(function(err){
+			record.name=listing.name;
+			record.description=listing.description;
+			record.save(function(err){
 				if(err){
 					callback(err);
 				}else{
-					callback(false,"Success!");
+					callback(false, record);
 				}
 			})
 		}
@@ -160,10 +141,7 @@ exports.createListing= function(user,listing,callback){
 	newListing.owner.name=user.username;
 	
 	newListing.name=listing.name;
-	newListing.description =listing.description;
-	newListing.created=new Date();
-	newListing.deadline=listing.deadline;
-	newListing.isPremium=listing.isPremium;
+	newListing.description = listing.description;
 	newListing.applied=[];
 	newListing.interview=[];
 	newListing.offer=[];
@@ -171,7 +149,6 @@ exports.createListing= function(user,listing,callback){
 	
 	newListing.save(function(err) {
 		if (err) callback(err);
-		console.log('Listing saved successfully');
 		callback(false,newListing);
 	});	
 }

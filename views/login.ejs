@@ -6,13 +6,14 @@
   <body class=""> 
  
     <% include partials/header %>
+	
     <section style="background: #fafafa;">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2">
             <div class="breadcrumbs">
               <ul class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li>Login or register</li>
               </ul>
             </div>
@@ -33,15 +34,10 @@
               <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
               <hr>
               <form action="/register" method="post">
-				  
+				 
                 <div class="form-group">
-                  <label for="name">Name</label>
-                  <input name="name" id="name" type="text" class="form-control">
-                </div>
-				
-                <div class="form-group">
-                  <label for="name">Username</label>
-                  <input name="name" id="name" type="text" class="form-control">
+                  <label for="username">Username</label>
+                  <input name="username" id="username" type="text" class="form-control">
                 </div>
 				
                 <div class="form-group">
@@ -56,10 +52,10 @@
 				
 				<div class="form-group">
 					<div class="radio">
-					  <label><input type="radio" value="employee" name="role">Job Seeker</label>
+					  <label><input type="radio" value="1" name="role">Job Seeker</label>
 					</div>
 					<div class="radio">
-					  <label><input type="radio" value="employer" name="role">Employer</label>
+					  <label><input type="radio" value="2" name="role">Employer</label>
 					</div>
 				</div>
 				

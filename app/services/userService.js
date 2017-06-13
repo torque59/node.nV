@@ -1,39 +1,9 @@
 var User   = require('../models/user'); // get our mongoose model
 
-exports.authenticate=function(username,password,callback){
-	if(username==undefined||password==undefined){
-		callback("Username and Password must be defined.",null);
-	}
-	else{
 
-	User.findOne({
-		username: username
-	}, function(err, user) {
-		if (err){  
-			callback(err,null);
-		}
-		else{
-			if (!user) {
-				callback("User not found",null);
-			}
-			else {
-				if (user.password != password) {
-					callback("Incorrect Password",null);
-				} else {
-					callback(false,user);
-				}		
-			}
-		}
+exports.createUser = function(user,callback){
 		
-		
-	});
-	}
-}
-
-
-exports.createEmployee = function(user,callback){
-
-	var ee1 = new User({ 
+	var u = new User({ 
 	username: user.username, 
 	password: user.password, 
 	email: user.email,
@@ -49,78 +19,50 @@ exports.createEmployee = function(user,callback){
 	interviews:[],
 	offers:[],
 	rejected:[],
-	role:1, //employee-1 | employer-2 |admin - 3
+	role: user.role, //employee-1 | employer-2 |admin - 3
 	reviews:[],//for Premium Employees
 	following:[] //If employee - employers| if employer, memp
  });
-	console.log(ee1);
-	ee1.save(function(err) {
-		if (err) callback(false,err);
-		console.log('User saved successfully');
-		callback(ee1);
+	console.log(u);
+	User.register(u, user.password, function(err) {
+		if (err) {
+			console.log("Error saving the user!: " + err);
+			callback(u, err)
+		} else {
+		  callback(u);
+		  console.log('User saved successfully');
+		}
 	});
-}	
+}
 
-
-exports.createEmployer = function(user,callback){
-
-var er1 = new User({ 
-	username: user.username, 
-	password: user.password, 
-	email: user.email,
-	answer: user.answer,
-	firstname: user.firstname,
-	lastname: user.lastname,
-	isPremium:user.isPremium,
-	enabled:true,
-	accountNonExpired:true,
-	credentialsNonExpired:true,
-	accountNonLocked:true,
-	applications:[],
-	interviews:[],
-	offers:[],
-	rejected:[],
-	role:2, //employee-1 | employer-2 |admin - 3
-	reviews:[],//for Premium Employees
-	following:[] //If employee - employers| if employer, memp
- });
-	console.log(er1);
-	er1.save(function(err) {
-		if (err) callback(false,err);
-		console.log('User saved successfully');
-		callback(er1);
-	});
-}	
-
-exports.createAdmin = function(user,callback){
-
-	var admin = new User({ 
-	username: user.username, 
-	password: user.password, 
-	email: user.email,
-	answer: user.answer,
-	firstname: user.firstname,
-	lastname: user.lastname,
-	isPremium:user.isPremium,
-	enabled:true,
-	accountNonExpired:true,
-	credentialsNonExpired:true,
-	accountNonLocked:true,
-	applications:[],
-	interviews:[],
-	offers:[],
-	rejected:[],
-	role:3, //employee-1 | employer-2 |admin - 3
-	reviews:[],//for Premium Employees
-	following:[] //If employee - employers| if employer, memp
- });
-	console.log(admin);
-	admin.save(function(err) {
-		if (err) callback(false,err);
-		console.log('User saved successfully');
-		callback(admin);
-	});
-}	
+exports.updateUser = function(id, user, callback){
+	
+		User.findById(id,function(err,record){
+			if(err){
+				callback(err, record);
+			}else{
+				record.firstname = user.firstName;
+				record.lastname = user.lastName;
+				record.username = user.username;
+				record.email = user.email;
+				if (user.password.length > 0 ) {
+					record.setPassword(user.password, function(err) {
+					    if (err) {
+					    	callback(err, record)
+					    }
+					});
+				}
+				record.save(function(err){
+					if(err){
+						callback(err, record);
+					}else{
+						callback(false, record);
+					}
+				})
+			}
+		});
+	
+}
 
 exports.getPublicUsers=function(callback){
 	User.find({}, function(err, users) {

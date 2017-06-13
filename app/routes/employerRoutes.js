@@ -1,5 +1,4 @@
 var User   = require('../models/user'); // get our mongoose model
-var jwt    = require('jsonwebtoken'); 
 var Listing = require('../models/listing');
 var config = require('../../config.js');
 var employerService = require("../services/employerService.js");
@@ -8,32 +7,28 @@ var listingService = require("../services/listingService.js");
 var UIRoutes = require('./UIRoutes.js');
 
 exports.createListing=function(req,res){
-	var user=req.decoded._doc;
-	var listing = {};
-	listing.name=req.body.name;
-	listing.deadline = req.body.deadline;
-	listing.description=req.body.description;
 
-
-	listingService.createListing(user,listing,function(err,result){
-		if(result){
-			res.redirect('/homepage');
-		}else if(err){
-			res.json({error:err});
-		}else{
-			res.json({success:false});
+	listingService.createListing(req.user,req.body,function(err,result){
+		if (err) {
+		 	req.flash("error", err.toString());
+			res.redirect("/homepage");
+		} else {
+			req.flash("success", "Listing Successfully Created")
+			res.redirect("/homepage");
 		}
 	});
 }
 
+exports.createListingView=function(req,res){
+	res.render("ercreateListing.ejs", {user: req.user});
+}
+
 exports.updateListing=function(req,res){
-	var id=req.decoded._doc._id;
-	var listing=req.body;
-	listingService.editListing(listing,function(err,success){
+	listingService.editListing(req.body,function(err,success){
 		if(err){
 			res.send(err);
 		}else{
-			res.redirect('/homepage');
+			res.redirect(302, '/review?id=' + req.body.id);
 		}
 	});
 
@@ -64,8 +59,7 @@ exports.updateEmployer=function(req,res){
 				if(err){
 				res.json({"error":err});
 				}else{
-				var token = jwt.sign(user, config.secret, {expiresIn: 86400 });
-				res.redirect('/homepage?token='+token);
+				res.redirect('/homepage');
 				}
 
 
@@ -134,7 +128,16 @@ exports.search = function(req,res){
 
 
 exports.editListing=function(req,res){
-	res.send("TO DO");
+	id = req.query.id;
+	listingService.getListingById(id,function(listing,err){
+		if(!listing){
+			console.log(err);
+			res.send(err);
+		}else{
+			res.render("eredit.ejs",{user:req.user,listing:listing});
+		}
+
+	});
 }
 
 //Premium Services ================================================================================================================================
