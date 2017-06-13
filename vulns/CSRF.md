@@ -20,20 +20,7 @@ In node.nV application, there is no CSRF protection. Attackers could leverage a 
 ### Code for step 1 above:
 
 ```
-  <html>
-  <body>
-    <form action="http://localhost:8081/api/admin/createUser" method="POST">
-      <input type="hidden" name="username" value="hacker" />
-      <input type="hidden" name="firstname" value="super" />
-      <input type="hidden" name="lastname" value="hacker" />
-      <input type="hidden" name="email" value="hacker&#64;hacker&#46;com" />
-      <input type="hidden" name="password" value="hacker" />
-      <input type="hidden" name="role" value="3" />
-      <input type="hidden" name="ispremium" value="true" />
-      <input type="submit" value="Submit request" />
-    </form>
-  </body>
-</html>
+ 
 
 ```
 
@@ -45,19 +32,8 @@ In node.nV application, there is no CSRF protection. Attackers could leverage a 
 
 There are several ways to prevent CSRF attacks on your application. The most straightforward method is to use a "synchronizer token" with any request that change state in your application. This involves creating a unique token and attaching it to every HTML form or AJAX call sent to the user. If the user wishes to then make a state-modifying request, they will have to attach the token they were just sent. The server verifies that the token was sent to the user, and only then accepts the request.
 
-There are many node.js packages that have built in middleware features that readily protect against CSRF attacks. csurf is one such package which can be found on npm (https://github.com/expressjs/csurf). The following code can be added to the server.js file in order to activate the csurf module:
+
 
 ```
-var csrf = require('csurf')
 
-app.use(csrf({ cookie: true }))
-
-// error handler
-app.use(function (err, req, res, next) {
-  if (err.code !== 'EBADCSRFTOKEN') return next(err)
-
-  // handle CSRF token errors here
-  res.status(403)
-  res.send('form tampered with')
-})
 ```

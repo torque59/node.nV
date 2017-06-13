@@ -102,7 +102,6 @@ app.get('/createListing',authService.isAuthenticated, UIRoutes.createListing);
 app.get('/search', authService.isAuthenticated, UIRoutes.search);
 app.get('/jobs', authService.isAuthenticated, UIRoutes.jobs);
 app.get('/review',UIRoutes.review);
-app.get('/editListing',UIRoutes.editListing);
 
 //Admin UI Routes
 app.get('/ee',UIRoutes.ee);
