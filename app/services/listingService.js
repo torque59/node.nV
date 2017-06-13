@@ -141,10 +141,7 @@ exports.createListing= function(user,listing,callback){
 	newListing.owner.name=user.username;
 	
 	newListing.name=listing.name;
-	newListing.description =listing.description;
-	newListing.created=new Date();
-	newListing.deadline=listing.deadline;
-	newListing.isPremium=listing.isPremium;
+	newListing.description = listing.description;
 	newListing.applied=[];
 	newListing.interview=[];
 	newListing.offer=[];
@@ -152,7 +149,6 @@ exports.createListing= function(user,listing,callback){
 	
 	newListing.save(function(err) {
 		if (err) callback(err);
-		console.log('Listing saved successfully');
 		callback(false,newListing);
 	});	
 }

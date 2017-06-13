@@ -7,22 +7,20 @@ var listingService = require("../services/listingService.js");
 var UIRoutes = require('./UIRoutes.js');
 
 exports.createListing=function(req,res){
-	var user=req.decoded._doc;
-	var listing = {};
-	listing.name=req.body.name;
-	listing.deadline = req.body.deadline;
-	listing.description=req.body.description;
 
-
-	listingService.createListing(user,listing,function(err,result){
-		if(result){
-			res.redirect('/homepage');
-		}else if(err){
-			res.json({error:err});
-		}else{
-			res.json({success:false});
+	listingService.createListing(req.user,req.body,function(err,result){
+		if (err) {
+		 	req.flash("error", err.toString());
+			res.redirect("/homepage");
+		} else {
+			req.flash("success", "Listing Successfully Created")
+			res.redirect("/homepage");
 		}
 	});
+}
+
+exports.createListingView=function(req,res){
+	res.render("ercreateListing.ejs", {user: req.user});
 }
 
 exports.updateListing=function(req,res){
