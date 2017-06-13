@@ -69,10 +69,10 @@ app.set('views', [publicViewPath,eeViewPath,erViewPath,adminViewPath]);
 // Routes ===============
 //Static Content Routing
 
-//TEST ROUTE ONLY
+//Route used to seed the database
 app.get('/setup',userroutes.setup);
 
-
+//Unauthenticated Routes
 app.get('/',UIRoutes.index);
 app.get('/login',UIRoutes.login);
 app.post('/register', UIRoutes.register);
@@ -87,23 +87,21 @@ app.get('/logout',userroutes.logout);
 //app.post('/api/authenticate',userroutes.login);
 
 
-app.get('/api/getPublicUsers',userroutes.getPublicUsers); //TEST ONLY
+//app.get('/api/getPublicUsers',userroutes.getPublicUsers); //TEST ONLY
 //app.get('/api/getUserById',userroutes.getUserById); TEST ONLY
 //User Routes
 //app.get('/api/getPublicUsers',userroutes.getPublicUsers);
 //app.get('/api/getProfile',userroutes.getProfile);
 
 
-app.get('/homepage',UIRoutes.homepage);
-app.get('/settings',UIRoutes.settings);
-app.post('/update_settings',UIRoutes.updateSettings);
-app.get('/listings',UIRoutes.listings);
-app.get('/createListing',UIRoutes.createListing);
-app.get('/search',UIRoutes.search);
-app.get('/jobs',UIRoutes.jobs);
-app.get('/funds',UIRoutes.funds);
+app.get('/homepage', authService.isAuthenticated, UIRoutes.homepage);
+app.get('/settings', authService.isAuthenticated, UIRoutes.settings);
+app.post('/update_settings', authService.isAuthenticated, UIRoutes.updateSettings);
+app.get('/listings', authService.isAuthenticated, UIRoutes.listings);
+app.get('/createListing',authService.isAuthenticated, UIRoutes.createListing);
+app.get('/search', authService.isAuthenticated, UIRoutes.search);
+app.get('/jobs', authService.isAuthenticated, UIRoutes.jobs);
 app.get('/review',UIRoutes.review);
-
 app.get('/editListing',UIRoutes.editListing);
 
 //Admin UI Routes
@@ -113,10 +111,10 @@ app.get('/ping',UIRoutes.ping);
 app.get('/create',UIRoutes.create);
 
 //Employer Routes
-app.get('/edit_listing', employerRoutes.editListing);
-app.post('/update_listing', employerRoutes.updateListing);
-app.get('/create_listing', employerRoutes.createListingView);
-app.post('/create_listing', employerRoutes.createListing);
+app.get('/edit_listing', authService.isEmployer, employerRoutes.editListing);
+app.post('/update_listing', authService.isEmployer, employerRoutes.updateListing);
+app.get('/create_listing', authService.isEmployer, employerRoutes.createListingView);
+app.post('/create_listing', authService.isEmployer, employerRoutes.createListing);
 /*
 app.post('/api/employer/editListing',authService.isER,employerRoutes.updateListing);
 app.post('/api/employer/createListing',authService.isER,employerRoutes.createListing); //Need to customize
@@ -133,11 +131,11 @@ app.delete('/api/employer/deleteRequestedApplication',authService.isER,employerR
 */
 //Employee Routes
 
-app.get('/apply', employeeRoutes.apply);
-app.post('/submit_application', employeeRoutes.submitApplication)
-app.get('/view_applications', employeeRoutes.viewApplications)
-app.get('/edit_application', employeeRoutes.editApplication)
-app.post('/update_application', employeeRoutes.updateApplication)
+app.get('/apply', authService.isEmployee, employeeRoutes.apply);
+app.post('/submit_application', authService.isEmployee, employeeRoutes.submitApplication)
+app.get('/view_applications', authService.isEmployee, employeeRoutes.viewApplications)
+app.get('/edit_application', authService.isEmployee, employeeRoutes.editApplication)
+app.post('/update_application', authService.isEmployee, employeeRoutes.updateApplication)
 
 /*
 app.post('/api/employee/updateEmployee',authService.isEE,employeeRoutes.updateEmployee);
@@ -154,11 +152,11 @@ app.get('/api/employee/listSentApplications',authService.isEE,employeeRoutes.lis
 
 //Payment Route
 
-app.post('/api/upgrade',userroutes.upgrade);
+//app.post('/api/upgrade',userroutes.upgrade);
 
 //Admin Routes
 
-app.post('/api/admin/createUser',authService.isAdmin,adminRoutes.createUser);
+//app.post('/api/admin/createUser',authService.isAdmin,adminRoutes.createUser);
 
 app.listen(port);
 console.log('Magic happens at http://localhost:' + port);

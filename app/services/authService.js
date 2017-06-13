@@ -1,31 +1,35 @@
 
-exports.isEE = function(req,res,next){
-	console.log(req.decoded);
-	if(req.decoded._doc.role==1){
+exports.isAuthenticated = function(req, res, next) {
+	if (req.user) {
 		next();
-	}else{
-		res.status(403).send("Unauthorized");
+	} else {
+		req.flash("error", "You must authenticated to access this page!")
+		res.redirect(302, "/")
+	}
+}
+
+exports.isEmployee = function(req,res,next){
+	if (req.user && (req.user.role === 1)) {
+		next();
+	} else {
+		req.flash("error", "You do not have access this page!")
+		res.redirect(302, "/homepage")
 	}
 	
 }
 
-exports.isER = function(req,res,next){
-	console.log(req.decoded);
-	if(req.decoded._doc.role==2){
+exports.isEmployer = function(req,res,next){
+	if (req.user && (req.user.role === 2)) {
 		next();
-	}else{
-		res.status(403).send("Unauthorized");
+	} else {
+		req.flash("error", "You do not have access this page!")
+		res.redirect(302, "/homepage")
 	}
 	
 }
 
 exports.isAdmin = function(req,res,next){
-	console.log(req.decoded);
-	if(req.decoded._doc.role==3){
-		next();
-	}else{
-		res.status(403).send("Unauthorized");
-	}
+	
 	
 }
 
