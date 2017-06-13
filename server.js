@@ -106,7 +106,7 @@ app.get('/listings', authService.isAuthenticated, UIRoutes.listings);
 app.get('/createListing',authService.isAuthenticated, UIRoutes.createListing);
 app.get('/search', authService.isAuthenticated, UIRoutes.search);
 app.get('/jobs', authService.isAuthenticated, UIRoutes.jobs);
-app.get('/review',UIRoutes.review);
+app.get('/review', authService.isAuthenticated, UIRoutes.review);
 
 //Admin UI Routes
 app.get('/ee',UIRoutes.ee);
@@ -115,7 +115,7 @@ app.get('/ping',UIRoutes.ping);
 app.get('/create',UIRoutes.create);
 
 //Employer Routes
-app.get('/edit_listing', authService.isEmployer, employerRoutes.editListing);
+app.get('/edit_listing', authService.isEmployer,employerRoutes.editListing);
 app.post('/update_listing', authService.isEmployer, employerRoutes.updateListing);
 app.get('/create_listing', authService.isEmployer, employerRoutes.createListingView);
 app.post('/create_listing', authService.isEmployer, employerRoutes.createListing);

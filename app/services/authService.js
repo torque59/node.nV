@@ -1,3 +1,4 @@
+var Listing   = require('../models/listing');
 
 exports.isAuthenticated = function(req, res, next) {
 	if (req.user) {
@@ -28,9 +29,36 @@ exports.isEmployer = function(req,res,next){
 	
 }
 
+exports.listingBelongsToUser = function(req, res, next) {
+	var id = "";
+	if (req.query.id) {
+		id = req.query.id
+	} else if (req.body.id) {
+		id = req.body.id
+	}
+	
+	if (id.length > 0 ) {
+
+		Listing.findOne({"owner.id":req.user.id, "_id": id }, function(err, listing) {
+
+		if(err){ 
+			req.flash("error", "You are not authorized to access this listing");
+			res.redirect('/homepage');
+		}
+		else if (listing){
+			next();
+		}	else {
+			req.flash("error", "You are not authorized to access this listing");
+			res.redirect('/homepage');	
+		}
+		});
+	}
+}
+
+/*
 exports.isAdmin = function(req,res,next){
 	
 	
 }
-
+*/
 
