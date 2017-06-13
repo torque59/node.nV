@@ -96,6 +96,7 @@ app.get('/api/getPublicUsers',userroutes.getPublicUsers); //TEST ONLY
 
 app.get('/homepage',UIRoutes.homepage);
 app.get('/settings',UIRoutes.settings);
+app.post('/update_settings',UIRoutes.updateSettings);
 app.get('/listings',UIRoutes.listings);
 app.get('/createListing',UIRoutes.createListing);
 app.get('/search',UIRoutes.search);

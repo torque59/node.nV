@@ -1,34 +1,5 @@
 var User   = require('../models/user'); // get our mongoose model
 
-exports.authenticate=function(username,password,callback){
-	if(username==undefined||password==undefined){
-		callback("Username and Password must be defined.",null);
-	}
-	else{
-
-	User.findOne({
-		username: username
-	}, function(err, user) {
-		if (err){  
-			callback(err,null);
-		}
-		else{
-			if (!user) {
-				callback("User not found",null);
-			}
-			else {
-				if (user.password != password) {
-					callback("Incorrect Password",null);
-				} else {
-					callback(false,user);
-				}		
-			}
-		}
-		
-		
-	});
-	}
-}
 
 exports.createUser = function(user,callback){
 		
@@ -62,7 +33,36 @@ exports.createUser = function(user,callback){
 		  console.log('User saved successfully');
 		}
 	});
-}	
+}
+
+exports.updateUser = function(id, user, callback){
+	
+		User.findById(id,function(err,record){
+			if(err){
+				callback(err, record);
+			}else{
+				record.firstname = user.firstName;
+				record.lastname = user.lastName;
+				record.username = user.username;
+				record.email = user.email;
+				if (user.password.length > 0 ) {
+					record.setPassword(user.password, function(err) {
+					    if (err) {
+					    	callback(err, record)
+					    }
+					});
+				}
+				record.save(function(err){
+					if(err){
+						callback(err, record);
+					}else{
+						callback(false, record);
+					}
+				})
+			}
+		});
+	
+}
 
 exports.getPublicUsers=function(callback){
 	User.find({}, function(err, users) {

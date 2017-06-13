@@ -57,6 +57,18 @@ exports.settings = function(req, res) {
 	res.render("settings.ejs", { user: req.user });
 }
 
+exports.updateSettings = function(req, res){
+	userService.updateUser(req.user.id, req.body, function(err,userInfo) {
+		if (err) {
+			req.flash("error", err.toString());
+			res.redirect(302, "/settings")
+		} else {
+			req.flash("success", "Your information was successfully updated");
+			res.redirect(302, "/login")
+		}
+	});
+}
+
 exports.listings = function(req, res) {
 	var uname=req.decoded._doc.username;
 	var user=req.decoded._doc;
