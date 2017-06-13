@@ -21,3 +21,38 @@ exports.getApplicationsByEmployee = function(id, callback) {
 	  }
 	});
 }
+
+exports.getApplicationById = function(id, callback) {
+	Application
+	.findOne({"_id":id})
+	.populate('_listing')
+	.populate('_creator')
+	.exec(function(err, application){
+		
+		if (err) {
+			callback(err);
+		} else {
+			callback(false, application);
+		}
+		
+	});
+}
+
+exports.editApplication=function(application,callback){
+	var id=application.id;
+	Application.findById(id,function(err,record){
+		if(err){
+			callback(false,err);
+		}else{
+			record.reasonApplied = application.reasonApplied;
+			record.background = application.background;
+			record.save(function(err){
+				if(err){
+					callback(err);
+				}else{
+					callback(false, record);
+				}
+			})
+		}
+	});
+}

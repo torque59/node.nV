@@ -45,6 +45,25 @@ exports.viewApplications = function(req, res){
 	});
 }
 
+exports.editApplication = function(req, res){
+	applicationService.getApplicationById(req.query.id, function(err, app){
+		res.render("eeEditApplication.ejs", {user: req.user, application: app})
+	});
+	
+}
+
+exports.updateApplication = function(req, res){
+	applicationService.editApplication(req.body,function(err,success){
+		if(err){
+			req.flash("error", err.toString())
+			res.redirect(302, '/view_applications');
+		}else{
+			req.flash("success", "Application Successfully Updated")
+			res.redirect(302, '/view_applications');
+		}
+	});
+}
+
 exports.updateEmployee=function(req,res){
 	var id=req.decoded._doc._id;
 	employeeService.updateEmployeeUsername(id,req.body.username,function(err){
