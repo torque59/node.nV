@@ -29,6 +29,16 @@ exports.isEmployer = function(req,res,next){
 	
 }
 
+exports.isAdmin = function(req,res,next){
+	if (req.user && (req.user.role === 3)) {
+		next();
+	} else {
+		req.flash("error", "You do not have access this page!")
+		res.redirect(302, "/homepage")
+	}	
+	
+}
+
 exports.listingBelongsToUser = function(req, res, next) {
 	var id = "";
 	if (req.query.id) {
@@ -55,10 +65,4 @@ exports.listingBelongsToUser = function(req, res, next) {
 	}
 }
 
-/*
-exports.isAdmin = function(req,res,next){
-	
-	
-}
-*/
 
