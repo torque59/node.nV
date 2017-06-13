@@ -37,20 +37,20 @@
             <div class="col-sm-12 col-md-6">
               <div class="row">
                 <div class="col-xs-10">
-                  <h4 class="job__title"><a href=<%- '/review?id='+ listings[i].id %> > <%- listings[i].name %></a></h4>
+                  <h4 class="job__title"><a href=<%= '/review?id='+ listings[i].id %> > <%= listings[i].name %></a></h4>
                   <p class="job__company">
                      
-                    <%- listings[i].owner.name %>                  
+                    <%= listings[i].owner.name %>                  
                   </p>
                 </div>
               </div>
             </div>
             
             <div class="col-xs-10 col-xs-offset-2 col-sm-4 col-sm-offset-0 col-md-3">
-              <p><%- listings[i].description %></p>
+              <p><%= listings[i].description %></p>
             </div>
             <div class="col-xs-10 col-xs-offset-2 col-sm-2 col-sm-offset-0 col-md-1">
-              <p><%- listings[i].deadline %></p>
+              <p><%= listings[i].deadline %></p>
             </div>
           </div>
         </div>

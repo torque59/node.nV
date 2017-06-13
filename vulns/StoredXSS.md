@@ -16,31 +16,45 @@ URL: http://localhost:8081/listings
 node.nV uses the EJS templating language to render its frontend views. However, throughout almost the entire application it does not adequately protect against XSS! Although there is no indication in the templates that the outputs are "insecure", simplying using the ```<%- %>``` syntax does not perform any encoding by default. In the "listing" example, the values stored in the application database are printed out by the loop are raw; if a listing name contained a script tag, it would be output to the page directly and treated as HTML.
 
 #### Walkthrough
-1. Log into the app using the credentials er1:abc123!!
-2. Click on Create listings tab.
+1. Log into the app using the credentials nvisium:abc123!!
+2. From the Navigation Bar - click Settings > Create listings link.
 3. In the Description section of the listing add a <script>alert(1)</script>.
-4. Navigate to the listings tab,
-  URL: http://localhost:8081/listings
+4. Navigate to either http://localhost:8081/ or click logout (which brings you to http://localhost:8081/),
+ 
+URL: http://localhost:8081/
 
 
 As you have learned previously this could be any malicious payload that would be executed in your browser. We will use this test case to determine if the fix you apply is successful at mitigating the XSS injection.
 
 #### Code Snippet
-views/er/ersearch.ejs
+views/index.ejs
 
 ```
-  <% for(var i=0; i < listings.length; i++) { %>
-        <tr> 
-          <td> <%- listings[i].created %></td>
-          <td><%- listings[i].name %></td>
-          <td><%- listings[i].description %></td>
-          <td><%- listings[i].deadline %>
-          </td>
-        <td>
-            <a class="icon-eye-open pull-left" href="/editListing?id=<%= listings[i]._id %>" ></a>
-            <a class="icon-remove pull-right" href="javascript:alert('Remove Listing')"></a></td>
-        </tr>
-        <% } %>
+ <% for(var i=0; i < listings.length; i++) { %>
+<div class="job-listing--featured">
+   <div class="row">
+     <div class="col-sm-12 col-md-2">
+       <div class="row">
+         <div class="col-xs-10">
+           <h4 class="job__title"><a href="/login?next=/review?id=<%=listings[i]._id%>"> <%- listings[i].name %></a></h4>
+           <p class="job__company">
+              
+             <%- listings[i].owner.name %>                  
+           </p>
+         </div>
+       </div>
+     </div>
+     
+     <div class="col-xs-10 col-xs-offset-2 col-sm-4 col-sm-offset-2 col-md-8 col-md-offset-0">
+       <p><%- listings[i].description %></p>
+     </div>
+     <div class="col-xs-10 col-xs-offset-2 col-sm-2 col-sm-offset-0 col-md-1">
+       <p><%- listings[i].deadline %></p>
+     </div>
+   </div>
+ </div>
+ <% } %>
+ 
 ```
 
 #### Solution
@@ -51,23 +65,32 @@ When outputting variables to a page, ensure you properly HTML escape output with
 
 ```
 
-  <% for(var i=0; i < listings.length; i++) { %>
-        <tr> 
-          <td> <%= listings[i].created %></td>
-          <td><%= listings[i].name %></td>
-          <td><%= listings[i].description %></td>
-          <td><%= listings[i].deadline %>
-          </td>
-        <td>
-            <a class="icon-eye-open pull-left" href="/editListing?id=<%= listings[i]._id %>" ></a>
-            <a class="icon-remove pull-right" href="javascript:alert('Remove Listing')"></a></td>
-        </tr>
-        <% } %>
+   <% for(var i=0; i < listings.length; i++) { %>
+  <div class="job-listing--featured">
+     <div class="row">
+       <div class="col-sm-12 col-md-2">
+         <div class="row">
+           <div class="col-xs-10">
+             <h4 class="job__title"><a href="/login?next=/review?id=<%=listings[i]._id%>"> <%= listings[i].name %></a></h4>
+             <p class="job__company">
+              
+               <%= listings[i].owner.name %>                  
+             </p>
+           </div>
+         </div>
+       </div>
+     
+       <div class="col-xs-10 col-xs-offset-2 col-sm-4 col-sm-offset-2 col-md-8 col-md-offset-0">
+         <p><%= listings[i].description %></p>
+       </div>
+       <div class="col-xs-10 col-xs-offset-2 col-sm-2 col-sm-offset-0 col-md-1">
+         <p><%= listings[i].deadline %></p>
+       </div>
+     </div>
+   </div>
+   <% } %>
 
 ```
-
-
-
 
 One potential problem with XSS is when a value starts in one context, and shifts to another. *Multiple context XSS* attacks, may start in the URL but then be output onto the page. In general, it is best to allow only the smallest subset of characters that are needed for the application to function.
 
