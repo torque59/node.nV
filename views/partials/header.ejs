@@ -20,6 +20,8 @@
 		                    <li><a href="/funds">Funds Account</a></li>
 							<% if (!(user.role == 1)) { %>
 							<li class=" "><a href="/createlisting"><i class="icon-search"></i> <span>Create Listing</span></a></li>
+							<% } else { %>
+							<li class=" "><a href="/view_applications"><span>View My Applications</span></a></li>
 							<% } %>
 		                  </ul>
 		                </li>

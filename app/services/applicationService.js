@@ -8,3 +8,16 @@ exports.createApplication = function(application, callback){
 	_listing : application.listing
 	});
 }
+
+exports.getApplicationsByEmployee = function(id, callback) {
+	Application
+	.find({"_creator":id})
+	.populate('_listing')
+	.exec(function (err, applications) {
+	  if (err) {
+	  	callback(err);
+	  } else {
+	  	callback(false, applications);
+	  }
+	});
+}

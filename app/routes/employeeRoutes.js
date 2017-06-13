@@ -4,6 +4,7 @@ var Application = require('../models/application');
 var config = require('../../config.js');
 var employeeService = require("../services/employeeService.js");
 var listingService = require("../services/listingService.js");
+var applicationService = require("../services/applicationService.js");
 
 exports.apply = function(req, res) {
 	id = req.query.id;
@@ -36,6 +37,12 @@ exports.submitApplication = function(req, res) {
 		}
 	});	
 	//res.send(typeof req.body.listingId)
+}
+
+exports.viewApplications = function(req, res){
+	applicationService.getApplicationsByEmployee(req.user.id, function(err, apps ){
+		res.render("eeListApplications.ejs", {user: req.user, applications: apps })
+	});
 }
 
 exports.updateEmployee=function(req,res){

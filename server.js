@@ -133,6 +133,7 @@ app.delete('/api/employer/deleteRequestedApplication',authService.isER,employerR
 
 app.get('/apply', employeeRoutes.apply);
 app.post('/submit_application', employeeRoutes.submitApplication)
+app.get('/view_applications', employeeRoutes.viewApplications)
 
 /*
 app.post('/api/employee/updateEmployee',authService.isEE,employeeRoutes.updateEmployee);
