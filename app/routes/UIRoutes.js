@@ -54,10 +54,7 @@ exports.homepage = function(req, res){
 }
 
 exports.settings = function(req, res) {
-	var user=req.decoded._doc;
-	var uname=req.decoded._doc.username;
-	var root=roles[req.decoded._doc.role];
-	res.render(root+"settings.ejs", { username: uname,user:user });
+	res.render("settings.ejs", { user: req.user });
 }
 
 exports.listings = function(req, res) {

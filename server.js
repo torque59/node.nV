@@ -105,7 +105,6 @@ app.get('/review',UIRoutes.review);
 
 app.get('/editListing',UIRoutes.editListing);
 
-
 //Admin UI Routes
 app.get('/ee',UIRoutes.ee);
 app.get('/er',UIRoutes.er);
