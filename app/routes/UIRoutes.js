@@ -12,7 +12,7 @@ exports.index = function(req, res){
 }
 
 exports.login = function(req, res){
-		res.render("login.ejs" );
+		res.render("login.ejs", {next_url: req.query.next});
 }
 
 exports.register = function(req, res){

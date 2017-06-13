@@ -9,15 +9,15 @@ Unvalidated redirects are common after users authenticate themselves on a websit
 Unvalidated Redirects are sometimes not considered a direct vulnerability since they do not affect users of your website. However, they have the potential to affect users of any website and harm the reputation of your site. It is best to avoid allowing such redirects so malicious attackers cannot damage brand reputation by piggybacking off your users' trust.
 
 #### Problem
-URL: http://localhost:8080/register?next=/payment/make-payment
+URL: `http://localhost:8081/login?next=<some url>`
 
-node.nV's registration controller action takes an optional ```next``` parameter that determines where the user browser is redirected to after registration. This feature was added so the user could be redirect to different versions of the login page, or even the main page of the application, without even modifying the main registration Java code. However, there is no validation that the path passed in is part of the application. In fact, passing in ```next=http%3A%2F%2Fevil.com``` results in a malicious browser redirect!
+node.nV's login route action takes an optional ```next``` parameter that determines where the user browser is redirected to after registration. However, there is no validation that the path passed in is part of the application. In fact, passing in ```next=http%3A%2F%2Fevil.com``` results in a malicious browser redirect!
 
 #### Walkthrough
-1. Click on the Register button.
-2. Add a next parameter to the URL by copy and pasting ```?next=http%3A%2F%2Fgoogle.com``` at the end.
+1. Unauthenticated, click on one of the listings shown at http://localhost:8081/
+2. Change the next parameter to ```?next=http%3A%2F%2Fgoogle.com```.
 3. Hit return/enter in the URL bar to reload the page with the value loaded in the next parameter.
-4. Enter values in each of the form fields as appropriate (make something up).
+4. Enter login credentials of an employee, such as superhacker/abc123!!
 5. Click the Register button.
 
 Note that the application successfully registers and then redirects your browser to google.com.
@@ -32,3 +32,23 @@ The optimal solution for preventing unvalidated redirect attacks is to require U
 It may be worth allowing remote websites to be accessed, but putting up a redirect landing page informing users they will be accessing untrusted resources. This will inform the user that they may possibly be exposing themselves to attack.
 
 #### Solution Code
+
+We parse the `next_url` parameter using the `url` library. The pathname and query parameters are the only options allowed but we do not allow a redirection to another domain.
+
+```
+app.post('/login', passport.authenticate('local'), function(req, res) {
+    if (req.body.next_url) {
+		new_url = url.parse(req.body.next_url);	
+		if (new_url.search) {
+			res.redirect(new_url.pathname + new_url.search)
+		} else {
+			res.redirect(new_url.pathname)
+		}
+    	res.redirect(new_url.pathname + new_url.search)
+    } else {
+    	res.redirect('/homepage');
+    }
+});
+```
+
+

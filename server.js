@@ -16,6 +16,7 @@ var adminRoutes = require('./app/routes/adminRoutes.js');
 var authService = require('./app/services/authService.js');
 var session = require('express-session');
 var flash = require('connect-flash');
+var url = require('url');
 
 var UIRoutes = require('./app/routes/UIRoutes.js');
 
@@ -51,7 +52,11 @@ app.use(function(req, res, next){
 });
 
 app.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/homepage');
+    if (req.body.next_url) {
+    	res.redirect(req.body.next_url)
+    } else {
+    	res.redirect('/homepage');
+    }
 });
 
 
