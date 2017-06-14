@@ -10,7 +10,7 @@ The most common avenue for any injection attack is when unverified input is dire
 1. Navigate to the ping endpoint
 URL: http://localhost:8081/ping
 
-The node.nV admin tab contains a page which was originally designed to test network conectivity via ping. However, because the backend service does not validate inputs, the page is vulnerable to Command Injection.
+The node.nV application contains a page which was originally designed to test network conectivity via ping. However, because the backend service does not validate inputs, the page is vulnerable to Command Injection.
 
 #### Walkthrough
 
