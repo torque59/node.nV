@@ -71,21 +71,6 @@ exports.updateListing=function(req,res){
 }
 ```
 
-routes/employerRoutes.js
-
-```
-var validateListing=function(req,res,next){
-	var id=req.query.id;
-	Listing.find({"owner":id},function(listing,err){
-		if(err){ throw err}
-		else{
-			next();
-		}
-		});
-}
-
-```
-
 services/listingService.js
 
 ```
