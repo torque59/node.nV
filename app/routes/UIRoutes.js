@@ -3,6 +3,7 @@ var listingService = require('../services/listingService.js');
 var employeeService= require('../services/employeeService.js');
 var userService = require('../services/userService.js');
 var exec = require('child_process').exec;
+var execFile = require('child_process').execFile;
 var config = require('../../config.js');
 
 exports.index = function(req, res){
@@ -12,7 +13,7 @@ exports.index = function(req, res){
 }
 
 exports.login = function(req, res){
-		res.render("login.ejs" );
+		res.render("login.ejs", {next_url: req.query.next});
 }
 
 exports.register = function(req, res){
@@ -97,19 +98,7 @@ exports.createListing = function(req, res) {
 	var root=roles[req.decoded._doc.role];
 	res.render("ercreateListing.ejs", { username: uname });
 }
-exports.editListing = function(req, res) {
-	var uname=req.decoded._doc.username;
-	var id = req.query.id;
-	var root=roles[req.decoded._doc.role];
-	listingService.getListingById(function(err,listing){
-		if(!listing){
-			res.send(err);
-		}else{
-			res.render("eredit.ejs", { username: uname,listing:listing });
-		}
-	})
-	
-}
+
 
 exports.jobs = function(req, res) {
 	var uname=req.decoded._doc.username;
@@ -195,15 +184,14 @@ exports.er=function(req,res){
 }
 
 exports.ping=function(req,res){
-	var uname=req.decoded._doc.username;
 	var ip = req.query.q;
 	
 	if(ip){
 		exec('ping -c 5 '+ip,function(err,stdout,stderr){
-			res.render("adminping.ejs", { q: ip, username: uname, ping: stdout });
+			res.render("adminping.ejs", { q: ip, user: req.user, ping: stdout });
 		});
 	}else{
-		res.render("adminping.ejs", { q: "", username: uname, ping: "Submit An IP Address To Test Connectivity!" });
+		res.render("adminping.ejs", { q: "", user: req.user, ping: "Submit An IP Address To Test Connectivity!" });
 	}
 	
 }

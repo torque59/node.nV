@@ -43,22 +43,34 @@ exports.updateUser = function(id, user, callback){
 			}else{
 				record.firstname = user.firstName;
 				record.lastname = user.lastName;
-				record.username = user.username;
+				if (user.username) {
+					record.username = user.username;
+				}
 				record.email = user.email;
 				if (user.password.length > 0 ) {
 					record.setPassword(user.password, function(err) {
 					    if (err) {
 					    	callback(err, record)
+					    } else {
+							record.save(function(err){
+								if(err){
+									callback(err, record);
+								}else{
+									callback(false, record);
+								}
+							})
 					    }
 					});
+				} else {
+					record.save(function(err){
+						if(err){
+							callback(err, record);
+						}else{
+							callback(false, record);
+						}
+					})
 				}
-				record.save(function(err){
-					if(err){
-						callback(err, record);
-					}else{
-						callback(false, record);
-					}
-				})
+				
 			}
 		});
 	

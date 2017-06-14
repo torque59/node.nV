@@ -21,24 +21,57 @@ There is no verification that the user submitting the request is attempting to v
 
 #### Walkthrough
 
-1. Authenticate to the application as an employer, and navigate to the following URL:
+1. Navigate to the following URL:
 
-http://localhost:8081/listings
+http://localhost:8081/
 
-2. Click on the eye in the status tab of any listing to edit that listing:
+2. Click on a listing for "OtherAppSecFirm", this should bring you to the `/login?next=/review?id=<some listing id>`:
 
-Example URL: http://localhost:8081/editListing?id=57d707573952354d2802926a
+Example URL: `http://localhost:8081/login?next=/review?id=593e8cdcf6d647e16fc85960`
 
-3. Modify the id parameter to another valid listing ID in order to access another listing that does not belong to the 
+3. Copy that value for later. Now, authenticate as the *nvisium* user (nvisium/abc123!!).
+
+4. Choose one of your listings from the homepage and click "Edit Listing"
+
+5. Replace the identifier in the url with the value we copied from earlier.
+
+Example, change: 
+
+`http://localhost:8081/edit_listing?id=593e8cdcf6d647e16fc8595c` 
+
+To:
+
+`http://localhost:8081/edit_listing?id=593e8cdcf6d647e16fc85960`. 
+
+6. Note that you have successfully updated OtherAppSecFirm's listing
 
 #### Code Snippet
 
+Both the following routes check that a user is authenticated but do *not* check they own the listing they are asking to interact with:
 
+server.js
 
-#### Solution
+```
+app.get('/edit_listing', authService.isEmployer, employerRoutes.editListing);
+app.post('/update_listing', authService.isEmployer, employerRoutes.updateListing);
+```
 
-Implement middleware for authorization of endpoints:
-The following function can be used for ensuring that employers can only access their listings:
+For example, with the update route, the code takes whatever ID is provided the user and updates its attributes:
+
+```
+exports.updateListing=function(req,res){
+	listingService.editListing(req.body,function(err,success){
+		if(err){
+			res.send(err);
+		}else{
+			res.redirect(302, '/review?id=' + req.body.id);
+		}
+	});
+
+}
+```
+
+routes/employerRoutes.js
 
 ```
 var validateListing=function(req,res,next){
@@ -51,6 +84,71 @@ var validateListing=function(req,res,next){
 		});
 }
 
+```
+
+services/listingService.js
+
+```
+exports.editListing=function(listing,callback){
+	var id=listing.id;
+	Listing.findById(id,function(err,record){
+		if(err){
+			callback(false,err);
+		}else{
+			record.name=listing.name;
+			record.description=listing.description;
+			record.save(function(err){
+				if(err){
+					callback(err);
+				}else{
+					callback(false, record);
+				}
+			})
+		}
+	});
+}
+```
+
+#### Solution
+
+Implement middleware for authorization of endpoints, note the addition of `authService.listingBelongsToUser` :
+
+```
+app.get('/edit_listing', authService.isEmployer, authService.listingBelongsToUser, employerRoutes.editListing);
+app.post('/update_listing', authService.isEmployer, authService.listingBelongsToUser, employerRoutes.updateListing);
+
+```
+
+The following function can be used for ensuring that employers can only access their listings:
+
+services/authService.js
+
+```
+exports.listingBelongsToUser = function(req, res, next) {
+	var id = "";
+	if (req.query.id) {
+		id = req.query.id
+	} else if (req.body.id) {
+		id = req.body.id
+	}
+	
+	if (id.length > 0 ) {
+
+		Listing.findOne({"owner.id":req.user.id, "_id": id }, function(err, listing) {
+
+		if(err){ 
+			req.flash("error", "You are not authorized to access this listing");
+			res.redirect('/homepage');
+		}
+		else if (listing){
+			next();
+		}	else {
+			req.flash("error", "You are not authorized to access this listing");
+			res.redirect('/homepage');	
+		}
+		});
+	}
+}
 ```
 
 This kind of middleware can be adapted based on the parameter that requires validation.

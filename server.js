@@ -16,6 +16,8 @@ var adminRoutes = require('./app/routes/adminRoutes.js');
 var authService = require('./app/services/authService.js');
 var session = require('express-session');
 var flash = require('connect-flash');
+var url = require('url');
+var csrf = require('csurf');
 
 var UIRoutes = require('./app/routes/UIRoutes.js');
 
@@ -50,8 +52,16 @@ app.use(function(req, res, next){
     next();
 });
 
+
+// Enable CSRF Protection
+//app.use(csrf());
+
 app.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/homepage');
+    if (req.body.next_url) {
+    	res.redirect(req.body.next_url)
+    } else {
+    	res.redirect('/homepage');
+    }
 });
 
 
@@ -101,8 +111,7 @@ app.get('/listings', authService.isAuthenticated, UIRoutes.listings);
 app.get('/createListing',authService.isAuthenticated, UIRoutes.createListing);
 app.get('/search', authService.isAuthenticated, UIRoutes.search);
 app.get('/jobs', authService.isAuthenticated, UIRoutes.jobs);
-app.get('/review',UIRoutes.review);
-app.get('/editListing',UIRoutes.editListing);
+app.get('/review', authService.isAuthenticated, UIRoutes.review);
 
 //Admin UI Routes
 app.get('/ee',UIRoutes.ee);
@@ -111,7 +120,7 @@ app.get('/ping',UIRoutes.ping);
 app.get('/create',UIRoutes.create);
 
 //Employer Routes
-app.get('/edit_listing', authService.isEmployer, employerRoutes.editListing);
+app.get('/edit_listing', authService.isEmployer,employerRoutes.editListing);
 app.post('/update_listing', authService.isEmployer, employerRoutes.updateListing);
 app.get('/create_listing', authService.isEmployer, employerRoutes.createListingView);
 app.post('/create_listing', authService.isEmployer, employerRoutes.createListing);

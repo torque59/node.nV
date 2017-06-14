@@ -8,44 +8,25 @@ XSS flaws usually rely on executing JavaScript in the user's browser, but can oc
 
 Most common XSS attacks attempt to either steal user cookie information (containing their site session), browser information, account contents, or other sensitive information. It's also possible to force the user's browser to navigate to an attacker controlled server for further exploitation.
 
-There are usually two broad forms of XSS: stored XSS, and reflected XSS. Reflected XSS is usually parsed from a URL or some other client-only input, and affects the user without any interaction from the server. Reflected XSS is much harder to detect, since there is no interaction with the server as the user is hijacked. On the other hand, stored XSS is usually sent as input to the server and saved in a database. Any time the page with the payload is loaded, it will replay the exploit. While easier to detect, stored XSS can have a wider reaching impact on the end user.
-
 
 #### Problem
-URL: http://localhost:8081/search?q=
+URL: http://localhost:8081/login?next=
 
-node.nV uses the EJS templating language to render its frontend views. However, throughout almost the entire application it does not adequately protect against XSS! Although there is no indication in the templates that the outputs are "insecure", simplying using the ```<%- q %>``` syntax does not perform any encoding by default. In the  template above, the value of the ```q``` parameter is printed out in raw format; if an attacker passes in a value that contains a script tag, it would be output to the page directly and treated as HTML. 
+node.nV uses the EJS templating language to render its frontend views.  The ```<%- q %>``` syntax does not perform any encoding by default and is therefore an insecure mechanism for rendering data. In the  template above, the value of the ```next``` parameter is printed out in raw format; if an attacker passes in a value that contains a script tag, it would be output to the page directly and treated as HTML. 
 
 #### Walkthrough
-1. Open up node.nV using the SauceLabs Firefox Browser
-2. Sign in as 'er1' with password 'abc123!!'
-3. Navigate to the search tab and try to search for '<script>alert(1)</script>'
+1. Using Firefox or Chrome (Chrome may detect XSS, however) - navigate to `http://localhost:8081/login?next=""><script>alert(1)</script>`
+2. Note that a JavaScript alert box will appear
 
 #### Code Snippet
-UIRoutes.js
+views/login.ejs
 
 ```
-exports.search = function(req, res) {
-	var uname=req.decoded._doc.username;
-	var root=roles[req.decoded._doc.role];
-	var query = req.query.q;
-
-	if(req.query.q){
-		listingService.search(query,function(listings,err){
-			res.render(root+"search.ejs", { q: query, username: uname, listings: listings });
-		});
-	}else{
-		res.render(root+"search.ejs", { q:"", username: uname, listings: [] });
-	}
-	
-}
+	<% if (next_url) {%>
+	<input type="hidden" name="next_url" value=<%- next_url %>>
+	<% } %>
 ```
 
-views/ee/eeSearch.ejs:104
-
-```
-<div> <%= listings.length %> Results found for your query: <%- q %> </div>
-```
 #### Solution
 
 
@@ -53,12 +34,14 @@ XSS requires a more proactive approach to mitigate in EJS templates than in othe
 
 
 
-Use ```<%= q %>``` instead of ```<%- q %>``` when reflecting dynamic user input. The remediated code snippet can be found below:  
+Use ```<%= %>``` instead of ```<%= %>``` when reflecting dynamic user input. The remediated code snippet can be found below:  
 
-views/ee/eeSearch.ejs:104
+views/login.ejs
 
 ```
-<div> <%= listings.length %> Results found for your query: <%= q %> </div>
+	<% if (next_url) {%>
+	<input type="hidden" name="next_url" value=<%= next_url %>>
+	<% } %>
 ```
 
 
