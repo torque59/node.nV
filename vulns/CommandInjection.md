@@ -45,8 +45,30 @@ In some languages and frameworks, it is possible to perform parameterized system
 
 #### Solution Code 
 
+`childProcess.execFile` is a solution that allows us to parameterize our system commands and is an effective way of preventing OSCI. Note the following code:
+
+
+```
+exports.ping=function(req,res){
+	var ip = req.query.q;
+	
+	if(ip){
+		execFile('/sbin/ping', ['-c', '5', ip], function (err, result) {
+			res.render("adminping.ejs", { q: ip, user: req.user, ping: result });
+		});
+	}else{
+		res.render("adminping.ejs", { q: "", user: req.user, ping: "Submit An IP Address To Test Connectivity!" });
+	}
+	
+}
+       
 ```
 
-       
+The safe modification is made here, in that above code:
+
+```
+	execFile('/sbin/ping', ['-c', '5', ip], function (err, result) {
+		res.render("adminping.ejs", { q: ip, user: req.user, ping: result });
+	});
 ```
 
