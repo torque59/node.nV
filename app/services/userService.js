@@ -49,16 +49,26 @@ exports.updateUser = function(id, user, callback){
 					record.setPassword(user.password, function(err) {
 					    if (err) {
 					    	callback(err, record)
+					    } else {
+							record.save(function(err){
+								if(err){
+									callback(err, record);
+								}else{
+									callback(false, record);
+								}
+							})
 					    }
 					});
+				} else {
+					record.save(function(err){
+						if(err){
+							callback(err, record);
+						}else{
+							callback(false, record);
+						}
+					})
 				}
-				record.save(function(err){
-					if(err){
-						callback(err, record);
-					}else{
-						callback(false, record);
-					}
-				})
+				
 			}
 		});
 	
