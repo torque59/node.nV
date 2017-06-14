@@ -17,6 +17,7 @@ var authService = require('./app/services/authService.js');
 var session = require('express-session');
 var flash = require('connect-flash');
 var url = require('url');
+var csrf = require('csurf');
 
 var UIRoutes = require('./app/routes/UIRoutes.js');
 
@@ -50,6 +51,10 @@ app.use(function(req, res, next){
     res.locals.errors = req.flash('error');
     next();
 });
+
+
+// Enable CSRF Protection
+//app.use(csrf());
 
 app.post('/login', passport.authenticate('local'), function(req, res) {
     if (req.body.next_url) {
