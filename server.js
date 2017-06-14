@@ -116,7 +116,7 @@ app.get('/review', authService.isAuthenticated, UIRoutes.review);
 //Admin UI Routes
 app.get('/ee',UIRoutes.ee);
 app.get('/er',UIRoutes.er);
-app.get('/ping',UIRoutes.ping);
+app.get('/ping', UIRoutes.ping);
 app.get('/create',UIRoutes.create);
 
 //Employer Routes

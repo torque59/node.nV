@@ -50,6 +50,10 @@ exports.homepage = function(req, res){
 		listingService.getListingsByEr(req.user.id, function(error, listings){
 			res.render("homepage.ejs", {listings: listings, user: req.user});
 		})
+	} else {
+		employeeService.getListings(function(err,listings){
+			res.render("homepage.ejs", {listings: listings, user: req.user});
+		});
 	}
 
 		
