@@ -11,7 +11,7 @@ exports.createApplication = function(application, callback){
 
 exports.getApplicationsByEmployee = function(id, callback) {
 	Application
-	.find({"_creator":id})
+	.find(query)
 	.populate('_listing')
 	.exec(function (err, applications) {
 	  if (err) {

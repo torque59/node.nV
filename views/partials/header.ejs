@@ -20,7 +20,7 @@
 							<% if (!(user.role == 1)) { %>
 							<li class=" "><a href="/create_listing"><i class="icon-search"></i> <span>Create Listing</span></a></li>
 							<% } else { %>
-							<li class=" "><a href="/view_applications"><span>View My Applications</span></a></li>
+							<li class=" "><a href='/view_applications?query={"_creator":"<%= user._id%>"}'><span>View My Applications</span></a></li>
 							<% } %>
 		                  </ul>
 		                </li>
