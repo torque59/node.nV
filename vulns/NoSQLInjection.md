@@ -38,7 +38,7 @@ exports.viewApplications = function(req, res){
 services/applicationService.js
 
 ```
-exports.getApplicationsByEmployee = function(id, callback) {
+exports.getApplicationsByEmployee = function(query, callback) {
 	Application
 	.find(query)
 	.populate('_listing')

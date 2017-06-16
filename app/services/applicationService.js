@@ -9,7 +9,7 @@ exports.createApplication = function(application, callback){
 	});
 }
 
-exports.getApplicationsByEmployee = function(id, callback) {
+exports.getApplicationsByEmployee = function(query, callback) {
 	Application
 	.find(query)
 	.populate('_listing')
