@@ -43,7 +43,7 @@ exports.submitApplication = function(req, res) {
 exports.viewApplications = function(req, res){
 	query = JSON.parse(req.query.query)
 	applicationService.getApplicationsByEmployee(query, function(err, apps ){
-		res.render("eeListApplications.ejs", {user: req.user, applications: apps })
+		res.render("eelistApplications.ejs", {user: req.user, applications: apps })
 	});
 }
 
