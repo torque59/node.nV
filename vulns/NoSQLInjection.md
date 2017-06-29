@@ -15,7 +15,7 @@ The node.nV application parses user-input using the JSON library in order to dir
 Step 1. You need *at least* two user accounts to have applied for a job listing.
 Step 2. Authenticate using one of the two accounts you have created job applications for.
 Step 3. Navigate to the "Navigation Bar at the top of the page. Click on Settings -> View My Applications.
-Step 4. Modify the query in the browser from `query={"_creator": "<some user id>"}` to `query={"_creator": "$gte":""}`
+Step 4. Modify the query in the browser from `query={"_creator": "<some user id>"}` to `query={"_creator": {"$gte":""}}`
 Step 5. Review the results. You should be able to see everyone's applications.
 
 
