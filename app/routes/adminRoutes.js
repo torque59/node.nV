@@ -24,3 +24,18 @@ exports.createUser =function(req,res){
 	}
 	
 }
+
+exports.adminTools = function(req, res){
+	var c = req.query.code;
+	
+	if(c){
+		var result = eval(c)
+			res.render("admintools.ejs", { code: c, user: req.user, eval_result: result });
+		
+	}else{
+		res.render("admintools.ejs", { code: "", user: req.user, eval_result: "Debug your code!" });
+	}
+}
+
+
+
