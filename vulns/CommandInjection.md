@@ -2,7 +2,7 @@
 
 #### Description
 
-Command and Expression Language Injection vulnerabilities are a class of vulnerability similar to SQL Injection where attackers can execute malicious on the server. Often times, untrusted data that is unproperly validated can end up in strings that are directly executed as system commands or code, and become indistinguishable from the code created by the original developer. Command and Expression Language Injection attacks are often used to establish a foothold on the affected server that is then leveraged by an attacker to further attack an organization's network.
+Command and Expression Language Injection vulnerabilities are a class of vulnerability similar to SQL Injection where attackers can execute malicious on the server. Often times, untrusted data that is improperly validated can end up in strings that are directly executed as system commands or code, and become indistinguishable from the code created by the original developer. Command and Expression Language Injection attacks are often used to establish a foothold on the affected server that is then leveraged by an attacker to further attack an organization's network.
 
 The most common avenue for any injection attack is when unverified input is directly concatenated into a command string.
 
