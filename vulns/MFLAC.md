@@ -8,7 +8,7 @@ Missing Function Level Access Control or "MFLAC" occurs when authorization is no
 1. Navigate to the ping endpoint
 URL: http://localhost:8081/ping
 
-The node.nV ping contains a page which was originally designed to test network conectivity via ping. However, any user can access this page as no authorization is performed prior to allowing a user to interact with the page.
+The node.nV ping contains a page which was originally designed to test network connectivity via ping. However, any user can access this page as no authorization is performed prior to allowing a user to interact with the page.
 
 #### Walkthrough
 
