@@ -2,7 +2,7 @@
 
 #### Description
 
-Missing Function Leval Access Control or "MFLAC" occurs when authorization is not performed on a function prior to granting user access to the function.
+Missing Function Level Access Control or "MFLAC" occurs when authorization is not performed on a function prior to granting user access to the function.
 
 #### Problem
 1. Navigate to the ping endpoint
