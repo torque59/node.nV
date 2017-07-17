@@ -2,8 +2,8 @@
 
 #### Description
 
-Insecure Direct Object References are a class of vulnerability where users are able to directly access database objects based on their input. This commonly manifests itself in application URLs that end in an object identifer, such as ```/profile?id=<user id>```. In many cases, the developer does not consider that simplying not giving the user a link to another page does not prevent them from finding it on their own.
-
+Insecure Direct Object References are a class of vulnerability where users are able to directly access database objects based on their input. This commonly manifests itself in application URLs that end in an object identifier, such as ```/profile?id=<user id>```. 
+	
 In order for this problem to be an *insecure* direct object reference, it should allow the attacker to bypass normal authentication methods. For example, a system that stores invoices and allows them to be accessed by ID (```/invoice?id=343243```) would have IDOR vulnerabilities if an attacker could bruteforce ID numbers to view other users' private invoices.
 
 #### Problem
