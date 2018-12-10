@@ -18,7 +18,7 @@ db.once('open', function callback() {
 module.exports = function(grunt) {
     grunt.initConfig({
         exec: {
-            dropdb:'mongo nodenv --eval "db.dropDatabase()"',
+            dropdb:'mongo --host nodenvMongo nodenv --eval "db.dropDatabase()"',
             createdb:'curl http://localhost:8081/setup',
             run: 'nodemon server.js'
         },
