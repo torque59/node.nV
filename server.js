@@ -14,7 +14,7 @@ var employerRoutes = require('./app/routes/employerRoutes.js');
 var employeeRoutes = require('./app/routes/employeeRoutes.js');
 var adminRoutes = require('./app/routes/adminRoutes.js');
 var authService = require('./app/services/authService.js');
-var analyticroutes = require('./app/services/analyticsService.js');
+//var analyticroutes = require('./app/services/analyticsService.js');
 var session = require('express-session');
 var flash = require('connect-flash');
 var url = require('url');
@@ -83,7 +83,7 @@ app.set('views', [publicViewPath,eeViewPath,erViewPath,adminViewPath]);
 //Route used to seed the database
 app.get('/setup',userroutes.setup);
 
-app.get('/mysqltest', analyticroutes.queryTest);
+//app.get('/mysqltest', analyticroutes.queryTest);
 
 //Unauthenticated Routes
 app.get('/',UIRoutes.index);
