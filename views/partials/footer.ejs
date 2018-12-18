@@ -12,9 +12,13 @@
           
             <div class="col-md-8 col-sm-6">
               <h4>Client zone</h4>
+              <% if (typeof user === "object") {%>
+                <li>Welcome <%=user.username%></li>
+              <% } else { %>
               <ul>
                 <li><a href="/login">Login or Register</a></li>
               </ul>
+              <% } %>
             </div>
             
             

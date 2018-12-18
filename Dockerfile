@@ -12,14 +12,11 @@ RUN echo "deb [ arch=amd64 ] http://repo.mongodb.com/apt/ubuntu trusty/mongodb-e
 RUN apt-get update
 RUN apt-get install -y mongodb
 
-# Install mysql-server
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
-
 RUN npm install
 RUN npm install -g grunt-cli 
 
 COPY . .
 EXPOSE 8081
 
-CMD [ "grunt", "setup"]
-CMD [ "node", "server.js" ]
+#CMD [ "grunt", "setup"]
+#CMD [ "node", "server.js" ]
