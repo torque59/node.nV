@@ -5,9 +5,9 @@ services:
     ports:
     - "49160:8081"
     volumes:
-    - .:/usr/src/app
+    - .:/usr/src
     depends_on:
-      - mongo
-    command: "npm install && npm install -g grunt-cli  && npm start"
-  mongo:
+      - nodenvMongo
+    command: "npm start"
+  nodenvMongo:
     image: "mongo:3.2-jessie"

@@ -1,7 +1,7 @@
 # Warning:
 #   This app expects both a mongodb and mysql server container to be running on the same network
 FROM node:8
-WORKDIR /usr/src/app
+WORKDIR /usr/src
 
 COPY package*.json ./
 
@@ -13,8 +13,8 @@ RUN apt-get update
 RUN apt-get install -y mongodb
 
 #RUN npm install -g express
-#RUN npm install
-#RUN npm install -g grunt-cli 
+RUN npm install
+RUN npm install -g grunt-cli 
 
 COPY . .
 EXPOSE 8081
