@@ -11,9 +11,10 @@ exports.queryTest = function(req, res, next) {
     
     connection.connect();
 
-    query = "SELECT DISTINCT TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS"
-    connection.query(query, function(err,res) {
+    query = "SELECT * FROM analytics";
+    connection.query(query, function(err,response) {
         if (err) throw err;
-        console.log("Result: " + res);
+        console.log("Result: " + response);
+        res.json(response);
     });
 }
