@@ -10,6 +10,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var config = require('./config'); // get our config file
 var user   = require('./app/models/user'); // get our mongoose model
 var userroutes = require('./app/routes/userRoutes.js');
+var analyticsroutes = require('./app/routes/analyticsRoutes.js');
 var employerRoutes = require('./app/routes/employerRoutes.js');
 var employeeRoutes = require('./app/routes/employeeRoutes.js');
 var adminRoutes = require('./app/routes/adminRoutes.js');
@@ -82,6 +83,8 @@ app.set('views', [publicViewPath,eeViewPath,erViewPath,adminViewPath]);
 
 //Route used to seed the database
 app.get('/setup',userroutes.setup);
+
+app.get('/test', analyticsroutes.queryTest);
 
 //app.get('/mysqltest', analyticroutes.queryTest);
 
