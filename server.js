@@ -84,7 +84,9 @@ app.set('views', [publicViewPath,eeViewPath,erViewPath,adminViewPath]);
 //Route used to seed the database
 app.get('/setup',userroutes.setup);
 
-app.get('/test', analyticsroutes.queryTest);
+//Analytics Routes
+app.get('/analytics', analyticsroutes.allAnalytics);
+app.post('/analytics', analyticsroutes.createAnalytic);
 
 //app.get('/mysqltest', analyticroutes.queryTest);
 
