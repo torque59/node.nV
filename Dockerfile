@@ -19,4 +19,4 @@ RUN npm install -g grunt-cli
 COPY . .
 EXPOSE 8081
 
-#CMD [ "node", "server.js" ]
+#RUN grunt setup

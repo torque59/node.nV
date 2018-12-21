@@ -9,17 +9,17 @@ services:
     depends_on:
       - nodenvMongo
       - nodemysql
-    command: "npm start"
+    command: npm start
   nodenvMongo:
     image: "mongo:3.2-jessie"
   nodemysql:
     image: mysql:5.7
     ports:
         - "3306:3306"
-    command: --init-file /data/db.sql
+    command: --init-file /init/db.sql
     restart: always
     volumes:
-      - ./data:/data
+      - ./init:/init
     environment:
       - MYSQL_ROOT_PASSWORD=nodesecurity
       - MYSQL_DATABASE=nodesecurity
