@@ -2,7 +2,15 @@
 <html lang="en">
     <% include ../partials/head %>
   <body class=""> 
-  	<% include ../partials/header %>
+    <% include ../partials/header %>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $.post('/analytics', 'page=<%= listing._id %>', function () {
+          console.log("Sending analytics");
+        });
+      });
+    </script>
 
 	    <section style="background: #fafafa;">
 	      <div class="container">
