@@ -12,9 +12,9 @@ RUN echo "deb [ arch=amd64 ] http://repo.mongodb.com/apt/ubuntu trusty/mongodb-e
 RUN apt-get update
 RUN apt-get install -y mongodb
 
-#RUN npm install -g express
 RUN npm install
 RUN npm install -g grunt-cli 
+RUN npm install -g supervisor
 
 COPY . .
 EXPOSE 8081

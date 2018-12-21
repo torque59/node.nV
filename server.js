@@ -177,4 +177,10 @@ app.get('/api/employee/listSentApplications',authService.isEE,employeeRoutes.lis
 //app.post('/api/admin/createUser',authService.isAdmin,adminRoutes.createUser);
 
 app.listen(port);
+
+/* Tell Node not to crash */
+process.on('uncaughtException', function (err) {
+    console.log('Caught exception: ', err);
+});
+
 console.log('Magic happens at http://localhost:' + port);

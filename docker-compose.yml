@@ -9,7 +9,8 @@ services:
     depends_on:
       - nodenvMongo
       - nodemysql
-    command: npm start
+    command: supervisor server.js
+    restart: always
   nodenvMongo:
     image: "mongo:3.2-jessie"
   nodemysql:
